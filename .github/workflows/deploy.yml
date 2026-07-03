@@ -29,14 +29,16 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: ./portfolio-site
 
       - name: Build project
         run: npm run build
+        working-directory: ./portfolio-site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './portfolio-site/dist'
 
   deploy:
     environment:
