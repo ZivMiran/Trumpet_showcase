@@ -1,0 +1,19 @@
+.embed {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  background: var(--surface-inset);
+  /* aspect-ratio is set inline to match the iframe's logical size */
+}
+
+.embed__iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  transform-origin: top left;
+  pointer-events: none; /* static showcase — no interaction bleed-through */
+  display: block;
+}

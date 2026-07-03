@@ -1,0 +1,164 @@
+.cstudy {
+  margin-top: var(--chapter-gap);
+}
+
+.cstudy__pull {
+  font-size: var(--fs-display-lg);
+  font-weight: var(--fw-light);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+  max-width: 24ch;
+}
+
+.cstudy__brief {
+  margin-top: var(--space-6);
+}
+
+.cstudy__brief p {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+  max-width: var(--measure-body);
+}
+
+/* ---- Scroll runway with sticky stage ---- */
+.cstudy__runway {
+  height: 300vh;
+  margin-top: var(--space-8);
+}
+
+.cstudy__sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-block: var(--space-8);
+}
+
+.cstudy__frame {
+  position: relative;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-inset);
+  /* Cap by viewport height (screenshot ratio ≈1.62) so the frame AND the
+     step caption below it always share the sticky viewport. */
+  width: min(100%, calc((100svh - 300px) * 1.62));
+  margin-inline: auto;
+  /* Scrub state — written by the scroll handler as CSS custom properties. */
+  --empty-op: 1;
+  --filled-op: 0;
+  --zoom: 1;
+  --cx: 50%;
+  --cy: 44%;
+  --cursor-op: 0;
+  --ripple-scale: 0.2;
+  --ripple-op: 0;
+}
+
+.cstudy__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cstudy__zoom {
+  position: relative;
+  will-change: transform;
+  transform: scale(var(--zoom));
+  transform-origin: 82% 54%;
+}
+
+.cstudy__layer--base {
+  position: relative;
+  opacity: var(--empty-op);
+}
+
+.cstudy__layer--overlay {
+  position: absolute;
+  inset: 0;
+  opacity: var(--filled-op);
+}
+
+/* ---- Synthetic cursor (scroll-driven via the same custom properties) ---- */
+.cstudy__cursor {
+  position: absolute;
+  left: var(--cx);
+  top: var(--cy);
+  opacity: var(--cursor-op);
+  z-index: var(--z-raised);
+  pointer-events: none;
+}
+
+.cstudy__cursor svg {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
+}
+
+.cstudy__ripple {
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--accent);
+  transform: scale(var(--ripple-scale));
+  opacity: var(--ripple-op);
+}
+
+/* ---- Step caption under the stage (aligned to the capped frame) ---- */
+.cstudy__stepbar {
+  min-height: 2.4em;
+  margin-top: var(--space-5);
+  width: min(100%, calc((100svh - 300px) * 1.62));
+  margin-inline: auto;
+}
+
+.cstudy__step {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-size: var(--fs-h3);
+  color: var(--text-primary);
+}
+
+.cstudy__step-n {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ---- Static variant (mobile / reduced motion) ---- */
+.cstudy__static {
+  margin-top: var(--space-8);
+}
+
+.cstudy__steps-list {
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  counter-reset: step;
+}
+
+.cstudy__steps-list li {
+  counter-increment: step;
+  display: flex;
+  gap: var(--space-3);
+  align-items: baseline;
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+}
+
+.cstudy__steps-list li::before {
+  content: counter(step, decimal-leading-zero);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}

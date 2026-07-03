@@ -1,0 +1,126 @@
+.opening {
+  padding-top: 64px; /* header height */
+}
+
+.opening__stage {
+  position: relative; /* hosts the ambient constellation canvas */
+  min-height: calc(100svh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.opening__statement {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Masked line reveal — parent clips, child rises into view. */
+.opening__mask {
+  display: block;
+  overflow: hidden;
+}
+
+.opening__title-line {
+  display: block;
+}
+
+.opening__kicker {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.opening__title {
+  font-size: var(--fs-display-xl);
+  font-weight: var(--fw-medium);
+  line-height: 1.02; /* slight breathing room so the mask never clips glyphs */
+  letter-spacing: var(--ls-tight);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.opening__subtitle {
+  display: block;
+  font-size: var(--fs-display-md);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-normal);
+  color: var(--text-secondary);
+  max-width: 26ch;
+}
+
+.opening__meta {
+  display: flex;
+  gap: var(--space-8);
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-5);
+  border-top: var(--hairline);
+}
+
+.opening__meta div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.opening__meta dt {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.opening__meta dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* ---- The product, big ---- */
+.opening__product {
+  margin-top: var(--space-7);
+}
+
+.opening__caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.opening__caption a {
+  color: var(--text-secondary);
+  border-bottom: var(--hairline-gold);
+  padding-bottom: 2px;
+  transition: color var(--dur-base) var(--ease-snappy);
+  white-space: nowrap;
+}
+
+.opening__caption a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 767px) {
+  .opening__stage {
+    min-height: calc(92svh - 64px);
+  }
+
+  .opening__meta {
+    flex-wrap: wrap;
+    gap: var(--space-5);
+  }
+
+  .opening__caption {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

@@ -1,0 +1,62 @@
+.process {
+  margin-top: var(--chapter-gap);
+}
+
+.process__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-7);
+}
+
+.process__item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.process__media {
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-inset);
+}
+
+.process__media img {
+  width: 100%;
+  height: auto;
+}
+
+/* Pending slot — honest placeholder, no fake content. */
+.process__media--pending {
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  background: none;
+}
+
+.process__media--pending span {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.process__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.process__title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.process__note {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  max-width: var(--measure-caption);
+}

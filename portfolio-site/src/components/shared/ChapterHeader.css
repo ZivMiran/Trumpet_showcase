@@ -1,0 +1,60 @@
+.chapter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+/* The chapter's one gold hairline. */
+.chapter__rule {
+  display: block;
+  width: 56px;
+  border-top: var(--hairline-gold);
+}
+
+.chapter__row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+}
+
+.chapter__no {
+  font-size: var(--fs-display-lg);
+  font-weight: var(--fw-light);
+  line-height: 1;
+  color: var(--text-muted);
+  opacity: 0.55;
+  letter-spacing: var(--ls-tight);
+  flex-shrink: 0;
+}
+
+.chapter__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.chapter__title {
+  font-size: var(--fs-display-lg);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  max-width: 22ch;
+}
+
+.chapter__lede {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+  max-width: var(--measure-body);
+}
+
+@media (max-width: 767px) {
+  .chapter__row {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .chapter__lede {
+    font-size: var(--fs-body);
+  }
+}

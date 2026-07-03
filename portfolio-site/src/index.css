@@ -1,0 +1,4 @@
+/* Base resets, tokens and motion live in src/styles/*.
+   Smooth scrolling is handled by Lenis (see SmoothScroll), so we intentionally
+   do NOT set `scroll-behavior: smooth` here — it would double up with Lenis for
+   pointer users and is neutralized for reduced-motion users in motion.css. */

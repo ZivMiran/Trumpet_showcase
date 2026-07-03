@@ -1,0 +1,103 @@
+.colophon {
+  margin-top: var(--chapter-gap);
+  padding-bottom: var(--space-8);
+}
+
+/* ---- Facts table ---- */
+.colophon__table {
+  margin: 0;
+  max-width: 720px;
+}
+
+.colophon__row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: var(--space-5);
+  padding-block: var(--space-3);
+  border-bottom: var(--hairline);
+}
+
+.colophon__row:first-child {
+  border-top: var(--hairline);
+}
+
+.colophon__row dt {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+
+.colophon__row dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.colophon__palette {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.colophon__palette i {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-strong);
+  margin-left: var(--space-3);
+}
+
+.colophon__palette i:first-child {
+  margin-left: 0;
+}
+
+/* ---- Close ---- */
+.colophon__close {
+  margin-top: clamp(96px, 14vh, 160px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.colophon__thanks {
+  font-size: var(--fs-display-lg);
+  font-weight: var(--fw-light);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+.colophon__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+}
+
+.colophon__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-target-min);
+  font-size: var(--fs-display-md);
+  font-weight: var(--fw-regular);
+  color: var(--text-secondary);
+  border-bottom: var(--hairline-gold);
+  transition: color var(--dur-base) var(--ease-snappy);
+}
+
+.colophon__links a:hover {
+  color: var(--accent);
+}
+
+/* ---- Sign-off ---- */
+.colophon__signoff {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: clamp(64px, 10vh, 120px);
+  padding-top: var(--space-5);
+  border-top: var(--hairline);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}

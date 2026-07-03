@@ -1,0 +1,22 @@
+/* ============================================================================
+   Shared motion — the global prefers-reduced-motion guard. All entrances are
+   Framer-declarative; the page has exactly four motion moments (see tokens.css)
+   and no CSS keyframe effects.
+   ========================================================================== */
+
+/* ----------------------------------------------------------------------------
+   Reduced motion. Severity: HIGH (UX engine flags forced scroll effects as a
+   motion-sickness anti-pattern). This collapses every animation/transition and
+   disables smooth scroll; the JS layer separately refuses to instantiate Lenis
+   and GSAP ScrollTrigger when this preference is set.
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
