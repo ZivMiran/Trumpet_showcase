@@ -1,6 +1,7 @@
 import { Suspense, lazy } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { DashboardEmbedFrame } from '../../components/shared/DashboardEmbedFrame'
+import { asset } from '../../lib/asset'
 import './Opening.css'
 
 // The site's one WebGL moment — ambient constellation from the product's own
@@ -99,7 +100,7 @@ export function Opening() {
           <div className="opening__caption">
             <span>The live build — real interface, not a mockup.</span>
             <a
-              href="/dashboard-embed/index.html"
+              href={asset('/dashboard-embed/index.html')}
               target="_blank"
               rel="noopener noreferrer"
             >

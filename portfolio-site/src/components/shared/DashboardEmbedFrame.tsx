@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '../../lib/asset'
 import './DashboardEmbedFrame.css'
 
 /**
@@ -37,7 +38,7 @@ export function DashboardEmbedFrame() {
     >
       <iframe
         className="embed__iframe"
-        src="/dashboard-embed/index.html"
+        src={asset('/dashboard-embed/index.html')}
         title="Trumpet dashboard — Overview screen preview"
         aria-hidden="true"
         tabIndex={-1}

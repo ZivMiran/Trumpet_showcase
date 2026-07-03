@@ -1,5 +1,6 @@
 import { Reveal } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
+import { asset } from '../../lib/asset'
 import './Colophon.css'
 
 /**
@@ -45,7 +46,7 @@ export function Colophon() {
           <div className="colophon__links">
             <a href="mailto:zivmiran@gmail.com">zivmiran@gmail.com ↗</a>
             <a
-              href="/dashboard-embed/index.html"
+              href={asset('/dashboard-embed/index.html')}
               target="_blank"
               rel="noopener noreferrer"
             >

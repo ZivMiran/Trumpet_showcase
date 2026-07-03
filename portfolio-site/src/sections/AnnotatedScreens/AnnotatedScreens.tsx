@@ -4,6 +4,7 @@ import {
   AnnotatedFigure,
   type AnnotationNote,
 } from '../../components/shared/AnnotatedFigure'
+import { asset } from '../../lib/asset'
 import './AnnotatedScreens.css'
 
 /**
@@ -28,7 +29,7 @@ type Screen = {
 const SCREENS: Screen[] = [
   {
     id: 'screen-overview',
-    src: '/screens/Overview.png',
+    src: asset('/screens/Overview.png'),
     alt: 'Trumpet Overview screen — pulse insight banner, five KPIs, streams chart with peak-event marker, revenue donut',
     width: 1536,
     height: 946,
@@ -63,7 +64,7 @@ const SCREENS: Screen[] = [
   },
   {
     id: 'screen-music',
-    src: '/screens/Music.png',
+    src: asset('/screens/Music.png'),
     alt: 'Trumpet Music screen — top performing tracks with sparklines above a sortable catalog table',
     width: 1544,
     height: 944,
@@ -92,7 +93,7 @@ const SCREENS: Screen[] = [
   },
   {
     id: 'screen-track',
-    src: '/screens/Track_drawer.png',
+    src: asset('/screens/Track_drawer.png'),
     alt: 'Trumpet track-detail drawer — engagement waveform with skip and save clusters, growth, and top markets',
     width: 1542,
     height: 944,

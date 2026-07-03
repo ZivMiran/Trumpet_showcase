@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Reveal } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
+import { asset } from '../../lib/asset'
 import './CompareStudy.css'
 
 /**
@@ -128,7 +129,7 @@ export function CompareStudy() {
         <div className="container container--wide cstudy__static">
           <div className="cstudy__frame">
             <img
-              src="/screens/Compare.png"
+              src={asset('/screens/Compare.png')}
               alt="Trumpet Compare — Velvet Hours against After Dark, aligned to release day, with first-week, peak, average and lifetime KPIs"
               width={1546}
               height={953}
@@ -150,7 +151,7 @@ export function CompareStudy() {
                 <div className="cstudy__zoom">
                   <div className="cstudy__layer cstudy__layer--base">
                     <img
-                      src="/screens/Compare_empty.png"
+                      src={asset('/screens/Compare_empty.png')}
                       alt="Compare, empty state — one release selected"
                       width={1551}
                       height={953}
@@ -160,7 +161,7 @@ export function CompareStudy() {
                   </div>
                   <div className="cstudy__layer cstudy__layer--overlay">
                     <img
-                      src="/screens/Compare.png"
+                      src={asset('/screens/Compare.png')}
                       alt="Compare, filled — Velvet Hours against After Dark"
                       width={1546}
                       height={953}
