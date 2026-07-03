@@ -1,7 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import { DashboardEmbedFrame } from '../../components/shared/DashboardEmbedFrame'
-import { asset } from '../../lib/asset'
 import './Opening.css'
 
 // The site's one WebGL moment — ambient constellation from the product's own
@@ -99,13 +98,6 @@ export function Opening() {
           <DashboardEmbedFrame />
           <div className="opening__caption">
             <span>The live build — real interface, not a mockup.</span>
-            <a
-              href={asset('/dashboard-embed/index.html')}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open it full-screen ↗
-            </a>
           </div>
         </motion.div>
       </div>
