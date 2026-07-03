@@ -1,7 +1,8 @@
 import { Reveal } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
-import { asset } from '../../lib/asset'
 import './Colophon.css'
+
+const DASHBOARD_URL = 'https://zivmiran.github.io/Trumpet_dashboard_prototype/'
 
 /**
  * 05 / Colophon — the quiet ending. A designer's colophon (facts, set small),
@@ -45,11 +46,7 @@ export function Colophon() {
           </p>
           <div className="colophon__links">
             <a href="mailto:zivmiran@gmail.com">zivmiran@gmail.com ↗</a>
-            <a
-              href={asset('/dashboard-embed/index.html')}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={DASHBOARD_URL} target="_blank" rel="noopener noreferrer">
               Open the live dashboard ↗
             </a>
           </div>
