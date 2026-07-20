@@ -1,0 +1,209 @@
+.dsys {
+  margin-top: var(--chapter-gap);
+}
+
+.dsys__block {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--hairline);
+}
+
+.dsys__block-title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+/* ---- Palette ---- */
+.dsys__colors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.dsys__color {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.dsys__swatch {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  border: var(--hairline);
+}
+
+.dsys__color-head {
+  display: flex;
+  gap: var(--space-4);
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.dsys__color-name {
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.dsys__color-hex {
+  color: var(--text-secondary);
+}
+
+.dsys__color-role {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dsys__color-rule {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  max-width: var(--measure-body);
+}
+
+.dsys__color-contrast {
+  margin-top: var(--space-1);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ---- Type specimen ---- */
+.dsys__type {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.dsys__weight {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+}
+
+.dsys__weight-label,
+.dsys__tnum-demo .dsys__weight-label {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  min-width: 110px;
+}
+
+.dsys__tnum-demo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-5);
+  font-size: var(--fs-h3);
+  color: var(--text-secondary);
+  margin-top: var(--space-2);
+}
+
+/* ---- Spacing scale ---- */
+.dsys__scale {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.dsys__tick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.dsys__tick i {
+  display: block;
+  height: 20px;
+  background: var(--sub-soft);
+  border-radius: 2px;
+}
+
+.dsys__tick span {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.dsys__motion {
+  margin-top: var(--space-5);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--text-secondary);
+  max-width: var(--measure-body);
+}
+
+/* ---- Specimen — the one component, from product tokens ---- */
+.dsys__specimen {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: var(--space-6);
+  align-items: center;
+  margin-top: var(--space-5);
+}
+
+.dsys__stat {
+  background: var(--surface-card);
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dsys__stat-label {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dsys__stat-value {
+  font-size: var(--fs-stat);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+  line-height: var(--lh-tight);
+}
+
+.dsys__stat-delta {
+  font-size: var(--fs-sm);
+  color: var(--positive);
+}
+
+.dsys__specimen-note {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  max-width: var(--measure-caption);
+}
+
+@media (max-width: 767px) {
+  .dsys__specimen {
+    grid-template-columns: 1fr;
+  }
+
+  .dsys__weight {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .dsys__tnum-demo {
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+}

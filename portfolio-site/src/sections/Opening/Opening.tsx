@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { DashboardEmbedFrame } from '../../components/shared/DashboardEmbedFrame'
+import { ScreenSequence } from './ScreenSequence'
 import './Opening.css'
 
 // The site's one WebGL moment — ambient constellation from the product's own
@@ -12,8 +12,9 @@ const ConstellationField = lazy(() =>
 
 /**
  * Opening — a full-height typographic statement over the ambient field, then
- * the product itself at near-full width. Motion: masked line reveals on mount
- * and one scale-settle on the product figure; nothing else here animates.
+ * the product itself: four screens dissolving through one sticky frame as the
+ * reader scrolls (ScreenSequence). Motion: masked line reveals on mount and
+ * the sequence scrub; nothing else here animates.
  */
 export function Opening() {
   const reduced = useReducedMotion()
@@ -81,25 +82,15 @@ export function Opening() {
               </div>
               <div>
                 <dt>Below</dt>
-                <dd>The real build, running live</dd>
+                <dd>The four screens, as designed</dd>
               </div>
             </motion.dl>
           </span>
         </motion.div>
       </div>
 
-      <div className="container container--wide opening__product">
-        <motion.div
-          initial={reduced ? undefined : { opacity: 0, scale: 0.985, y: 28 }}
-          whileInView={reduced ? undefined : { opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-        >
-          <DashboardEmbedFrame />
-          <div className="opening__caption">
-            <span>The live build — real interface, not a mockup.</span>
-          </div>
-        </motion.div>
+      <div className="opening__product">
+        <ScreenSequence />
       </div>
     </section>
   )

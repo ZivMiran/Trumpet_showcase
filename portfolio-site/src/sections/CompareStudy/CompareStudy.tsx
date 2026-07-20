@@ -2,42 +2,44 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Reveal } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
+import { ramp } from '../../lib/ramp'
 import { asset } from '../../lib/asset'
+import { SCREENS } from '../../lib/screens'
 import './CompareStudy.css'
 
 /**
- * 03 / The hardest problem — the Compare engine, shown exactly as built.
- * An editorial intro states the analytical problem; then a tall scroll block
- * with a sticky stage scrubs three beats over the REAL screenshots
- * (Compare_empty.png → Compare.png): a cursor glides to "Choose a release",
- * a click ripple crossfades to the filled comparison, and the stage zooms
- * into the KPI panel. Motion moment #3.
+ * 03 / The hardest problem — the Compare engine, shown as it actually runs.
+ * A screen recording of the real prototype is scroll-scrubbed inside a sticky
+ * stage: the runway's progress drives video.currentTime, and narration beats
+ * flip as the flow unfolds. Motion moment #3.
  *
- * The scrub is driven by a plain scroll listener that re-measures the runway
- * with getBoundingClientRect on every frame and writes CSS custom properties
- * directly. (Framer's useScroll caches target bounds at mount; lazy-loading
- * images above this section shift the layout afterwards and its scroll-linked
- * style bindings proved unreliable here — direct measurement can't go stale.)
+ * Seeking has latency, so the scrub isn't event-driven like the Opening
+ * sequence: an IntersectionObserver-gated rAF loop lerps toward the target
+ * time and only writes currentTime when the gap exceeds a frame — fast
+ * scrolls coalesce into one seek instead of queueing thirty. The encode
+ * matters as much as the code: dense keyframes (-g 12), muted, faststart
+ * (see scripts/encode-video.mjs).
  *
- * Mobile / reduced motion: the filled screenshot, static, with the beats as
- * a plain numbered list.
+ * Mobile / reduced motion: the same video with native controls, no autoplay,
+ * and the beats as a plain numbered list.
  */
-const STEPS = [
-  'Start with one release on the timeline.',
-  'Add a prior release — its curve aligns to the same day one.',
-  'Read velocity: first week, peak, average, lifetime.',
+const VIDEO_RATIO = '1440 / 810'
+
+/** Narration beats — `at` is a fraction of video progress, tuned to the cut. */
+const BEATS = [
+  { at: 0, text: 'Compare starts where the question starts — on the track itself.' },
+  { at: 0.18, text: 'Alone, a curve has no verdict. It needs a benchmark.' },
+  { at: 0.35, text: 'Any release can be the baseline — one field, no setup.' },
+  { at: 0.55, text: 'Pick a prior track; both curves align to the same day one.' },
+  { at: 0.72, text: 'Now velocity reads instantly: first month, peak, average, lifetime.' },
 ]
 
-/** Piecewise-linear mapping, clamped to the output range. */
-function ramp(v: number, stops: [number, number][]): number {
-  if (v <= stops[0][0]) return stops[0][1]
-  for (let i = 1; i < stops.length; i++) {
-    const [x1, y1] = stops[i]
-    const [x0, y0] = stops[i - 1]
-    if (v <= x1) return y0 + ((v - x0) / (x1 - x0)) * (y1 - y0)
-  }
-  return stops[stops.length - 1][1]
-}
+// Small holds at both ends of the runway so the first and last frames get a
+// beat of rest before/after the scrub.
+const TIME_STOPS: [number, number][] = [
+  [0.04, 0],
+  [0.96, 1],
+]
 
 export function CompareStudy() {
   const reduced = useReducedMotion()
@@ -54,57 +56,87 @@ export function CompareStudy() {
   const compact = reduced || isMobile
 
   const runwayRef = useRef<HTMLDivElement>(null)
-  const frameRef = useRef<HTMLDivElement>(null)
-  const [activeStep, setActiveStep] = useState(0)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [activeBeat, setActiveBeat] = useState(0)
+  const [ready, setReady] = useState(false)
+  const [failed, setFailed] = useState(false)
 
+  // Warm the video well before the stage scrolls in.
   useEffect(() => {
     if (compact) return
     const runway = runwayRef.current
-    const frame = frameRef.current
-    if (!runway || !frame) return
+    const video = videoRef.current
+    if (!runway || !video) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          video.preload = 'auto'
+          video.load()
+          io.disconnect()
+        }
+      },
+      { rootMargin: '200% 0px' },
+    )
+    io.observe(runway)
+    return () => io.disconnect()
+  }, [compact])
+
+  // The scrub loop — runs only while the runway is on screen.
+  useEffect(() => {
+    if (compact) return
+    const runway = runwayRef.current
+    const video = videoRef.current
+    if (!runway || !video) return
+
+    // A cached video can be ready before the loadeddata listener attaches —
+    // check once on mount so the poster never sticks.
+    if (video.readyState >= 2) setReady(true)
 
     let raf = 0
-    const update = () => {
-      raf = 0
+    let current = 0
+
+    const tick = () => {
+      raf = requestAnimationFrame(tick)
+      const dur = video.duration
+      if (!dur || video.readyState < 2 /* HAVE_CURRENT_DATA */) return
+
       const rect = runway.getBoundingClientRect()
       const range = rect.height - window.innerHeight
       if (range <= 0) return
       const v = Math.min(1, Math.max(0, -rect.top / range))
 
-      const s = frame.style
-      s.setProperty('--empty-op', String(ramp(v, [[0, 1], [0.3, 1], [0.42, 0]])))
-      s.setProperty('--filled-op', String(ramp(v, [[0.36, 0], [0.5, 1]])))
-      s.setProperty('--zoom', String(ramp(v, [[0.52, 1], [1, 1.42]])))
-      s.setProperty('--cx', `${ramp(v, [[0, 50], [0.32, 81]])}%`)
-      s.setProperty('--cy', `${ramp(v, [[0, 44], [0.32, 69]])}%`)
-      s.setProperty(
-        '--cursor-op',
-        String(ramp(v, [[0, 0], [0.05, 1], [0.5, 1], [0.58, 0]])),
-      )
-      s.setProperty(
-        '--ripple-scale',
-        String(ramp(v, [[0.3, 0.2], [0.36, 1.2], [0.42, 1.6]])),
-      )
-      s.setProperty(
-        '--ripple-op',
-        String(ramp(v, [[0.3, 0], [0.33, 0.55], [0.42, 0]])),
-      )
+      const u = ramp(v, TIME_STOPS) // video progress 0–1
+      const target = u * dur
+      // Ease toward the target; skip sub-frame writes so we never queue seeks.
+      current += (target - current) * 0.3
+      if (Math.abs(target - current) < 0.01) current = target
+      if (Math.abs(video.currentTime - current) > 1 / 30) {
+        video.currentTime = current
+      }
 
-      setActiveStep(v < 0.34 ? 0 : v < 0.58 ? 1 : 2)
-    }
-    const schedule = () => {
-      if (!raf) raf = requestAnimationFrame(update)
+      let beat = 0
+      for (let i = 0; i < BEATS.length; i++) if (u >= BEATS[i].at) beat = i
+      setActiveBeat(beat)
     }
 
-    update()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.some((e) => e.isIntersecting)
+      if (visible && !raf) {
+        current = video.currentTime
+        raf = requestAnimationFrame(tick)
+      } else if (!visible && raf) {
+        cancelAnimationFrame(raf)
+        raf = 0
+      }
+    })
+    io.observe(runway)
     return () => {
+      io.disconnect()
       if (raf) cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
     }
   }, [compact])
+
+  const videoSrc = asset('/video/trumpet-compare-scrub.mp4')
 
   return (
     <section className="cstudy" id="compare" aria-labelledby="compare-title">
@@ -120,26 +152,41 @@ export function CompareStudy() {
             Different seasons, different follower counts, different luck — put
             two raw charts side by side and they mislead. Compare aligns every
             release to its own day one, so the trajectories answer the only
-            question that matters: is this one moving faster?
+            question that matters: is this one moving faster? Below, the flow
+            as it runs in the prototype.
           </p>
         </Reveal>
       </div>
 
-      {compact ? (
+      {compact || failed ? (
         <div className="container container--wide cstudy__static">
-          <div className="cstudy__frame">
-            <img
-              src={asset('/screens/Compare.png')}
-              alt="Trumpet Compare — Velvet Hours against After Dark, aligned to release day, with first-week, peak, average and lifetime KPIs"
-              width={1546}
-              height={953}
-              loading="lazy"
-              decoding="async"
-            />
+          <div className="cstudy__frame" style={{ aspectRatio: VIDEO_RATIO }}>
+            {failed ? (
+              <img
+                src={SCREENS.compare}
+                alt="Trumpet Compare — two releases aligned to release day, with first-month, peak, average and lifetime KPIs"
+                width={1440}
+                height={1024}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <video
+                src={videoSrc}
+                poster={SCREENS.compareEmpty}
+                controls
+                muted
+                playsInline
+                preload="metadata"
+                disablePictureInPicture
+                aria-label="Screen recording of the Compare flow in the Trumpet prototype"
+                onError={() => setFailed(true)}
+              />
+            )}
           </div>
           <ol className="cstudy__steps-list">
-            {STEPS.map((s) => (
-              <li key={s}>{s}</li>
+            {BEATS.map((b) => (
+              <li key={b.at}>{b.text}</li>
             ))}
           </ol>
         </div>
@@ -147,48 +194,39 @@ export function CompareStudy() {
         <div className="cstudy__runway" ref={runwayRef}>
           <div className="cstudy__sticky">
             <div className="container container--wide">
-              <div className="cstudy__frame" ref={frameRef}>
-                <div className="cstudy__zoom">
-                  <div className="cstudy__layer cstudy__layer--base">
-                    <img
-                      src={asset('/screens/Compare_empty.png')}
-                      alt="Compare, empty state — one release selected"
-                      width={1551}
-                      height={953}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                  <div className="cstudy__layer cstudy__layer--overlay">
-                    <img
-                      src={asset('/screens/Compare.png')}
-                      alt="Compare, filled — Velvet Hours against After Dark"
-                      width={1546}
-                      height={953}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                </div>
-
-                <div className="cstudy__cursor" aria-hidden="true">
-                  <span className="cstudy__ripple" />
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 3l14 8-6 1.5L10 20 5 3z"
-                      fill="#f0ede5"
-                      stroke="#16171a"
-                      strokeWidth="1.2"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
+              <div
+                className={`cstudy__frame${ready ? ' cstudy__frame--ready' : ''}`}
+                style={{ aspectRatio: VIDEO_RATIO }}
+              >
+                <video
+                  ref={videoRef}
+                  src={videoSrc}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  disablePictureInPicture
+                  tabIndex={-1}
+                  aria-label="Screen recording of the Compare flow, scrubbed by scroll"
+                  onLoadedData={() => setReady(true)}
+                  onCanPlay={() => setReady(true)}
+                  onError={() => setFailed(true)}
+                />
+                {/* Poster overlay until the video can seek — also the CLS guard. */}
+                <img
+                  className="cstudy__poster"
+                  src={SCREENS.compareEmpty}
+                  alt=""
+                  aria-hidden="true"
+                  width={1440}
+                  height={1024}
+                  decoding="async"
+                />
               </div>
 
               <div className="cstudy__stepbar" aria-hidden="true">
                 <AnimatePresence mode="wait">
                   <motion.p
-                    key={activeStep}
+                    key={activeBeat}
                     className="cstudy__step"
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -196,9 +234,9 @@ export function CompareStudy() {
                     transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
                   >
                     <span className="cstudy__step-n tnum">
-                      {activeStep + 1} / 3
+                      {activeBeat + 1} / {BEATS.length}
                     </span>
-                    {STEPS[activeStep]}
+                    {BEATS[activeBeat].text}
                   </motion.p>
                 </AnimatePresence>
               </div>

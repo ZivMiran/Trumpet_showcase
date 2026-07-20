@@ -11,10 +11,10 @@ import './SiteHeader.css'
  */
 const CHAPTERS = [
   { id: 'problem', no: '01', label: 'Problem' },
-  { id: 'screens', no: '02', label: 'Screens' },
+  { id: 'decisions', no: '02', label: 'Decisions' },
   { id: 'compare', no: '03', label: 'Compare' },
   { id: 'process', no: '04', label: 'Process' },
-  { id: 'colophon', no: '05', label: 'Colophon' },
+  { id: 'system', no: '05', label: 'System' },
 ]
 
 export function SiteHeader() {

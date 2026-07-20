@@ -3,60 +3,8 @@
   padding-bottom: var(--space-8);
 }
 
-/* ---- Facts table ---- */
-.colophon__table {
-  margin: 0;
-  max-width: 720px;
-}
-
-.colophon__row {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--space-5);
-  padding-block: var(--space-3);
-  border-bottom: var(--hairline);
-}
-
-.colophon__row:first-child {
-  border-top: var(--hairline);
-}
-
-.colophon__row dt {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-caps);
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding-top: 2px;
-}
-
-.colophon__row dd {
-  margin: 0;
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-}
-
-.colophon__palette {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-}
-
-.colophon__palette i {
-  width: 12px;
-  height: 12px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-strong);
-  margin-left: var(--space-3);
-}
-
-.colophon__palette i:first-child {
-  margin-left: 0;
-}
-
 /* ---- Close ---- */
 .colophon__close {
-  margin-top: clamp(96px, 14vh, 160px);
   display: flex;
   flex-direction: column;
   gap: var(--space-6);

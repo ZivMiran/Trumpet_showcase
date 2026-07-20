@@ -24,7 +24,7 @@
 
 /* ---- Scroll runway with sticky stage ---- */
 .cstudy__runway {
-  height: 300vh;
+  height: 380vh;
   margin-top: var(--space-8);
 }
 
@@ -38,82 +38,44 @@
   padding-block: var(--space-8);
 }
 
+/* The stage — video ratio is 16:9 (1440×810); the width cap keeps frame +
+   step caption sharing the sticky viewport on short screens. */
 .cstudy__frame {
   position: relative;
   border: var(--hairline);
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--surface-inset);
-  /* Cap by viewport height (screenshot ratio ≈1.62) so the frame AND the
-     step caption below it always share the sticky viewport. */
-  width: min(100%, calc((100svh - 300px) * 1.62));
+  width: min(100%, calc((100svh - 300px) * 1.7777));
   margin-inline: auto;
-  /* Scrub state — written by the scroll handler as CSS custom properties. */
-  --empty-op: 1;
-  --filled-op: 0;
-  --zoom: 1;
-  --cx: 50%;
-  --cy: 44%;
-  --cursor-op: 0;
-  --ripple-scale: 0.2;
-  --ripple-op: 0;
 }
 
+.cstudy__frame video,
 .cstudy__frame img {
   display: block;
   width: 100%;
-  height: auto;
-}
-
-.cstudy__zoom {
-  position: relative;
-  will-change: transform;
-  transform: scale(var(--zoom));
-  transform-origin: 82% 54%;
-}
-
-.cstudy__layer--base {
-  position: relative;
-  opacity: var(--empty-op);
-}
-
-.cstudy__layer--overlay {
+  height: 100%;
+  object-fit: cover;
   position: absolute;
   inset: 0;
-  opacity: var(--filled-op);
 }
 
-/* ---- Synthetic cursor (scroll-driven via the same custom properties) ---- */
-.cstudy__cursor {
-  position: absolute;
-  left: var(--cx);
-  top: var(--cy);
-  opacity: var(--cursor-op);
+/* Poster sits above the video until it can seek, then fades away. */
+.cstudy__poster {
   z-index: var(--z-raised);
-  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-snappy);
 }
 
-.cstudy__cursor svg {
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
-}
-
-.cstudy__ripple {
-  position: absolute;
-  left: -12px;
-  top: -12px;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-full);
-  border: 1.5px solid var(--accent);
-  transform: scale(var(--ripple-scale));
-  opacity: var(--ripple-op);
+.cstudy__frame--ready .cstudy__poster {
+  opacity: 0;
 }
 
 /* ---- Step caption under the stage (aligned to the capped frame) ---- */
 .cstudy__stepbar {
   min-height: 2.4em;
   margin-top: var(--space-5);
-  width: min(100%, calc((100svh - 300px) * 1.62));
+  width: min(100%, calc((100svh - 300px) * 1.7777));
   margin-inline: auto;
 }
 
@@ -132,7 +94,7 @@
   flex-shrink: 0;
 }
 
-/* ---- Static variant (mobile / reduced motion) ---- */
+/* ---- Static variant (mobile / reduced motion / video error) ---- */
 .cstudy__static {
   margin-top: var(--space-8);
 }
