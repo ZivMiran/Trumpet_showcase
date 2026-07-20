@@ -1,0 +1,21 @@
+/* Deck shell — slide sections. Section-specific styling lives with each slide. */
+
+#main {
+  display: block;
+  overflow-x: clip; /* guard against transient horizontal overflow from motion */
+}
+
+/* A static slide is exactly one viewport: content centers vertically, with
+   clearance for the fixed chrome (64px header, progress hairline at bottom). */
+.slide--static {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 80px 56px;
+}
+
+/* Runway slides size themselves — their inner runway sets the scroll length. */
+.slide--runway {
+  position: relative;
+}

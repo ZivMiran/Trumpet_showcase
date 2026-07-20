@@ -181,10 +181,25 @@ export function ConstellationField() {
       renderer.render(scene, camera)
       raf = requestAnimationFrame(tick)
     }
-    raf = requestAnimationFrame(tick)
+
+    // The deck keeps the title slide mounted for the whole session — pause the
+    // loop entirely once the field scrolls offscreen so later slides don't pay
+    // for it in GPU time.
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries.some((e) => e.isIntersecting)
+      if (visible && !raf) {
+        last = performance.now()
+        raf = requestAnimationFrame(tick)
+      } else if (!visible && raf) {
+        cancelAnimationFrame(raf)
+        raf = 0
+      }
+    })
+    io.observe(host)
 
     return () => {
       cancelAnimationFrame(raf)
+      io.disconnect()
       ro.disconnect()
       if (!coarse) {
         window.removeEventListener('pointermove', onPointerMove)

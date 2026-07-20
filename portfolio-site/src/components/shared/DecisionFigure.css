@@ -1,0 +1,31 @@
+/* Decision evidence — a CSS crop of the real screen, one gold marker. */
+
+.dfig {
+  position: relative;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  background: var(--surface-inset);
+  /* Tall crops (flyouts, drawers) must never outgrow the viewport — cap the
+     width so height stays within one screen alongside the header. */
+  width: min(100%, calc((100svh - 160px) * var(--crop-ar, 1.4)));
+  margin-inline: auto;
+}
+
+.dfig img {
+  position: absolute;
+  height: auto;
+  max-width: none;
+  display: block;
+}
+
+/* The single gold dot — annotation, one of gold's sanctioned roles. */
+.dfig__marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(227, 181, 58, 0.22);
+}

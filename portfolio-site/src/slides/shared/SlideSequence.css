@@ -1,0 +1,91 @@
+/* Shared runway stage — sticky dissolve frame (deck generalization of oseq). */
+
+.sseq__sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.sseq__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  width: 100%;
+}
+
+/* One frame, hairline border. Width is capped inline so frame + caption always
+   fit the viewport height. */
+.sseq__frame {
+  position: relative;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-inset);
+}
+
+.sseq__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Stacked layers — opacity/translate driven per-layer by the scroll handler. */
+.sseq__frame--stack .sseq__layer {
+  position: absolute;
+  inset: 0;
+  will-change: opacity, translate;
+}
+
+/* Cropped layers/frames use DecisionFigure math: an oversized img positioned
+   by inline width/left/top inside the overflow-hidden frame. */
+.sseq__frame--crop img,
+.sseq__layer--crop {
+  position: absolute;
+  inset: auto;
+  max-width: none;
+  object-fit: fill;
+}
+
+.sseq__stepbar {
+  min-height: 24px;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-inline: auto;
+}
+
+.sseq__caption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.sseq__caption-n {
+  color: var(--text-secondary);
+}
+
+/* ---- Compact (mobile / reduced motion): static stack ---- */
+.sseq__static {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-block: var(--space-6);
+}
+
+.sseq__static-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sseq__static .sseq__frame {
+  width: 100%;
+}

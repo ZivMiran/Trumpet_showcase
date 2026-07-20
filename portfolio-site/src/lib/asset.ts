@@ -1,6 +1,6 @@
 /**
  * Resolves a public-folder path against Vite's configured base path.
- * Use for any `/screens/...`, `/images/...`, `/dashboard-embed/...` reference
+ * Use for any `/screens/...`, `/process/...`, `/video/...`, `/images/...` reference
  * written outside index.html — Vite only rewrites `base` automatically for
  * paths it parses at build time (index.html, imported assets), not for raw
  * strings in JSX. Without this, absolute paths 404 whenever the site is

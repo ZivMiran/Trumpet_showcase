@@ -1,5 +1,0 @@
-/* App shell layout. Section-specific styling lives with each section. */
-#main {
-  display: block;
-  overflow-x: clip; /* guard against any transient horizontal overflow from motion */
-}

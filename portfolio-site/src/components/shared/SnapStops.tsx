@@ -12,9 +12,12 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
  *    scroll, it never takes it over;
  *  - desktop + Lenis only; reduced-motion and mobile keep native scrolling.
  */
-const TARGETS: { selector: string; align: 'center' | 'start' }[] = [
-  { selector: '.screens__item', align: 'center' },
-  { selector: '.cstudy__runway', align: 'start' },
+/** `window` is the pull radius as a fraction of the viewport height. Slide
+ *  starts get a wide one (a wheel fling should settle on a composed slide);
+ *  in-slide frames keep the original timid radius. */
+const TARGETS: { selector: string; align: 'center' | 'start'; window: number }[] = [
+  { selector: '[data-slide]', align: 'start', window: 0.3 },
+  { selector: '.decisions__item', align: 'center', window: 0.16 },
 ]
 
 const HEADER_H = 64
@@ -36,7 +39,8 @@ export function SnapStops() {
 
       const vh = window.innerHeight
       let bestDelta = Infinity
-      for (const { selector, align } of TARGETS) {
+      let bestWindow = 0
+      for (const { selector, align, window: win } of TARGETS) {
         for (const el of document.querySelectorAll<HTMLElement>(selector)) {
           const r = el.getBoundingClientRect()
           if (align === 'center' && r.height > vh - HEADER_H) continue
@@ -45,13 +49,16 @@ export function SnapStops() {
               ? 0
               : Math.max(HEADER_H + 16, (vh - r.height) / 2)
           const delta = r.top - desired
-          if (Math.abs(delta) < Math.abs(bestDelta)) bestDelta = delta
+          if (Math.abs(delta) < Math.abs(bestDelta)) {
+            bestDelta = delta
+            bestWindow = win
+          }
         }
       }
 
       if (
         Number.isFinite(bestDelta) &&
-        Math.abs(bestDelta) < vh * 0.16 &&
+        Math.abs(bestDelta) < vh * bestWindow &&
         Math.abs(bestDelta) > 6
       ) {
         snapping = true

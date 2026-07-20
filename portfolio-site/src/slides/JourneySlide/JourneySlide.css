@@ -1,0 +1,34 @@
+.journey-slide__head {
+  padding-inline: 0;
+}
+
+.journey-slide__frames {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.journey-slide__frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.journey-slide__frame-no {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  color: var(--text-muted);
+}
+
+@media (max-width: 1023px) {
+  .journey-slide__frames {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .journey-slide__frames {
+    grid-template-columns: 1fr;
+  }
+}
