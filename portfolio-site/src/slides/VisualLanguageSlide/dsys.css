@@ -1,40 +1,60 @@
-/* The whole system on one band: palette | type | component. */
-.dsys__grid {
+/* Bento — palette is the tall panel; type and component stack beside it. */
+.dsys__bento {
   display: grid;
-  grid-template-columns: 1.1fr 1fr 0.95fr;
-  gap: var(--space-7);
-  align-items: start;
+  grid-template-columns: 1.15fr 1fr;
+  grid-template-areas:
+    'palette type'
+    'palette component';
+  gap: var(--space-4);
   margin-top: var(--space-6);
-  padding-top: var(--space-6);
-  border-top: var(--hairline);
 }
 
-.dsys__block-title {
-  font-size: var(--fs-h3);
+.dsys__card {
+  border: var(--hairline);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--surface-card) 45%, transparent);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.dsys__card--palette {
+  grid-area: palette;
+}
+.dsys__card--type {
+  grid-area: type;
+}
+.dsys__card--component {
+  grid-area: component;
+}
+
+.dsys__card-title {
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-tight);
-  color: var(--text-primary);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 /* ---- Palette ---- */
 .dsys__colors {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-5);
+  gap: var(--space-5);
 }
 
 .dsys__color {
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 48px 1fr;
   gap: var(--space-4);
   align-items: start;
 }
 
 .dsys__swatch {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
   border: var(--hairline);
 }
 
@@ -78,18 +98,17 @@
 .dsys__type {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  margin-top: var(--space-5);
+  gap: var(--space-4);
 }
 
 .dsys__weight {
-  font-size: var(--fs-body);
+  font-size: var(--fs-h3);
   line-height: var(--lh-snug);
   letter-spacing: var(--ls-tight);
   color: var(--text-primary);
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: baseline;
+  gap: var(--space-4);
 }
 
 .dsys__weight-label,
@@ -99,27 +118,29 @@
   letter-spacing: var(--ls-caps);
   text-transform: uppercase;
   color: var(--text-muted);
+  flex-shrink: 0;
+  min-width: 108px;
 }
 
 .dsys__tnum-demo {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: baseline;
+  gap: var(--space-4);
   font-size: var(--fs-body);
   color: var(--text-secondary);
-  margin-top: var(--space-2);
 }
 
-/* ---- Component specimen — stacks within its column ---- */
+/* ---- Component specimen ---- */
 .dsys__specimen {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  margin-top: var(--space-5);
+  align-items: center;
+  gap: var(--space-5);
 }
 
 .dsys__stat {
-  background: var(--surface-card);
+  flex: 0 0 auto;
+  min-width: 200px;
+  background: var(--surface-raised);
   border: var(--hairline);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
@@ -150,23 +171,20 @@
 
 .dsys__specimen-note {
   font-size: var(--fs-sm);
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 900px) {
-  .dsys__grid {
+  .dsys__bento {
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    grid-template-areas:
+      'palette'
+      'type'
+      'component';
   }
 
-  .dsys__weight {
-    flex-direction: row;
-    align-items: baseline;
-    gap: var(--space-4);
-  }
-
-  .dsys__weight-label {
-    min-width: 90px;
-    flex-shrink: 0;
+  .dsys__specimen {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

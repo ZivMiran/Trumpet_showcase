@@ -12,58 +12,66 @@
   fill: var(--accent);
 }
 
+/* Pages — solid, filled cards. */
 .flowd__node rect {
   fill: var(--surface-card);
-  stroke: var(--border-subtle);
-  stroke-width: 1;
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
 }
 
+/* Overlays — clearly dashed, on a raised surface, a longer dash so it never
+   reads as a thin solid line. */
 .flowd__node--overlay rect {
   fill: var(--surface-raised);
-  stroke-dasharray: 5 4;
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 9 5;
 }
 
+/* The gold path — tinted fill, bright gold stroke; wins over the dashed
+   stroke color on the two overlay nodes it passes through. */
 .flowd__node--gold rect {
-  stroke: rgba(227, 181, 58, 0.55);
+  fill: color-mix(in srgb, var(--accent) 14%, var(--surface-card));
+  stroke: var(--accent);
+  stroke-width: 2.5;
 }
 
 .flowd__label {
   fill: var(--text-primary);
-  font-size: 16px;
+  font-size: 17px;
   font-weight: var(--fw-medium);
   letter-spacing: -0.01em;
 }
 
 .flowd__sub {
-  fill: var(--sub);
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  fill: var(--text-secondary);
+  font-size: 13px;
+  letter-spacing: 0.03em;
 }
 
+/* Edges — quiet grey by default. */
 .flowd__edge {
   fill: none;
   stroke: var(--sub);
-  stroke-width: 1;
-  opacity: 0.7;
+  stroke-width: 1.5;
+  opacity: 0.6;
 }
 
+/* The gold path reads as a single bright thread, with a soft glow. */
 .flowd__edge--gold {
   stroke: var(--accent);
-  stroke-width: 1.5;
-  opacity: 0.95;
+  stroke-width: 3;
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(227, 181, 58, 0.45));
 }
 
 .flowd__arrowhead {
   fill: none;
   stroke: var(--sub);
-  stroke-width: 1.2;
+  stroke-width: 1.4;
 }
 
 .flowd__arrowhead--gold {
   stroke: var(--accent);
-}
-
-/* The overlay layer fades in on the slide's scroll progress. */
-.flowd__overlays {
-  opacity: var(--flow-overlays, 1);
+  stroke-width: 1.8;
 }

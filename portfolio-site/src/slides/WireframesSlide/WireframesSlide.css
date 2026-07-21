@@ -1,0 +1,122 @@
+.wf-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+/* The gap below owns the header-to-carousel spacing — drop the chapter's own. */
+.wf-slide .chapter {
+  margin-bottom: 0;
+}
+
+/* The viewport for the drifting track — full-bleed, with soft edges so frames
+   fade in and out rather than clip at a hard border. */
+.wf-marquee {
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.wf-marquee__track {
+  display: flex;
+  gap: var(--space-6);
+  width: max-content;
+  padding-inline: var(--space-3);
+  /* Enters from the left, drifts right, exits — slow and steady. */
+  animation: wf-drift 46s linear infinite;
+}
+
+/* Two copies sit end to end; shifting by exactly half is seamless. */
+@keyframes wf-drift {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.wf-marquee:hover .wf-marquee__track {
+  animation-play-state: paused;
+}
+
+.wf-frame {
+  flex: 0 0 auto;
+  width: min(42vw, 540px);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.wf-frame__crop {
+  position: relative;
+  overflow: hidden;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  background: var(--surface-inset);
+}
+
+.wf-frame__crop img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+}
+
+.wf-frame__cap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.wf-frame__label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.wf-frame__note {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* Reduced motion: no drift. Show the frames as a plain horizontal scroller. */
+@media (prefers-reduced-motion: reduce) {
+  .wf-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .wf-marquee__track {
+    animation: none;
+    transform: none;
+    width: max-content;
+  }
+
+  /* Only the first copy is needed once the loop is off. */
+  .wf-frame[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .wf-frame {
+    width: min(78vw, 420px);
+  }
+}

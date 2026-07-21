@@ -11,7 +11,7 @@ import './BrandingSlide.css'
 export function BrandingSlide() {
   return (
     <div className="container">
-      <ChapterHeader no="08" title="The mark" />
+      <ChapterHeader no="08" title="Branding" />
 
       <div className="branding-slide__grid">
         <Reveal standalone className="branding-slide__lockup" amount={0.4}>

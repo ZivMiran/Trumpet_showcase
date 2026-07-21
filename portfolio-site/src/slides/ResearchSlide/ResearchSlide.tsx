@@ -37,13 +37,6 @@ export function ResearchSlide() {
             decision.
           </p>
         </blockquote>
-        <p className="research-slide__figure" aria-label="Five dashboards, one spreadsheet, zero answers">
-          <span className="tnum">5</span> dashboards
-          <span className="research-slide__sep" aria-hidden="true" />
-          <span className="tnum">1</span> spreadsheet
-          <span className="research-slide__sep" aria-hidden="true" />
-          <span className="tnum">0</span> answers
-        </p>
       </Reveal>
 
       <div className="research-slide__grid">

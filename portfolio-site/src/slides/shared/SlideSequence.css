@@ -51,24 +51,33 @@
 }
 
 .sseq__stepbar {
-  min-height: 24px;
+  min-height: 3.4em;
   display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
   margin-inline: auto;
 }
 
+/* The description is the point — big, high-contrast, one calm line. */
 .sseq__caption {
   display: flex;
   align-items: baseline;
   gap: var(--space-4);
-  font-size: var(--fs-sm);
-  color: var(--text-muted);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-snug);
+  color: var(--text-primary);
+  letter-spacing: var(--ls-tight);
   margin: 0;
 }
 
 .sseq__caption-n {
-  color: var(--text-secondary);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transform: translateY(-0.15em);
 }
 
 /* ---- Compact (mobile / reduced motion): static stack ---- */

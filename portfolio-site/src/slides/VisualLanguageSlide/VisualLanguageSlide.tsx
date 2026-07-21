@@ -3,40 +3,39 @@ import { ChapterHeader } from '../../components/shared/ChapterHeader'
 import './dsys.css'
 
 /**
- * 09 — Visual language. The whole design system on one slide: palette with
- * measured contrast, the type stack as a live specimen, and one component
- * rebuilt from the tokens. Values mirrored manually from src/styles/tokens.css
- * (which mirrors the dashboard's own tokens).
+ * 09 — Visual language. The whole design system as a bento: palette, type, and
+ * a live component, each in its own panel. Values mirrored manually from
+ * src/styles/tokens.css (which mirrors the dashboard's own tokens).
  */
 const COLORS = [
   {
     hex: '#16171a',
     name: 'Charcoal',
     role: 'Surface',
-    rule: 'Every layer of the UI sits on it — cards step up by two brightened variants, never by shadows alone.',
+    rule: 'Every layer sits on it. Depth comes from brightened variants, not shadows.',
     contrast: null as string | null,
   },
   {
     hex: '#f0ede5',
     name: 'Warm off-white',
     role: 'Text',
-    rule: 'All body copy, all values. Warmth keeps long dashboard sessions off pure-white glare.',
-    contrast: '15.3:1 on charcoal — AAA',
+    rule: 'All copy and values — warmth over pure-white glare.',
+    contrast: '15.3:1 — AAA',
   },
   {
     hex: '#e3b53a',
     name: 'Brass gold',
     role: 'Accent',
-    rule: 'Annotation and action only: the current series, active states, one hairline per chapter. Never body text.',
-    contrast: '9.3:1 on charcoal — AAA',
+    rule: 'Annotation and action only. Never body text.',
+    contrast: '9.3:1 — AAA',
   },
 ]
 
 const WEIGHTS = [
-  { fw: 300, label: 'Light 300', sample: 'Pull quotes and display statements' },
-  { fw: 400, label: 'Regular 400', sample: 'Body copy, fifteen pixels, 1.5 line height' },
-  { fw: 500, label: 'Medium 500', sample: 'Headlines, labels, the working weight' },
-  { fw: 600, label: 'Semibold 600', sample: 'KPI values that must win the glance' },
+  { fw: 300, label: 'Light 300', sample: 'Display statements' },
+  { fw: 400, label: 'Regular 400', sample: 'Body copy, 16px, 1.5 line height' },
+  { fw: 500, label: 'Medium 500', sample: 'Headlines and labels' },
+  { fw: 600, label: 'Semibold 600', sample: 'KPI values that win the glance' },
 ]
 
 export function VisualLanguageSlide() {
@@ -48,9 +47,10 @@ export function VisualLanguageSlide() {
         lede="One typeface, three colors, one component logic — the same tokens across the dashboard, the prototype, and this deck."
       />
 
-      <div className="dsys__grid">
-        <Reveal standalone className="dsys__block" amount={0.3}>
-          <h3 className="dsys__block-title">Palette — measured</h3>
+      <Reveal standalone className="dsys__bento" amount={0.25}>
+        {/* Palette — the tall panel on the left. */}
+        <section className="dsys__card dsys__card--palette">
+          <h3 className="dsys__card-title">Palette — three colors, measured</h3>
           <div className="dsys__colors">
             {COLORS.map((c) => (
               <div className="dsys__color" key={c.hex}>
@@ -67,10 +67,11 @@ export function VisualLanguageSlide() {
               </div>
             ))}
           </div>
-        </Reveal>
+        </section>
 
-        <Reveal standalone className="dsys__block" amount={0.3}>
-          <h3 className="dsys__block-title">Type — one family</h3>
+        {/* Type — top right. */}
+        <section className="dsys__card dsys__card--type">
+          <h3 className="dsys__card-title">Type — one family, Space Grotesk</h3>
           <div className="dsys__type">
             {WEIGHTS.map((w) => (
               <p className="dsys__weight" style={{ fontWeight: w.fw }} key={w.fw}>
@@ -83,10 +84,11 @@ export function VisualLanguageSlide() {
               <span className="tnum">5.4M → 5.5M — columns never move.</span>
             </p>
           </div>
-        </Reveal>
+        </section>
 
-        <Reveal standalone className="dsys__block" amount={0.3}>
-          <h3 className="dsys__block-title">Component — from tokens</h3>
+        {/* Component — bottom right, a live sample. */}
+        <section className="dsys__card dsys__card--component">
+          <h3 className="dsys__card-title">Component — a stat card, from tokens</h3>
           <div className="dsys__specimen">
             <div className="dsys__stat" aria-hidden="true">
               <span className="dsys__stat-label">Streams</span>
@@ -99,8 +101,8 @@ export function VisualLanguageSlide() {
               built from parts like this.
             </p>
           </div>
-        </Reveal>
-      </div>
+        </section>
+      </Reveal>
     </div>
   )
 }

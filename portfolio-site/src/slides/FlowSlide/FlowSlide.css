@@ -1,37 +1,74 @@
-.flow-slide__runway {
-  height: 220vh;
+.flow-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
 }
 
-.flow-slide__sticky {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
+.flow-slide__head {
+  padding-inline: 0;
+}
+
+/* The head's chapter block loses its big bottom margin — the diagram sits close. */
+.flow-slide__head .chapter {
+  margin-bottom: 0;
 }
 
 .flow-slide__stage {
-  width: min(100%, calc((100svh - 240px) * 1.875)); /* 1200/640 */
+  width: 100%;
+  max-width: min(100%, calc((100svh - 400px) * 1.875)); /* 1200 / 640 */
   margin-inline: auto;
 }
 
 .flow-slide__legend {
-  margin-top: var(--space-4);
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
-  color: var(--text-muted);
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
 }
 
-.flow-slide__legend-gold {
+.flow-slide__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+/* A little swatch before each key — a solid, a dashed, and a gold line. */
+.flow-slide__key::before {
+  content: '';
+  width: 22px;
+  height: 0;
+  border-top: 2px solid var(--border-strong);
+}
+
+.flow-slide__key--page::before {
+  border-top-style: solid;
+  border-top-color: var(--sub);
+}
+
+.flow-slide__key--overlay::before {
+  border-top-style: dashed;
+  border-top-color: var(--sub);
+}
+
+.flow-slide__key--gold {
   color: var(--accent);
 }
 
-.flow-slide__static {
-  padding-block: var(--space-6);
-  overflow-x: auto;
+.flow-slide__key--gold::before {
+  border-top-color: var(--accent);
 }
 
-.flow-slide__static .flow-slide__stage {
-  min-width: 640px;
+@media (max-width: 767px) {
+  .flow-slide__stage {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .flow-slide__stage .flowd {
+    min-width: 640px;
+  }
 }
