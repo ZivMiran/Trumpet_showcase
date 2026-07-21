@@ -46,7 +46,7 @@ export function WireframesSlide() {
     <>
       <div className="container">
         <ChapterHeader
-          no="08"
+          no="07"
           title="The layout, before the paint"
           lede="Three lo-fi frames carry every structural decision the final screens stand on."
         />

@@ -141,7 +141,7 @@ export function CompareSlide() {
   return (
     <div className="cstudy">
       <div className="container">
-        <ChapterHeader no="15" title="The hardest problem" />
+        <ChapterHeader no="12" title="The hardest problem" />
 
         <Reveal standalone as="p" className="cstudy__pull" amount={0.5}>
           Two releases never launch under the same conditions.

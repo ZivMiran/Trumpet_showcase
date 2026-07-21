@@ -16,7 +16,7 @@ export function StatesSlide() {
     <div className="states-slide">
       <div className="container">
         <ChapterHeader
-          no="16"
+          no="13"
           title="The states nobody screenshots"
           lede="A design proves itself off the happy path — menus open, data missing, things failing. Three exhibits."
         />

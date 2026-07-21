@@ -79,7 +79,7 @@ export function FlowSlide() {
     <>
       <div className="container">
         <ChapterHeader
-          no="07"
+          no="06"
           title="A flat map, one level deep"
           lede="Four pages, and everything else an overlay on top of them — no metric is ever more than two clicks from entry. This answers the “digging through menus” complaint directly."
         />

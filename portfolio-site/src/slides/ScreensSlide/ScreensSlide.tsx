@@ -43,7 +43,7 @@ export function ScreensSlide() {
     <>
       <div className="container">
         <ChapterHeader
-          no="13"
+          no="10"
           title="The happy path, in full fidelity"
           lede="Four screens, one working session. Scroll to walk it."
         />

@@ -22,7 +22,7 @@ export function JourneySlide() {
     <div className="container container--wide journey-slide">
       <div className="container journey-slide__head">
         <ChapterHeader
-          no="05"
+          no="04"
           title="One release week, before Trumpet"
           lede="The storyboard maps when, where and why the artist opens their analytics — and where the frustration compounds."
         />

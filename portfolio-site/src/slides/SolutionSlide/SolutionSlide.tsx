@@ -29,7 +29,7 @@ export function SolutionSlide() {
   return (
     <div className="container">
       <ChapterHeader
-        no="06"
+        no="05"
         title="Three pains, three design answers"
         lede="The shape of the product is the research inverted — each pain point maps to one structural decision."
       />

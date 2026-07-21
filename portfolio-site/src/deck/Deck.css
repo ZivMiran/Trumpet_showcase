@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: 80px 56px;
+  padding-block: 76px 44px;
 }
 
 /* Runway slides size themselves — their inner runway sets the scroll length. */

@@ -4,10 +4,11 @@ import { PendingSlot } from '../../components/shared/PendingSlot'
 import './ResearchSlide.css'
 
 /**
- * 04 — Research. The core pain points distilled on the left; the evidence
- * that produced them on the right. The evidence slots are designed vacancies
- * — shaped to receive the real interview quotes and survey numbers, which
- * drop in without touching the layout.
+ * 03 — Research & the problem. Opens with the thesis the research kept
+ * returning, made concrete by the fragmentation figure; then the three core
+ * pain points and the evidence behind them. The evidence slots are designed
+ * vacancies — shaped to receive the real interview quotes and survey numbers,
+ * which drop in without touching the layout.
  */
 const PAINS = [
   {
@@ -26,12 +27,24 @@ const PAINS = [
 
 export function ResearchSlide() {
   return (
-    <div className="container">
-      <ChapterHeader
-        no="04"
-        title="What the research kept saying"
-        lede="Interviews and a survey with independent artists and managers — distilled to three pain points that shaped every screen."
-      />
+    <div className="container research-slide">
+      <ChapterHeader no="03" title="What the research kept saying" />
+
+      <Reveal standalone className="research-slide__statement" amount={0.4}>
+        <blockquote className="research-slide__thesis">
+          <p>
+            Artists don’t lack data. They lack the place where data becomes a
+            decision.
+          </p>
+        </blockquote>
+        <p className="research-slide__figure" aria-label="Five dashboards, one spreadsheet, zero answers">
+          <span className="tnum">5</span> dashboards
+          <span className="research-slide__sep" aria-hidden="true" />
+          <span className="tnum">1</span> spreadsheet
+          <span className="research-slide__sep" aria-hidden="true" />
+          <span className="tnum">0</span> answers
+        </p>
+      </Reveal>
 
       <div className="research-slide__grid">
         <RevealGroup className="research-slide__pains" stagger={0.1} amount={0.4}>
@@ -47,6 +60,7 @@ export function ResearchSlide() {
         </RevealGroup>
 
         <Reveal standalone className="research-slide__evidence" amount={0.3}>
+          <span className="research-slide__evidence-label">The evidence</span>
           <div className="research-slide__quotes">
             <PendingSlot kind="quote" label="Interview quote — pending" note="— participant __" />
             <PendingSlot kind="quote" label="Interview quote — pending" note="— participant __" />

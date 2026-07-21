@@ -8,10 +8,10 @@ import { SCREENS, SCREEN_W, SCREEN_H } from '../../lib/screens'
 import './DecisionsSlide.css'
 
 /**
- * 14 — The decisions, annotated where they live. Each entry leads with one
+ * 11 — The decisions, annotated where they live. Each entry leads with one
  * design call, shows it close-up in the real UI, and keeps the full screen as
  * a dim contextual thumbnail. The gentle snap centers each entry as scroll
- * passes through — six beats inside one slide. Crop boxes and marker
+ * passes through — four beats inside one slide. Crop boxes and marker
  * positions are fractions of the 1440×1024 mockups, tuned visually.
  */
 type Decision = {
@@ -57,21 +57,6 @@ const DECISIONS: Decision[] = [
     },
   },
   {
-    id: 'decision-notifications',
-    headline: 'Notifications are an insight feed, not a badge',
-    line: 'Every item says what happened and why it matters — milestones, playlist adds, platform spillover — so the bell is worth opening.',
-    src: SCREENS.overviewNotificationsFlyout,
-    cropAlt:
-      'Close-up of the notifications flyout: “After Dark crossed 1M streams”, “TikTok → Spotify spillover”, “Added to editorial playlist”',
-    crop: { x: 0.71, y: 0.07, w: 0.28, h: 0.58 },
-    marker: { x: 0.9, y: 0.14 },
-    context: {
-      src: SCREENS.notificationsOverlay,
-      alt: 'The full notifications view with search and filter tabs',
-      label: 'All notifications — full view',
-    },
-  },
-  {
     id: 'decision-switcher',
     headline: 'Switching artists never leaves the page',
     line: 'Managers juggle rosters. The account switcher lives where the identity lives — bottom of the sidebar, one click, whole workspace swaps.',
@@ -101,21 +86,6 @@ const DECISIONS: Decision[] = [
       label: 'Track detail — full screen',
     },
   },
-  {
-    id: 'decision-sparklines',
-    headline: 'Top movers get a shape before a number',
-    line: 'Inline sparklines rank the week’s climbers at a glance — a trend reads faster than a total.',
-    src: SCREENS.music,
-    cropAlt:
-      'Close-up of the top performing tracks row: four releases, each with an inline sparkline and stream count',
-    crop: { x: 0.185, y: 0.115, w: 0.785, h: 0.175 },
-    marker: { x: 0.07, y: 0.72 },
-    context: {
-      src: SCREENS.music,
-      alt: 'Trumpet Music screen, full view',
-      label: 'Music — full screen',
-    },
-  },
 ]
 
 export function DecisionsSlide() {
@@ -123,8 +93,8 @@ export function DecisionsSlide() {
     <div className="decisions">
       <div className="container">
         <ChapterHeader
-          no="14"
-          title="Six decisions, shown where they live"
+          no="11"
+          title="Four decisions, shown where they live"
           lede="Not a screen tour. Each call is cropped to the pixels that carry it — the full screen stays in the margin, for context."
         />
       </div>
