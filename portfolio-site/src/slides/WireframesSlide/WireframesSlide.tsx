@@ -7,8 +7,8 @@ import './WireframesSlide.css'
  * that drifts the pages across the screen (no scroll hijack — the deck scrolls
  * normally past it). Each frame is cropped to the content region where the
  * layout bets live; the persistent sidebar is covered by the flow slide.
- * Hovering pauses the drift so a frame can be read; reduced motion swaps the
- * drift for a plain scrollable row.
+ * The drift is slow and continuous so captions stay readable as they pass;
+ * reduced motion swaps it for a plain scrollable row.
  */
 const CONTENT_CROP = { x: 0.152, y: 0, w: 0.848, h: 1 }
 const CROP_RATIO = `${Math.round(SCREEN_W * CONTENT_CROP.w)} / ${SCREEN_H}`
@@ -52,7 +52,7 @@ export function WireframesSlide() {
         <ChapterHeader
           no="07"
           title="Structure, before style"
-          lede="Every layout decision was made in low fidelity first. The three pages drift past below — hover to hold one still."
+          lede="Every layout decision was made in low fidelity first. The three pages drift slowly past below."
         />
       </div>
 

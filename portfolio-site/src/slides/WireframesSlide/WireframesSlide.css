@@ -37,8 +37,8 @@
   gap: var(--space-6);
   width: max-content;
   padding-inline: var(--space-3);
-  /* Enters from the left, drifts right, exits — slow and steady. */
-  animation: wf-drift 46s linear infinite;
+  /* Continuous, even drift — slow enough to read the captions as they pass. */
+  animation: wf-drift 60s linear infinite;
 }
 
 /* Two copies sit end to end; shifting by exactly half is seamless. */
@@ -49,10 +49,6 @@
   to {
     transform: translateX(0);
   }
-}
-
-.wf-marquee:hover .wf-marquee__track {
-  animation-play-state: paused;
 }
 
 .wf-frame {

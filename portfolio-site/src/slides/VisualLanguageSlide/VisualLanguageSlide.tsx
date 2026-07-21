@@ -3,9 +3,10 @@ import { ChapterHeader } from '../../components/shared/ChapterHeader'
 import './dsys.css'
 
 /**
- * 09 — Visual language. The whole design system as a bento: palette, type, and
- * a live component, each in its own panel. Values mirrored manually from
- * src/styles/tokens.css (which mirrors the dashboard's own tokens).
+ * 09 — Visual language. The whole design system as a balanced bento: palette
+ * and type share the top row; a live component — the exact Overview KPI card,
+ * reproduced from the prototype's own values (Trumpet_dashboard_source
+ * KpiRibbon) — spans the bottom. Values mirror src/styles/tokens.css.
  */
 const COLORS = [
   {
@@ -38,9 +39,21 @@ const WEIGHTS = [
   { fw: 600, label: 'Semibold 600', sample: 'KPI values that win the glance' },
 ]
 
+// The Streams glyph, lifted verbatim from the prototype's KpiRibbon.
+const StreamsIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2 10v3" />
+    <path d="M6 6v11" />
+    <path d="M10 3v18" />
+    <path d="M14 8v7" />
+    <path d="M18 5v13" />
+    <path d="M22 10v3" />
+  </svg>
+)
+
 export function VisualLanguageSlide() {
   return (
-    <div className="container">
+    <div className="container dsys">
       <ChapterHeader
         no="09"
         title="One system under every screen"
@@ -48,7 +61,7 @@ export function VisualLanguageSlide() {
       />
 
       <Reveal standalone className="dsys__bento" amount={0.25}>
-        {/* Palette — the tall panel on the left. */}
+        {/* Palette — top left. */}
         <section className="dsys__card dsys__card--palette">
           <h3 className="dsys__card-title">Palette — three colors, measured</h3>
           <div className="dsys__colors">
@@ -86,19 +99,27 @@ export function VisualLanguageSlide() {
           </div>
         </section>
 
-        {/* Component — bottom right, a live sample. */}
+        {/* Component — full-width footer. The real KPI card. */}
         <section className="dsys__card dsys__card--component">
-          <h3 className="dsys__card-title">Component — a stat card, from tokens</h3>
+          <h3 className="dsys__card-title">Component — the Overview KPI card, as built</h3>
           <div className="dsys__specimen">
-            <div className="dsys__stat" aria-hidden="true">
-              <span className="dsys__stat-label">Streams</span>
-              <span className="dsys__stat-value tnum">5.4M</span>
-              <span className="dsys__stat-delta tnum">▲ +6.4% vs last month</span>
+            <div className="dsys-kpi" aria-label="Streams: 5.4M, up 6.4% versus last month">
+              <div className="dsys-kpi__top">
+                <span className="dsys-kpi__label">Streams</span>
+                <span className="dsys-kpi__icon" aria-hidden="true">
+                  <StreamsIcon />
+                </span>
+              </div>
+              <div className="dsys-kpi__value">5.4M</div>
+              <div className="dsys-kpi__delta-row">
+                <span className="dsys-kpi__delta">▲ +6.4%</span>
+                <span className="dsys-kpi__delta-label">vs last month</span>
+              </div>
             </div>
             <p className="dsys__specimen-note">
-              Surface <span className="tnum">#1d1f23</span>, 8-point padding, a
-              semibold tabular value, one accent held in reserve. Every screen is
-              built from parts like this.
+              Reproduced from the prototype’s own values — <span className="tnum">#2c2e31</span>{' '}
+              surface, a 300-weight value, one muted metric glyph, a single green delta.
+              Every screen is assembled from parts like this.
             </p>
           </div>
         </section>
