@@ -98,7 +98,7 @@
   font-weight: var(--fw-semibold);
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
-  color: var(--text-primary);
+  color: var(--accent);
 }
 
 .research-slide__stat-label {
@@ -115,26 +115,13 @@
 }
 
 .research-slide__quote {
-  position: relative;
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-5) var(--space-4) var(--space-4);
+  padding: var(--space-4);
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--surface-card) 55%, transparent);
-}
-
-/* A quiet oversized quotation mark — decorative, muted, never gold. */
-.research-slide__quote::before {
-  content: '\201C';
-  position: absolute;
-  top: -0.15em;
-  left: var(--space-4);
-  font-size: 40px;
-  line-height: 1;
-  color: var(--text-muted);
-  opacity: 0.4;
 }
 
 .research-slide__quote blockquote {

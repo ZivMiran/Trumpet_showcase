@@ -91,7 +91,7 @@ export function ResearchSlide() {
           <div className="research-slide__quotes">
             {QUOTES.map((q) => (
               <figure className="research-slide__quote" key={q.text.slice(0, 16)}>
-                <blockquote>{q.text}</blockquote>
+                <blockquote>&ldquo;{q.text}&rdquo;</blockquote>
                 <figcaption>— {q.who}</figcaption>
               </figure>
             ))}
