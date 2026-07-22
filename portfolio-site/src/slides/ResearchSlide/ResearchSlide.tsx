@@ -79,22 +79,27 @@ export function ResearchSlide() {
         <div className="research-slide__col">
           <span className="research-slide__col-label">The evidence</span>
 
-          <div className="research-slide__stats">
-            {STATS.map((s) => (
-              <div className="research-slide__stat" key={s.value}>
-                <span className="research-slide__stat-value tnum">{s.value}</span>
-                <span className="research-slide__stat-label">{s.label}</span>
-              </div>
-            ))}
-          </div>
+          <div className="research-slide__evidence">
+            <div className="research-slide__stats">
+              {STATS.map((s) => (
+                <div className="research-slide__stat" key={s.value}>
+                  <span className="research-slide__stat-value tnum">{s.value}</span>
+                  <span className="research-slide__stat-label">{s.label}</span>
+                </div>
+              ))}
+            </div>
 
-          <div className="research-slide__quotes">
-            {QUOTES.map((q) => (
-              <figure className="research-slide__quote" key={q.text.slice(0, 16)}>
-                <blockquote>&ldquo;{q.text}&rdquo;</blockquote>
-                <figcaption>— {q.who}</figcaption>
-              </figure>
-            ))}
+            <div className="research-slide__quotes">
+              {QUOTES.map((q) => (
+                <figure className="research-slide__quote" key={q.text.slice(0, 16)}>
+                  <span className="research-slide__quote-mark" aria-hidden="true">
+                    &ldquo;
+                  </span>
+                  <blockquote>{q.text}</blockquote>
+                  <figcaption>— {q.who}</figcaption>
+                </figure>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -7,15 +7,22 @@
 .research-slide__grid {
   display: grid;
   grid-template-columns: minmax(300px, 5fr) minmax(0, 6fr);
-  gap: clamp(var(--space-6), 6vw, var(--space-9));
+  gap: clamp(var(--space-6), 4.5vw, var(--space-8));
   margin-top: var(--space-6);
-  align-items: start;
+  align-items: stretch;
+}
+
+/* Both columns fill the row height; their content distributes to match. */
+.research-slide__pains,
+.research-slide__evidence {
+  flex: 1;
+  justify-content: space-between;
 }
 
 .research-slide__col {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 .research-slide__col-label {
@@ -107,7 +114,13 @@
   color: var(--text-secondary);
 }
 
-/* ---- Interview quotes — clean, no colored accent ---- */
+/* ---- Interview quotes — same card family as the stats, gold quote mark ---- */
+.research-slide__evidence {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
 .research-slide__quotes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -118,10 +131,19 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
   padding: var(--space-4);
+  border: var(--hairline);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-card) 55%, transparent);
+  background: color-mix(in srgb, var(--surface-card) 40%, transparent);
+}
+
+/* The one gold quote mark — decorative, in flow so text can never overlap it. */
+.research-slide__quote-mark {
+  font-size: 34px;
+  font-weight: var(--fw-semibold);
+  line-height: 0.55;
+  color: var(--accent);
 }
 
 .research-slide__quote blockquote {
@@ -136,6 +158,7 @@
   letter-spacing: var(--ls-wide);
   color: var(--text-muted);
   margin-top: auto;
+  padding-top: var(--space-2);
 }
 
 @media (max-width: 900px) {
