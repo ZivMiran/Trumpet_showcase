@@ -1,69 +1,24 @@
-/* ---- Problem statement (the thesis the research kept returning) ---- */
-.research-slide__statement {
-  margin-top: var(--space-5);
+/* The grid's own top margin owns the header-to-content gap. */
+.research-slide .chapter {
+  margin-bottom: 0;
 }
 
-.research-slide__thesis {
-  margin: 0;
-}
-
-.research-slide__thesis p {
-  font-size: var(--fs-display-md);
-  font-weight: var(--fw-light);
-  line-height: 1.18;
-  letter-spacing: var(--ls-tight);
-  color: var(--text-primary);
-  max-width: 30ch;
-}
-
-/* ---- Pains + evidence ---- */
+/* Two balanced columns: the pains, and the evidence behind them. */
 .research-slide__grid {
   display: grid;
-  grid-template-columns: minmax(280px, 5fr) minmax(0, 6fr);
-  gap: var(--space-8);
-  margin-top: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: var(--hairline);
+  grid-template-columns: minmax(300px, 5fr) minmax(0, 6fr);
+  gap: clamp(var(--space-6), 6vw, var(--space-9));
+  margin-top: var(--space-6);
   align-items: start;
 }
 
-.research-slide__pains {
+.research-slide__col {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
-.research-slide__pain {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.research-slide__pain-no {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-caps);
-  color: var(--text-muted);
-}
-
-.research-slide__pain-name {
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-medium);
-  letter-spacing: var(--ls-tight);
-}
-
-.research-slide__pain-line {
-  font-size: var(--fs-sm);
-  color: var(--text-secondary);
-  max-width: var(--measure-caption);
-}
-
-.research-slide__evidence {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.research-slide__evidence-label {
+.research-slide__col-label {
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-caps);
@@ -71,39 +26,57 @@
   color: var(--text-muted);
 }
 
-/* ---- Interview quotes ---- */
-.research-slide__quotes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-}
-
-.research-slide__quote {
+/* ---- Pain points — a numbered editorial list ---- */
+.research-slide__pains {
+  list-style: none;
   margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
-  border: var(--hairline);
-  border-left: 2px solid var(--accent);
-  border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-card) 45%, transparent);
 }
 
-.research-slide__quote blockquote {
-  margin: 0;
-  font-size: var(--fs-sm);
-  line-height: var(--lh-normal);
-  color: var(--text-primary);
+.research-slide__pain {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: var(--space-4);
+  border-top: var(--hairline);
 }
 
-.research-slide__quote figcaption {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
+.research-slide__pain:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.research-slide__pain-no {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-light);
   color: var(--text-muted);
+  opacity: 0.55;
+  line-height: 1;
 }
 
-/* ---- Survey stats ---- */
+.research-slide__pain-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.research-slide__pain-name {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+}
+
+.research-slide__pain-line {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+}
+
+/* ---- Survey stats — three measured figures ---- */
 .research-slide__stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -117,7 +90,7 @@
   padding: var(--space-4);
   border: var(--hairline);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-card) 45%, transparent);
+  background: color-mix(in srgb, var(--surface-card) 40%, transparent);
 }
 
 .research-slide__stat-value {
@@ -134,10 +107,48 @@
   color: var(--text-secondary);
 }
 
-.research-slide__method {
+/* ---- Interview quotes — clean, no colored accent ---- */
+.research-slide__quotes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.research-slide__quote {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-card) 55%, transparent);
+}
+
+/* A quiet oversized quotation mark — decorative, muted, never gold. */
+.research-slide__quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.15em;
+  left: var(--space-4);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--text-muted);
+  opacity: 0.4;
+}
+
+.research-slide__quote blockquote {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-primary);
+}
+
+.research-slide__quote figcaption {
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-wide);
   color: var(--text-muted);
+  margin-top: auto;
 }
 
 @media (max-width: 900px) {

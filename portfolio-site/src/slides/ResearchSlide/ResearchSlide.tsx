@@ -3,24 +3,39 @@ import { ChapterHeader } from '../../components/shared/ChapterHeader'
 import './ResearchSlide.css'
 
 /**
- * 03 — Research & the problem. Opens with the thesis the research kept
- * returning, then the three core pain points and the evidence behind them:
- * verbatim interview quotes and survey figures from 6 in-person interviews
- * and 14 survey responses with independent artists.
+ * 03 — Research & pain points. The five recurring pains from the field study
+ * on the left; the qualitative and quantitative evidence behind them on the
+ * right. Every pain is backed: quotes cover app-hopping and buried data; the
+ * survey figures cover simplicity, the fan moment, and comparison.
+ * Source: 6 in-person interviews + 14 survey responses, independent artists.
  */
 const PAINS = [
   {
-    name: 'The memory trap',
-    line: 'Release decisions are made from recall — “last time this worked” — because no record exists to check against.',
+    name: 'Overwhelm over simplicity',
+    line: 'Dense text and dry tables intimidate more than they inform.',
   },
   {
-    name: 'Blind data',
-    line: 'Five dashboards, five vocabularies. The cross-platform total — the number that matters — exists nowhere.',
+    name: 'Buried data',
+    line: 'The numbers that matter sit several clicks deep.',
   },
   {
-    name: 'The moment passes',
-    line: 'Spikes surface days late, in a weekly spreadsheet session. The window to act closes before the artist knows it opened.',
+    name: 'App-hopping',
+    line: 'Time and focus lost jumping across five platforms.',
   },
+  {
+    name: 'The fan moment, unseen',
+    line: 'No way to pinpoint where a listener commits — the like, the save.',
+  },
+  {
+    name: 'Comparison by hand',
+    line: 'Measuring a new release against past ones means manual math.',
+  },
+]
+
+const STATS = [
+  { value: '91%', label: 'want an insight sentence over raw numbers' },
+  { value: '84%', label: 'need to compare releases side by side' },
+  { value: '58%', label: 'name save rate their top success metric' },
 ]
 
 const QUOTES = [
@@ -34,50 +49,35 @@ const QUOTES = [
   },
 ]
 
-const STATS = [
-  { value: '91%', label: 'want an insight sentence that explains the raw numbers' },
-  { value: '84%', label: 'need to compare releases side by side' },
-  { value: '50%', label: 'can’t explain a sudden jump in their own charts' },
-]
-
 export function ResearchSlide() {
   return (
     <div className="container research-slide">
-      <ChapterHeader no="03" title="What the research kept saying" />
-
-      <Reveal standalone className="research-slide__statement" amount={0.4}>
-        <blockquote className="research-slide__thesis">
-          <p>
-            Artists don’t lack data. They lack the place where data becomes a
-            decision.
-          </p>
-        </blockquote>
-      </Reveal>
+      <ChapterHeader
+        no="03"
+        title="What the research kept saying"
+        lede="Six in-person interviews and fourteen survey responses with independent artists — distilled to five recurring pain points."
+      />
 
       <div className="research-slide__grid">
-        <RevealGroup className="research-slide__pains" stagger={0.1} amount={0.4}>
-          {PAINS.map((p, i) => (
-            <Reveal className="research-slide__pain" key={p.name}>
-              <span className="research-slide__pain-no tnum">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className="research-slide__pain-name">{p.name}</h3>
-              <p className="research-slide__pain-line">{p.line}</p>
-            </Reveal>
-          ))}
-        </RevealGroup>
-
-        <Reveal standalone className="research-slide__evidence" amount={0.3}>
-          <span className="research-slide__evidence-label">The evidence</span>
-
-          <div className="research-slide__quotes">
-            {QUOTES.map((q) => (
-              <figure className="research-slide__quote" key={q.who + q.text.slice(0, 12)}>
-                <blockquote>“{q.text}”</blockquote>
-                <figcaption>— {q.who}</figcaption>
-              </figure>
+        <div className="research-slide__col">
+          <span className="research-slide__col-label">The pain points</span>
+          <RevealGroup as="ol" className="research-slide__pains" stagger={0.08} amount={0.4}>
+            {PAINS.map((p, i) => (
+              <Reveal as="li" className="research-slide__pain" key={p.name}>
+                <span className="research-slide__pain-no tnum" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div className="research-slide__pain-body">
+                  <h3 className="research-slide__pain-name">{p.name}</h3>
+                  <p className="research-slide__pain-line">{p.line}</p>
+                </div>
+              </Reveal>
             ))}
-          </div>
+          </RevealGroup>
+        </div>
+
+        <div className="research-slide__col">
+          <span className="research-slide__col-label">The evidence</span>
 
           <div className="research-slide__stats">
             {STATS.map((s) => (
@@ -88,10 +88,15 @@ export function ResearchSlide() {
             ))}
           </div>
 
-          <p className="research-slide__method">
-            6 in-person interviews · 14 survey responses · all independent artists
-          </p>
-        </Reveal>
+          <div className="research-slide__quotes">
+            {QUOTES.map((q) => (
+              <figure className="research-slide__quote" key={q.text.slice(0, 16)}>
+                <blockquote>{q.text}</blockquote>
+                <figcaption>— {q.who}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
