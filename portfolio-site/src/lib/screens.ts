@@ -25,9 +25,4 @@ export const PROCESS = {
   overviewWireframe: asset('/process/overview-wireframe.png'),
   trackDrawerWireframe: asset('/process/track-drawer-wireframe.png'),
   audienceWireframe: asset('/process/audience-wireframe.png'),
-  compareOldVersion: asset('/process/compare-old-version.png'),
 } as const
-
-/** compare-old-version.png is the one artifact at a different export size. */
-export const COMPARE_OLD_W = 792
-export const COMPARE_OLD_H = 590
