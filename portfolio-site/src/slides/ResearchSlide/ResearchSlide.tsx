@@ -1,14 +1,12 @@
 import { Reveal, RevealGroup } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
-import { PendingSlot } from '../../components/shared/PendingSlot'
 import './ResearchSlide.css'
 
 /**
  * 03 — Research & the problem. Opens with the thesis the research kept
- * returning, made concrete by the fragmentation figure; then the three core
- * pain points and the evidence behind them. The evidence slots are designed
- * vacancies — shaped to receive the real interview quotes and survey numbers,
- * which drop in without touching the layout.
+ * returning, then the three core pain points and the evidence behind them:
+ * verbatim interview quotes and survey figures from 6 in-person interviews
+ * and 14 survey responses with independent artists.
  */
 const PAINS = [
   {
@@ -23,6 +21,23 @@ const PAINS = [
     name: 'The moment passes',
     line: 'Spikes surface days late, in a weekly spreadsheet session. The window to act closes before the artist knows it opened.',
   },
+]
+
+const QUOTES = [
+  {
+    text: 'Switching between apps is an exhausting ritual. In the end I still have to pull it all together by hand in Excel — a waste of time on pure logistics.',
+    who: 'Independent artist',
+  },
+  {
+    text: 'I feel like I have to dig through menus before I even reach the data that actually matters.',
+    who: 'Independent artist',
+  },
+]
+
+const STATS = [
+  { value: '91%', label: 'want an insight sentence that explains the raw numbers' },
+  { value: '84%', label: 'need to compare releases side by side' },
+  { value: '50%', label: 'can’t explain a sudden jump in their own charts' },
 ]
 
 export function ResearchSlide() {
@@ -54,16 +69,27 @@ export function ResearchSlide() {
 
         <Reveal standalone className="research-slide__evidence" amount={0.3}>
           <span className="research-slide__evidence-label">The evidence</span>
+
           <div className="research-slide__quotes">
-            <PendingSlot kind="quote" label="Interview quote — pending" note="— participant __" />
-            <PendingSlot kind="quote" label="Interview quote — pending" note="— participant __" />
+            {QUOTES.map((q) => (
+              <figure className="research-slide__quote" key={q.who + q.text.slice(0, 12)}>
+                <blockquote>“{q.text}”</blockquote>
+                <figcaption>— {q.who}</figcaption>
+              </figure>
+            ))}
           </div>
+
           <div className="research-slide__stats">
-            <PendingSlot kind="stat" label="N = __ respondents" />
-            <PendingSlot kind="stat" label="__ % track manually" />
+            {STATS.map((s) => (
+              <div className="research-slide__stat" key={s.value}>
+                <span className="research-slide__stat-value tnum">{s.value}</span>
+                <span className="research-slide__stat-label">{s.label}</span>
+              </div>
+            ))}
           </div>
+
           <p className="research-slide__method">
-            Method — interviews · n = __ &nbsp;·&nbsp; survey · n = __
+            6 in-person interviews · 14 survey responses · all independent artists
           </p>
         </Reveal>
       </div>
