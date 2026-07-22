@@ -17,7 +17,7 @@ export function BrandingSlide() {
         <Reveal standalone className="branding-slide__lockup" amount={0.4}>
           <img
             className="branding-slide__icon"
-            src={asset('/images/TrumpetLogo.png')}
+            src={asset('/images/Logo.svg')}
             alt="The Trumpet mark — a simplified brass-gold trumpet, tilted upward"
             width={200}
             height={200}
@@ -52,7 +52,7 @@ export function BrandingSlide() {
             {[64, 40, 24].map((s) => (
               <span className="branding-slide__tile" key={s}>
                 <img
-                  src={asset('/images/TrumpetLogo.png')}
+                  src={asset('/images/Logo.svg')}
                   alt=""
                   aria-hidden="true"
                   width={s}
