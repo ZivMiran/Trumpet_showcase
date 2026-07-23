@@ -64,6 +64,115 @@
   gap: var(--space-5);
 }
 
+.states-slide__toast {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.states-slide__toast figcaption {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+}
+
+/* ---- The toast, built from the app's own tokens ---- */
+.toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 400px;
+  padding: var(--space-4);
+  background: var(--surface-raised);
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-pop);
+  overflow: hidden;
+}
+
+.toast__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+}
+
+.toast--error .toast__icon {
+  color: var(--error);
+  background: color-mix(in srgb, var(--error) 16%, transparent);
+}
+
+.toast--success .toast__icon {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 16%, transparent);
+}
+
+.toast__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.toast__title {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.toast__msg {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+}
+
+.toast__action {
+  flex: none;
+  align-self: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+
+.toast--error .toast__action {
+  color: var(--error);
+}
+
+.toast--success .toast__action {
+  color: var(--success);
+}
+
+/* Auto-dismiss timer — the visual cue that this is a transient toast. */
+.toast__timer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--border-subtle);
+}
+
+.toast__timer::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 62%;
+}
+
+.toast--error .toast__timer::after {
+  background: var(--error);
+}
+
+.toast--success .toast__timer::after {
+  background: var(--success);
+}
+
 @media (max-width: 1023px) {
   .states-slide__beat {
     grid-template-columns: 1fr;
