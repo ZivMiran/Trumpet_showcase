@@ -1,33 +1,108 @@
+.journey-slide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
 .journey-slide__head {
   padding-inline: 0;
 }
 
-.journey-slide__frames {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-4);
-  margin-top: var(--space-7);
+/* The story gaps own the spacing — drop the chapter's default bottom margin. */
+.journey-slide .chapter {
+  margin-bottom: 0;
 }
 
-.journey-slide__frame {
+/* ---- One storyboard ---- */
+.journey-slide__story {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-4);
 }
 
-.journey-slide__frame-no {
+.journey-slide__story-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--hairline);
+}
+
+.journey-slide__who {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-tight);
+}
+
+.journey-slide__friction {
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
   color: var(--text-muted);
 }
 
-@media (max-width: 1023px) {
+/* ---- The four frames ---- */
+.journey-slide__frames {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+}
+
+.journey-slide__frame {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.journey-slide__img {
+  position: relative;
+  aspect-ratio: 1200 / 896;
+  border: var(--hairline);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-inset);
+}
+
+.journey-slide__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The resolution frames carry a quiet gold top edge — where Trumpet enters. */
+.journey-slide__frame--trumpet .journey-slide__img {
+  border-top: 2px solid var(--accent);
+}
+
+.journey-slide__cap {
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+}
+
+.journey-slide__cap-no {
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  color: var(--text-muted);
+  padding-top: 0.15em;
+}
+
+.journey-slide__frame--trumpet .journey-slide__cap-no {
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
   .journey-slide__frames {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 560px) {
   .journey-slide__frames {
     grid-template-columns: 1fr;
   }
