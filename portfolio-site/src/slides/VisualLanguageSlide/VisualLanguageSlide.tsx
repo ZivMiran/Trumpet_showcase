@@ -55,7 +55,7 @@ export function VisualLanguageSlide() {
   return (
     <div className="container dsys">
       <ChapterHeader
-        no="09"
+        no="08"
         title="One system under every screen"
         lede="One typeface, three colors, one component logic — the same tokens across the dashboard, the prototype, and this deck."
       />

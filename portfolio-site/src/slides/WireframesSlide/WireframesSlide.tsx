@@ -50,7 +50,7 @@ export function WireframesSlide() {
     <div className="wf-slide">
       <div className="container">
         <ChapterHeader
-          no="07"
+          no="06"
           title="Structure, before style"
           lede="Every layout decision was made in low fidelity first. The three pages drift slowly past below."
         />

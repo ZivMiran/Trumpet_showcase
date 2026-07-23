@@ -8,7 +8,8 @@ import { SCREENS, SCREEN_W, SCREEN_H } from '../../lib/screens'
 import './DecisionsSlide.css'
 
 /**
- * 11 — The decisions, annotated where they live. Each entry leads with one
+ * 10 — How the design answers the pain (the Solution deliverable), shown as
+ * annotated decisions where they live. Each entry leads with one
  * design call, shows it close-up in the real UI, and keeps the full screen as
  * a dim contextual thumbnail. The gentle snap centers each entry as scroll
  * passes through — four beats inside one slide. Crop boxes and marker
@@ -18,6 +19,8 @@ type Decision = {
   id: string
   headline: string
   line: string
+  /** The research pain this decision closes, when it maps to one directly. */
+  answers?: string
   src: string
   cropAlt: string
   crop: CropBox
@@ -30,6 +33,7 @@ const DECISIONS: Decision[] = [
     id: 'decision-sentence',
     headline: 'Open with a sentence, not a chart',
     line: 'The pulse banner turns the week’s most important change into plain language — the reader gets the answer before the evidence.',
+    answers: 'Overwhelm over simplicity',
     src: SCREENS.overview,
     cropAlt:
       'Close-up of the Overview pulse banner: “Your audience in Germany grew 12% this week on algorithmic playlists.”',
@@ -75,6 +79,7 @@ const DECISIONS: Decision[] = [
     id: 'decision-waveform',
     headline: 'The waveform shows where listeners decide',
     line: 'Skip and save clusters land on the track’s own timeline — down to the chorus that earns the replay.',
+    answers: 'The fan moment, unseen',
     src: SCREENS.trackDrawer,
     cropAlt:
       'Close-up of the engagement waveform: a red skip cluster at 1:00, a green “Chorus — 13% saved” cluster at 2:00',
@@ -93,9 +98,9 @@ export function DecisionsSlide() {
     <div className="decisions">
       <div className="container">
         <ChapterHeader
-          no="11"
-          title="Four decisions, shown where they live"
-          lede="Not a screen tour. Each call is cropped to the pixels that carry it — the full screen stays in the margin, for context."
+          no="10"
+          title="How the design answers the pain"
+          lede="The solution, shown where it lives — each decision cropped to the pixels that carry it. The calls that close a research pain directly are tagged."
         />
       </div>
 
@@ -115,6 +120,12 @@ export function DecisionsSlide() {
                   {d.headline}
                 </h3>
                 <p className="decisions__line">{d.line}</p>
+                {d.answers && (
+                  <p className="decisions__answers">
+                    <span className="decisions__answers-label">Answers</span>
+                    <span className="decisions__answers-pain">{d.answers}</span>
+                  </p>
+                )}
                 <figure className="decisions__context">
                   <img
                     src={d.context.src}

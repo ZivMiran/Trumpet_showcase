@@ -12,7 +12,7 @@ export function FlowSlide() {
     <div className="container container--wide flow-slide">
       <div className="container flow-slide__head">
         <ChapterHeader
-          no="06"
+          no="05"
           title="A flat map, one level deep"
           lede="Four pages; everything else an overlay on top. No metric is ever more than two clicks from entry — the answer to “digging through menus.”"
         />
