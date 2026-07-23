@@ -81,8 +81,9 @@
 .toast {
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-3);
+  width: 100%;
   max-width: 400px;
   padding: var(--space-4);
   background: var(--surface-raised);
@@ -96,19 +97,19 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-full);
 }
 
 .toast--error .toast__icon {
   color: var(--error);
-  background: color-mix(in srgb, var(--error) 16%, transparent);
+  background: color-mix(in srgb, var(--error) 15%, transparent);
 }
 
 .toast--success .toast__icon {
   color: var(--success);
-  background: color-mix(in srgb, var(--success) 16%, transparent);
+  background: color-mix(in srgb, var(--success) 15%, transparent);
 }
 
 .toast__body {
@@ -116,12 +117,13 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .toast__title {
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
   color: var(--text-primary);
 }
 
@@ -131,19 +133,25 @@
   color: var(--text-secondary);
 }
 
+/* Action reads as a real button chip, vertically centered with the icon. */
 .toast__action {
   flex: none;
-  align-self: center;
+  margin-left: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
+  white-space: nowrap;
 }
 
 .toast--error .toast__action {
   color: var(--error);
+  background: color-mix(in srgb, var(--error) 13%, transparent);
 }
 
 .toast--success .toast__action {
   color: var(--success);
+  background: color-mix(in srgb, var(--success) 13%, transparent);
 }
 
 /* Auto-dismiss timer — the visual cue that this is a transient toast. */
@@ -153,7 +161,7 @@
   right: 0;
   bottom: 0;
   height: 2px;
-  background: var(--border-subtle);
+  background: color-mix(in srgb, var(--border-subtle) 55%, transparent);
 }
 
 .toast__timer::after {

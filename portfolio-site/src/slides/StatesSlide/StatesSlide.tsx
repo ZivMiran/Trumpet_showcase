@@ -138,7 +138,7 @@ export function StatesSlide() {
               tone="error"
               icon={<AlertIcon />}
               title="Couldn’t connect to Spotify"
-              msg="Showing your last synced data from 2h ago."
+              msg="Showing your last synced data."
               action="Retry"
             />
             <figcaption>Error toast</figcaption>
