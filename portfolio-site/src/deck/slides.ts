@@ -42,7 +42,7 @@ export const SLIDES: SlideDef[] = [
   { id: 'visual-language', no: '08', label: 'Visual language', kind: 'static', Component: VisualLanguageSlide },
   { id: 'screens', no: '09', label: 'The screens', kind: 'runway', Component: ScreensSlide },
   { id: 'decisions', no: '10', label: 'The solution', kind: 'runway', Component: DecisionsSlide },
-  { id: 'compare', no: '11', label: 'Compare', kind: 'runway', Component: CompareSlide },
+  { id: 'compare', no: '11', label: 'Compare', kind: 'static', Component: CompareSlide },
   { id: 'states', no: '12', label: 'Edge cases', kind: 'runway', Component: StatesSlide },
   { id: 'close', no: '13', label: 'Close', kind: 'static', Component: CloseSlide },
 ]

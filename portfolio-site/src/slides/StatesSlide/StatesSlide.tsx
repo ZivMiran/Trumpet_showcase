@@ -2,7 +2,12 @@ import type { ReactNode } from 'react'
 import { Reveal } from '../../components/shared/Reveal'
 import { ChapterHeader } from '../../components/shared/ChapterHeader'
 import { DecisionFigure } from '../../components/shared/DecisionFigure'
-import { SCREENS, SCREEN_W, SCREEN_H } from '../../lib/screens'
+import {
+  SCREENS,
+  DETAILS,
+  COMPARE_EMPTY_W,
+  COMPARE_EMPTY_H,
+} from '../../lib/screens'
 import './StatesSlide.css'
 
 /**
@@ -82,17 +87,21 @@ export function StatesSlide() {
         <Reveal standalone className="states-slide__menus" amount={0.3}>
           <figure className="states-slide__menu">
             <DecisionFigure
-              src={SCREENS.overviewArtistSwitcher}
+              src={DETAILS.artistSwitch.src}
+              srcW={DETAILS.artistSwitch.w}
+              srcH={DETAILS.artistSwitch.h}
               alt="The artist switcher popover, open: Echo Theory selected, Nova Reign below, add-account and log-out actions"
-              crop={{ x: 0.005, y: 0.6, w: 0.245, h: 0.34 }}
+              crop={{ x: 0, y: 0, w: 1, h: 1 }}
             />
             <figcaption>Artist switcher — popover</figcaption>
           </figure>
           <figure className="states-slide__menu">
             <DecisionFigure
-              src={SCREENS.overviewNotificationsFlyout}
+              src={DETAILS.notificationFlyout.src}
+              srcW={DETAILS.notificationFlyout.w}
+              srcH={DETAILS.notificationFlyout.h}
               alt="The notifications flyout, open: milestone, spillover and playlist items with plain-language explanations"
-              crop={{ x: 0.71, y: 0.07, w: 0.28, h: 0.58 }}
+              crop={{ x: 0, y: 0, w: 1, h: 1 }}
             />
             <figcaption>Notifications — flyout</figcaption>
           </figure>
@@ -114,8 +123,8 @@ export function StatesSlide() {
           <img
             src={SCREENS.compareEmpty}
             alt="Trumpet Compare in its empty state — one release charted, with a prompt suggesting a baseline release to compare against"
-            width={SCREEN_W}
-            height={SCREEN_H}
+            width={COMPARE_EMPTY_W}
+            height={COMPARE_EMPTY_H}
             loading="lazy"
             decoding="async"
           />

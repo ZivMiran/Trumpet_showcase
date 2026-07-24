@@ -48,7 +48,7 @@ export function ScreensSlide() {
           lede="Four screens, one working session. Scroll to walk it."
         />
       </div>
-      <SlideSequence frames={FRAMES} ratio="1440 / 1024" frameHeightBudget={260} />
+      <SlideSequence frames={FRAMES} ratio="16 / 9" frameHeightBudget={260} />
     </>
   )
 }

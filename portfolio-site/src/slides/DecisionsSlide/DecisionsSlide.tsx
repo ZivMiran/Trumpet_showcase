@@ -4,7 +4,8 @@ import {
   DecisionFigure,
   type CropBox,
 } from '../../components/shared/DecisionFigure'
-import { SCREENS, SCREEN_W, SCREEN_H } from '../../lib/screens'
+import { SCREENS, DETAILS, SCREEN_W, SCREEN_H } from '../../lib/screens'
+import { asset } from '../../lib/asset'
 import './DecisionsSlide.css'
 
 /**
@@ -12,8 +13,11 @@ import './DecisionsSlide.css'
  * annotated decisions where they live. Each entry leads with one
  * design call, shows it close-up in the real UI, and keeps the full screen as
  * a dim contextual thumbnail. The gentle snap centers each entry as scroll
- * passes through — four beats inside one slide. Crop boxes and marker
- * positions are fractions of the 1440×1024 mockups, tuned visually.
+ * passes through — four beats inside one slide.
+ *
+ * Two kinds of evidence: pre-cropped HQ detail captures (shown whole, with
+ * their own `srcW/srcH`) and CSS crops of a 16:9 full screen (crop box + marker
+ * as fractions of that screen, tuned visually).
  */
 type Decision = {
   id: string
@@ -25,6 +29,11 @@ type Decision = {
   cropAlt: string
   crop: CropBox
   marker?: { x: number; y: number }
+  /** Natural size of `src` when it isn't a 16:9 full screen. */
+  srcW?: number
+  srcH?: number
+  /** A pre-framed screen recording shown in place of the still crop. */
+  video?: string
   context: { src: string; alt: string; label: string }
 }
 
@@ -34,11 +43,12 @@ const DECISIONS: Decision[] = [
     headline: 'Open with a sentence, not a chart',
     line: 'The pulse banner turns the week’s most important change into plain language — the reader gets the answer before the evidence.',
     answers: 'Overwhelm over simplicity',
-    src: SCREENS.overview,
+    src: DETAILS.insightBanner.src,
+    srcW: DETAILS.insightBanner.w,
+    srcH: DETAILS.insightBanner.h,
     cropAlt:
       'Close-up of the Overview pulse banner: “Your audience in Germany grew 12% this week on algorithmic playlists.”',
-    crop: { x: 0.17, y: 0.095, w: 0.63, h: 0.135 },
-    marker: { x: 0.08, y: 0.52 },
+    crop: { x: 0, y: 0, w: 1, h: 1 },
     context: {
       src: SCREENS.overview,
       alt: 'Trumpet Overview screen, full view',
@@ -48,12 +58,14 @@ const DECISIONS: Decision[] = [
   {
     id: 'decision-peaks',
     headline: 'Spikes arrive with their reason attached',
-    line: 'Peak-event markers sit on the curve itself — “a TikTok clip drove the jump,” not an anonymous bump to decode.',
-    src: SCREENS.overview,
+    line: 'Peak-event markers sit on the curve itself — open one and the cause is right there: a New Music Friday refresh, not an anonymous bump to decode.',
+    src: asset('/video/solution-peak-poster.jpg'),
+    video: asset('/video/solution-peak.mp4'),
+    srcW: 3456,
+    srcH: 2160,
     cropAlt:
-      'Close-up of the Overview streams chart with a peak-event marker pinned to the spike and the average line tag',
-    crop: { x: 0.31, y: 0.46, w: 0.38, h: 0.32 },
-    marker: { x: 0.58, y: 0.42 },
+      'The Overview streams chart with a peak-event marker opened — a tooltip names the cause: a New Music Friday refresh that re-added “Neon Tides” to the editorial list',
+    crop: { x: 0, y: 0, w: 1, h: 1 },
     context: {
       src: SCREENS.overview,
       alt: 'Trumpet Overview screen, full view',
@@ -64,15 +76,16 @@ const DECISIONS: Decision[] = [
     id: 'decision-switcher',
     headline: 'Switching artists never leaves the page',
     line: 'Managers juggle rosters. The account switcher lives where the identity lives — bottom of the sidebar, one click, whole workspace swaps.',
-    src: SCREENS.overviewArtistSwitcher,
+    src: DETAILS.artistSwitch.src,
+    srcW: DETAILS.artistSwitch.w,
+    srcH: DETAILS.artistSwitch.h,
     cropAlt:
       'Close-up of the artist switcher popover: Echo Theory selected, Nova Reign below, add-account and log-out actions',
-    crop: { x: 0.005, y: 0.6, w: 0.245, h: 0.34 },
-    marker: { x: 0.85, y: 0.3 },
+    crop: { x: 0, y: 0, w: 1, h: 1 },
     context: {
-      src: SCREENS.overviewArtistSwitcher,
-      alt: 'Trumpet Overview with the artist switcher open, full view',
-      label: 'Overview — switcher open',
+      src: SCREENS.overview,
+      alt: 'Trumpet Overview screen, full view — the account switcher lives at the foot of the sidebar',
+      label: 'Overview — sidebar foot',
     },
   },
   {
@@ -80,11 +93,13 @@ const DECISIONS: Decision[] = [
     headline: 'The waveform shows where listeners decide',
     line: 'Skip and save clusters land on the track’s own timeline — down to the chorus that earns the replay.',
     answers: 'The fan moment, unseen',
-    src: SCREENS.trackDrawer,
+    src: asset('/video/solution-waveform-poster.jpg'),
+    video: asset('/video/solution-waveform.mp4'),
+    srcW: 3456,
+    srcH: 1944,
     cropAlt:
-      'Close-up of the engagement waveform: a red skip cluster at 1:00, a green “Chorus — 13% saved” cluster at 2:00',
-    crop: { x: 0.495, y: 0.5, w: 0.49, h: 0.31 },
-    marker: { x: 0.58, y: 0.28 },
+      'The engagement waveform playing — a red “9% skipped here” cluster near 1:00 and a green “Chorus — 17% saved” cluster past 2:00',
+    crop: { x: 0, y: 0, w: 1, h: 1 },
     context: {
       src: SCREENS.trackDrawer,
       alt: 'Trumpet Music screen with the track detail drawer open, full view',
@@ -145,6 +160,9 @@ export function DecisionsSlide() {
                   alt={d.cropAlt}
                   crop={d.crop}
                   marker={d.marker}
+                  srcW={d.srcW}
+                  srcH={d.srcH}
+                  video={d.video}
                 />
               </Reveal>
             </div>

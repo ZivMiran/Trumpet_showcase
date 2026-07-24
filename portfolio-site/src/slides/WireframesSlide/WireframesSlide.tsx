@@ -5,12 +5,11 @@ import './WireframesSlide.css'
 /**
  * 07 — Wireframes. The lo-fi passes, shown as a slow auto-scrolling carousel
  * that drifts the pages across the screen (no scroll hijack — the deck scrolls
- * normally past it). Each frame is cropped to the content region where the
- * layout bets live; the persistent sidebar is covered by the flow slide.
- * The drift is slow and continuous so captions stay readable as they pass;
- * reduced motion swaps it for a plain scrollable row.
+ * normally past it). Each page is shown whole — full screenshot, sidebar and
+ * all. The drift is slow and continuous so captions stay readable as they
+ * pass; reduced motion swaps it for a plain scrollable row.
  */
-const CONTENT_CROP = { x: 0.152, y: 0, w: 0.848, h: 1 }
+const CONTENT_CROP = { x: 0, y: 0, w: 1, h: 1 }
 const CROP_RATIO = `${Math.round(SCREEN_W * CONTENT_CROP.w)} / ${SCREEN_H}`
 
 const CROP_STYLE: React.CSSProperties = {
@@ -27,6 +26,12 @@ const FRAMES: Frame[] = [
     alt: 'Lo-fi Overview wireframe — insight banner over five KPI cards and a streams chart',
     label: 'Overview',
     note: 'Answer-first banner, five KPIs — set before any styling.',
+  },
+  {
+    src: PROCESS.musicWireframe,
+    alt: 'Lo-fi Music wireframe — a “movers this week” row above a sortable catalog table',
+    label: 'Music',
+    note: 'Movers surface first — the biggest swings before the full catalog.',
   },
   {
     src: PROCESS.trackDrawerWireframe,
@@ -52,14 +57,14 @@ export function WireframesSlide() {
         <ChapterHeader
           no="06"
           title="Structure, before style"
-          lede="Every layout decision was made in low fidelity first. The three pages drift slowly past below."
+          lede="Every layout decision was made in low fidelity first. The four pages drift slowly past below."
         />
       </div>
 
       <div
         className="wf-marquee"
         role="group"
-        aria-label="Low-fidelity wireframes: Overview, Track detail, Audience"
+        aria-label="Low-fidelity wireframes: Overview, Music, Track detail, Audience"
       >
         <div className="wf-marquee__track">
           {TRACK.map((f, i) => (

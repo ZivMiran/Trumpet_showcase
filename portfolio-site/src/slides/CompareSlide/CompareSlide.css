@@ -18,32 +18,24 @@
   max-width: var(--measure-body);
 }
 
-/* ---- Scroll runway with sticky stage ---- */
-.cstudy__runway {
-  height: 380vh;
+/* ---- Stage: the looping clip beside its numbered beats ---- */
+.cstudy__static {
   margin-top: var(--space-8);
-}
-
-.cstudy__sticky {
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 2.3fr) minmax(220px, 1fr);
+  gap: var(--space-7);
   align-items: center;
-  overflow: hidden;
-  padding-block: var(--space-8);
 }
 
-/* The stage — video ratio is 16:9 (1440×810); the width cap keeps frame +
-   step caption sharing the sticky viewport on short screens. */
+/* The clip's ratio is 16:9 (1440×810); it fills its grid column and derives
+   its height from the aspect-ratio set inline. */
 .cstudy__frame {
   position: relative;
+  width: 100%;
   border: var(--hairline);
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--surface-inset);
-  width: min(100%, calc((100svh - 300px) * 1.7777));
-  margin-inline: auto;
 }
 
 .cstudy__frame video,
@@ -56,52 +48,13 @@
   inset: 0;
 }
 
-/* Poster sits above the video until it can seek, then fades away. */
-.cstudy__poster {
-  z-index: var(--z-raised);
-  opacity: 1;
-  transition: opacity var(--dur-slow) var(--ease-snappy);
-}
-
-.cstudy__frame--ready .cstudy__poster {
-  opacity: 0;
-}
-
-/* ---- Step caption under the stage (aligned to the capped frame) ---- */
-.cstudy__stepbar {
-  min-height: 2.4em;
-  margin-top: var(--space-5);
-  width: min(100%, calc((100svh - 300px) * 1.7777));
-  margin-inline: auto;
-}
-
-.cstudy__step {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-4);
-  font-size: var(--fs-h3);
-  color: var(--text-primary);
-}
-
-.cstudy__step-n {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
-/* ---- Static variant (mobile / reduced motion / video error) ---- */
-.cstudy__static {
-  margin-top: var(--space-8);
-}
-
 .cstudy__steps-list {
-  margin: var(--space-5) 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
   counter-reset: step;
 }
 
@@ -119,4 +72,12 @@
   font-size: var(--fs-xs);
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .cstudy__static {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
 }

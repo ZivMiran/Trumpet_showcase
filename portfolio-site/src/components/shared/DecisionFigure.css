@@ -12,7 +12,8 @@
   margin-inline: auto;
 }
 
-.dfig img {
+.dfig img,
+.dfig__video {
   position: absolute;
   height: auto;
   max-width: none;
