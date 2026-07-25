@@ -139,10 +139,16 @@
      ====================================================================== */
   --ease-snappy: cubic-bezier(0.25, 1, 0.5, 1); /* design.md marketing curve */
 
-  /* Editorial display scale — the page speaks in type, not cards. */
-  --fs-display-xl: clamp(56px, 10vw, 144px);   /* opening statement */
-  --fs-display-lg: clamp(34px, 5vw, 64px);     /* chapter titles, pull quotes */
-  --fs-display-md: clamp(24px, 3vw, 36px);     /* figures, closing links */
+  /* Editorial display scale — the page speaks in type, not cards.
+     Sized by the SMALLER of width and height: a deck whose premise is "one
+     slide, one screen" has to answer to the short axis too. A 1366x768 laptop
+     is as wide as a 1366x900 one but has 130px less room, and display type set
+     from vw alone eats a third of the viewport before the content starts. The
+     vh terms are slack on tall windows (>=880px keeps the original ceilings)
+     and only bite when vertical room is genuinely scarce. */
+  --fs-display-xl: clamp(56px, min(10vw, 17vh), 144px);  /* opening statement */
+  --fs-display-lg: clamp(34px, min(5vw, 7.5vh), 64px);   /* chapter titles, pull quotes */
+  --fs-display-md: clamp(24px, min(3vw, 4.5vh), 36px);   /* figures, closing links */
 
   /* Reading measures */
   --measure-body:    60ch;
@@ -174,4 +180,15 @@
   --z-sticky:   20;
   --z-header:   40;
   --z-overlay:  100;
+}
+
+/* Phone hero — the global directive puts hero type at 40px below 768px, where
+   the vw term would otherwise still be computing 56-77px. A step at this
+   breakpoint rather than a taper, matching how the rest of the deck behaves
+   here (columns stack, the chapter row goes vertical, the lede drops to body
+   size); --fs-display-xl is the hero's alone, so nothing else moves. */
+@media (max-width: 767px) {
+  :root {
+    --fs-display-xl: 40px;
+  }
 }

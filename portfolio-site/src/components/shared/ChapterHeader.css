@@ -1,8 +1,11 @@
+/* The header is a fixed cost every static slide pays before its content starts,
+   so its rhythm answers to viewport height: full spacing on a tall window,
+   tightened on a short one. Both terms reach their original values by ~900px. */
 .chapter {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  margin-bottom: var(--space-8);
+  gap: clamp(var(--space-4), 3.5vh, var(--space-6));
+  margin-bottom: clamp(var(--space-6), 7vh, var(--space-8));
 }
 
 /* The chapter's one gold hairline. */
