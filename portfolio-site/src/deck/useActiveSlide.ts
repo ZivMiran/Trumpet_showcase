@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react'
 import { getLenis } from '../components/shared/lenisRegistry'
 import { SLIDES } from './slides'
 
+// The hash is the only authority on entry position. This runs at module
+// evaluation, i.e. before the browser's post-load scroll restoration — set from
+// inside an effect it lands too late, and a reload visibly jumps twice: once to
+// the restored offset, then again to the hash target.
+if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual'
+}
+
 /**
  * Tracks which slide owns the viewport and mirrors it into the URL hash
  * (`#/flow`) so any slide can be deep-linked from an email. replaceState keeps
@@ -13,14 +21,11 @@ export function useActiveSlide(): string {
 
   // Deep-link entry — after first layout so section offsets are real (every
   // image declares width/height, so layout is stable before images load).
-  // scrollRestoration must be manual: the browser's restored position lands
-  // AFTER our jump and would silently win over the hash target.
   useEffect(() => {
     const m = window.location.hash.match(/^#\/([\w-]+)/)
     if (!m) return
     const el = document.getElementById(m[1])
     if (!el) return
-    window.history.scrollRestoration = 'manual'
     requestAnimationFrame(() => {
       const lenis = getLenis()
       if (lenis) lenis.scrollTo(el, { immediate: true })
