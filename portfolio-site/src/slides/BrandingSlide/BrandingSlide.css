@@ -36,7 +36,7 @@
     'mark word  scale scale values';
   gap: var(--space-4);
   height: var(--brand-sheet-h);
-  margin-top: clamp(var(--space-5), 4vh, var(--space-7));
+  margin-top: var(--chapter-gap-below);
 }
 
 .brand__cell {

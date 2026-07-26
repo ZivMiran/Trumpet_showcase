@@ -1,3 +1,9 @@
+/* An exhibit, not prose, opens under the lede — so the header takes the wider
+   of the deck's two gaps, like the two evidence chapters either side of it. */
+.cstudy .chapter {
+  margin-bottom: var(--chapter-gap-exhibit);
+}
+
 /* ---- Stage: the read on the left, the looping prototype on the right ---- */
 .cstudy__stage {
   display: grid;
@@ -101,16 +107,19 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
   counter-reset: step;
 }
 
+/* A step below the brief: these are captions to the clip, not body copy, so the
+   two registers don't compete. It also buys back the ~60px that put this slide
+   over one screen on a 768px window, and holds each beat to a single line. */
 .cstudy__steps-list li {
   counter-increment: step;
   display: flex;
   gap: var(--space-4);
   align-items: baseline;
-  font-size: var(--fs-body);
+  font-size: var(--fs-sm);
   line-height: var(--lh-normal);
   color: var(--text-secondary);
 }

@@ -1,14 +1,8 @@
-/* The grid's own top margin owns the header-to-content gap. */
-.research-slide .chapter {
-  margin-bottom: 0;
-}
-
 /* Two balanced columns: the pains, and the evidence behind them. */
 .research-slide__grid {
   display: grid;
   grid-template-columns: minmax(300px, 5fr) minmax(0, 6fr);
   gap: clamp(var(--space-6), 4.5vw, var(--space-8));
-  margin-top: var(--space-6);
   align-items: start;
 }
 
@@ -161,6 +155,15 @@
   }
 
   .research-slide__quotes {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A 40px figure plus its padding needs ~112px, so three of them stop fitting a
+   phone's column: below this the row would set a min-content wider than the
+   page and the third figure would be clipped away entirely. */
+@media (max-width: 560px) {
+  .research-slide__stats {
     grid-template-columns: 1fr;
   }
 }

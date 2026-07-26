@@ -1,8 +1,3 @@
-/* The bento's own top margin owns the header-to-content spacing. */
-.dsys .chapter {
-  margin-bottom: 0;
-}
-
 /* A 12-column bento. The foundations halve the top row; the live specimens
    take the bottom one in boxes sized to what they actually hold — 4 for the
    232px card, 6 for the button row plus its toggles, 2 for a 3×2 icon plate.
@@ -11,7 +6,6 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--space-4);
-  margin-top: var(--space-6);
 }
 
 .dsys__card {
@@ -376,6 +370,22 @@
   .dsys__card--controls {
     grid-column: span 12;
     order: 1;
+  }
+}
+
+/* Short windows: the bento's air comes out of the cards' own padding before it
+   comes out of the slide's rhythm. 64px back, which is the difference between a
+   laptop seeing the whole system and seeing the bottom row cut in half. The
+   palette is the tall card, so its padding and row gap are the only two levers
+   that move the grid — the swatches and the type specimen keep their size. */
+@media (max-height: 940px) {
+  .dsys__card {
+    padding: var(--space-4) var(--space-5);
+    gap: var(--space-4);
+  }
+
+  .dsys__colors {
+    gap: var(--space-4);
   }
 }
 

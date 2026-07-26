@@ -1,9 +1,14 @@
 /* Shared runway stage — sticky dissolve frame (deck generalization of oseq). */
 
+/* Pinned to the viewport top, so the stage has to make its own clearance for
+   the fixed chrome. Padding a centred box shifts its middle by half that
+   padding, so taking the slide's own top/bottom difference (32px) lands the
+   frame on the same optical centre a static slide's content sits on (+16px). */
 .sseq__sticky {
   position: sticky;
   top: 0;
   min-height: 100svh;
+  padding-top: calc(var(--slide-pad-top) - var(--slide-pad-bottom));
   display: flex;
   align-items: center;
 }

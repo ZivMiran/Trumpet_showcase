@@ -5,14 +5,21 @@
   overflow-x: clip; /* guard against transient horizontal overflow from motion */
 }
 
-/* A static slide is exactly one viewport: content centers vertically, with
-   clearance for the fixed chrome (64px header, progress hairline at bottom). */
+/* Every slide pays the same block padding, whatever its kind: it clears the
+   fixed chrome at the top and leaves a floor at the bottom. Without it on the
+   runways, three of thirteen slides opened with their chapter title tucked
+   under the header bar and ran straight into the next slide's. */
+.slide {
+  padding-block: var(--slide-pad-top) var(--slide-pad-bottom);
+}
+
+/* A static slide is exactly one viewport: content centers vertically in what
+   the padding leaves. */
 .slide--static {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: 76px 44px;
 }
 
 /* Runway slides size themselves — their inner runway sets the scroll length. */

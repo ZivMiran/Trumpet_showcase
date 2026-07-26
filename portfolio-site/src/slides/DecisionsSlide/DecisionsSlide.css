@@ -1,8 +1,15 @@
+/* An exhibit, not prose, opens under the lede — so the header takes the wider
+   of the deck's two gaps. */
+.decisions .chapter {
+  margin-bottom: var(--chapter-gap-exhibit);
+}
+
+/* The chapter header's own margin owns the gap above the first entry; the gap
+   between entries is the runway rhythm the edge-cases slide also uses. */
 .decisions__list {
   display: flex;
   flex-direction: column;
-  gap: clamp(96px, 14vh, 160px);
-  margin-top: var(--space-8);
+  gap: var(--runway-beat-gap);
 }
 
 /* Text leads, evidence follows; alternate sides per entry. */
@@ -101,6 +108,12 @@
 }
 
 @media (max-width: 1023px) {
+  /* Stacked, a beat no longer has to clear the screen it shared with the next
+     one — the same shorter rhythm the edge-cases runway drops to here. */
+  .decisions__list {
+    gap: var(--space-8);
+  }
+
   .decisions__grid,
   .decisions__item--flip .decisions__grid {
     grid-template-columns: 1fr;

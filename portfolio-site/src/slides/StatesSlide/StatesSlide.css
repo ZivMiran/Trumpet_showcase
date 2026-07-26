@@ -9,12 +9,16 @@
   align-items: center;
 }
 
-.states-slide__beat + .states-slide__beat {
-  margin-top: clamp(96px, 14vh, 160px);
+/* An exhibit, not prose, opens under the lede — so the header takes the wider
+   of the deck's two gaps. */
+.states-slide .chapter {
+  margin-bottom: var(--chapter-gap-exhibit);
 }
 
-.states-slide__beat:first-of-type {
-  margin-top: var(--space-8);
+/* Same rhythm the decisions run on. The gap above the first beat is the chapter
+   header's own margin, so it matches every other slide's second beat. */
+.states-slide__beat + .states-slide__beat {
+  margin-top: var(--runway-beat-gap);
 }
 
 .states-slide__beat-text {

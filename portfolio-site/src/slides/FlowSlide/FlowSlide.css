@@ -1,8 +1,9 @@
+/* The column gap owns the header-to-diagram spacing, from the deck's token. */
 .flow-slide {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--space-6);
+  gap: var(--chapter-gap-below);
 }
 
 .flow-slide__head {

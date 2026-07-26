@@ -160,9 +160,29 @@
   --page-gutter: var(--space-6);
   --page-gutter-mobile: var(--space-5);
 
-  /* Chapter rhythm — large breathing room between chapters, dense inside. */
-  --chapter-gap: clamp(140px, 22vh, 260px);
-  --section-py-mobile: 64px;
+  /* Slide block padding — every slide pays the same, static or runway. The top
+     is asymmetric on purpose: it clears the 64px fixed chrome, and the 32px it
+     spends over the bottom is what optically centres a slide's content in the
+     space actually left below the header. */
+  --slide-pad-top:    76px;
+  --slide-pad-bottom: 44px;
+
+  /* The gap between a chapter header and the content it introduces, so a
+     slide's second beat always lands in the same place. Slides that own the
+     gap themselves (a flex `gap`, a figure's `margin-top`) use this value —
+     never a second, hand-picked one stacked on top of the header's own.
+
+     Two values, one rule: prose can start close under its lede, but an exhibit
+     can't. Where the next element is a figure or an annotation tag (the three
+     evidence chapters — 10, 11, 12), the header gets roughly double the gap;
+     without it the tiny caps tag under a display-size lede reads as crowded. */
+  --chapter-gap-below:   clamp(var(--space-6), 4vh, var(--space-7));
+  --chapter-gap-exhibit: clamp(var(--space-7), 7vh, var(--space-8));
+
+  /* Distance between the beats of a runway — the annotated decisions (10) and
+     the edge-case states (12) run on the same rhythm, wide enough that each
+     exhibit arrives alone on screen rather than sharing it with the next. */
+  --runway-beat-gap: clamp(120px, 17vh, 200px);
 
   /* Hairline — the only line weight the page chrome uses. */
   --hairline: 1px solid var(--sub-soft);
@@ -170,9 +190,6 @@
 
   /* Accessibility */
   --touch-target-min: 44px;
-
-  /* Motion primitives shared by the page layer */
-  --entrance-y: 20px; /* fade-in + slight Y-translate (design.md) */
 
   /* z-index scale */
   --z-base:     0;
