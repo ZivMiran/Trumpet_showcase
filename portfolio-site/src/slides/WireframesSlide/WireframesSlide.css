@@ -4,6 +4,17 @@
   justify-content: center;
   gap: var(--space-6);
   width: 100%;
+
+  /* Everything the frame has to share the slide with: the 120px of slide
+     padding, the chapter header, the gap above the track, and the caption
+     with its own gap. The frames are sized from what's left, so they fill
+     the slide's height instead of sitting in the middle of it.
+
+     Budgeted generously on purpose. The header is the variable part — its
+     title scales with viewport height and its lede rewraps with width — so
+     the figure leaves room for a third lede line it usually doesn't need,
+     rather than overflowing the one window size where it does. */
+  --wf-chrome: 400px;
 }
 
 /* The gap below owns the header-to-carousel spacing — drop the chapter's own. */
@@ -22,8 +33,10 @@
   gap: var(--space-6);
   width: max-content;
   padding-inline: var(--space-3);
-  /* Continuous, even drift — slow enough to read the captions as they pass. */
-  animation: wf-drift 60s linear infinite;
+  /* Continuous, even drift — slow enough to read the captions as they pass.
+     The duration tracks the frame size: the frames are ~1.4x wider than they
+     were, so 60s would have sped the drift up by the same factor. */
+  animation: wf-drift 84s linear infinite;
 }
 
 /* Two copies sit end to end; shifting by exactly half is seamless. */
@@ -36,9 +49,16 @@
   }
 }
 
+/* Height-led, not width-led: these are 16:9 screenshots of dense lo-fi
+   layouts, and at the old 540px cap the labels inside them were unreadable.
+   Three caps, and the smallest wins:
+     58vw   — keeps a second frame in shot, so it still reads as a carousel.
+     720px  — past this a frame stops being a specimen and becomes the slide.
+     height — what the slide can actually spare, which is the binding one on a
+              laptop, where the viewport is ~780px tall rather than 900. */
 .wf-frame {
   flex: 0 0 auto;
-  width: min(42vw, 540px);
+  width: min(58vw, 720px, calc((100svh - var(--wf-chrome)) * 16 / 9));
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -95,7 +115,9 @@
 }
 
 @media (max-width: 767px) {
+  /* A phone has no height to spare, so the frame goes back to being sized by
+     width — as wide as the screen allows. */
   .wf-frame {
-    width: min(78vw, 420px);
+    width: min(88vw, 460px);
   }
 }

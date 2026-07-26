@@ -25,13 +25,13 @@ const FRAMES: Frame[] = [
     src: PROCESS.overviewWireframe,
     alt: 'Lo-fi Overview wireframe — insight banner over five KPI cards and a streams chart',
     label: 'Overview',
-    note: 'Answer-first banner, five KPIs — set before any styling.',
+    note: 'Answer-first banner over five KPIs — only “reach” changed, to listeners.',
   },
   {
     src: PROCESS.musicWireframe,
     alt: 'Lo-fi Music wireframe — a “movers this week” row above a sortable catalog table',
     label: 'Music',
-    note: 'Movers surface first — the biggest swings before the full catalog.',
+    note: 'Movers first, the full catalog second — the order never changed.',
   },
   {
     src: PROCESS.trackDrawerWireframe,
@@ -43,7 +43,7 @@ const FRAMES: Frame[] = [
     src: PROCESS.audienceWireframe,
     alt: 'Lo-fi Audience wireframe — a bubble map of listeners with source and city rankings',
     label: 'Audience',
-    note: 'A bubble map ranked cities by size — later cut for a density map.',
+    note: 'A bubble map ranked cities by size — cut later for a density map.',
   },
 ]
 
@@ -57,7 +57,7 @@ export function WireframesSlide() {
         <ChapterHeader
           no="06"
           title="Structure, before style"
-          lede="Every layout decision was made in low fidelity first. The four pages drift slowly past below."
+          lede="Every layout decision was settled in grey boxes first — and most of them survived to the build."
         />
       </div>
 
