@@ -38,8 +38,8 @@ export function ContextSlide() {
           <p>
             Independent artists reading their own numbers, and small-roster
             managers reading five artists&rsquo; numbers at once. Neither is an
-            analyst; both make release decisions weekly, usually from a phone
-            or between sessions.
+            analyst; both make release decisions weekly, usually between
+            sessions.
           </p>
         </Reveal>
       </RevealGroup>
