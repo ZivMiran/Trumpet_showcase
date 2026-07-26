@@ -1,77 +1,219 @@
-.branding-slide__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 6fr) minmax(280px, 5fr);
-  gap: var(--space-8);
-  align-items: center;
-  margin-top: var(--space-7);
+/* 07 — Branding. A composed specimen sheet: one large panel, three small ones,
+   one micro-label each and no body copy. Slide 08 is where the system gets
+   explained, so this slide's only job is to let the artwork sit still and be
+   looked at. */
+
+/* The grid owns the header-to-content gap; stacking it on top of the chapter's
+   own margin costs ~55px on a slide that has to be one screen. */
+.brand .chapter {
+  margin-bottom: 0;
 }
 
-.branding-slide__lockup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-6);
-  padding: var(--space-8);
+/* A full-width band over a row of three specimens. The lockup is 3:1, so it
+   wants a wide panel, not a tall one — hanging it in a tall column left a hole
+   above and below it and starved the small cells of height at the same time.
+   An explicit sheet height makes this a designed composition rather than a
+   stack that happens to end somewhere, and keeps the slide inside one screen. */
+.brand {
+  --brand-sheet-h: clamp(380px, 52vh, 470px);
+  /* Height of one small cell: the free space after the row gap, divided by the
+     1.35fr + 1fr track total. Artwork sizes are derived from this rather than
+     from percentages of the cell, which don't clamp on a centred replaced grid
+     item — the bare mark hung out the bottom of its cell before this. */
+  --brand-cell-h: calc((var(--brand-sheet-h) - var(--space-4)) / 2.35);
+  /* Vertical padding a cell spends on its label and floor. */
+  --brand-cell-py: 48px;
+}
+
+.brand__sheet {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-areas:
+    'hero hero  hero  hero'
+    'mark word  scale scale';
+  gap: var(--space-4);
+  height: var(--brand-sheet-h);
+  margin-top: clamp(var(--space-5), 4vh, var(--space-7));
+}
+
+.brand__cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 0;
+  /* Top padding clears the label; the extra 16px it costs is taken back at the
+     bottom so the artwork still reads as optically centred. */
+  padding: var(--space-6) var(--space-5) var(--space-4);
   border: var(--hairline);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--surface-card) 40%, transparent);
+}
+
+.brand__cell--hero {
+  grid-area: hero;
   background: var(--surface-inset);
 }
 
-.branding-slide__icon {
-  width: clamp(120px, 18vh, 200px);
-  height: auto;
+/* The one atmospheric move on the slide: a barely-there brass wash behind the
+   lockup, the same trick the page canvas already plays. Kept under 8% so it
+   reads as depth rather than as a glow effect. */
+.brand__cell--hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    closest-side at 50% 50%,
+    rgba(227, 181, 58, 0.07),
+    transparent 100%
+  );
 }
 
-.branding-slide__wordmark {
-  width: clamp(140px, 20vh, 230px);
-  height: auto;
+.brand__cell--mark {
+  grid-area: mark;
+}
+.brand__cell--word {
+  grid-area: word;
+}
+.brand__cell--scale {
+  grid-area: scale;
 }
 
-.branding-slide__spec {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
-}
-
-.branding-slide__label {
-  font-size: var(--fs-xs);
+.brand__label {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-5);
+  font-size: 11px;
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-caps);
   text-transform: uppercase;
   color: var(--text-muted);
-  margin-bottom: var(--space-2);
 }
 
-.branding-slide__spec-row p {
-  font-size: var(--fs-body);
-  color: var(--text-secondary);
-  max-width: var(--measure-caption);
+/* Every piece of artwork is sized in viewport units, never in percentages of
+   its cell. A percentage height on a centred replaced grid item does not
+   clamp reliably — the bare mark hung 26px out the bottom of its cell at
+   tablet width before this. The caps below are chosen so the tallest artwork
+   still clears the shortest cell the grid ever produces. */
+.brand__art {
+  position: relative; /* above the hero wash */
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.branding-slide__sizes {
+.brand__art--lockup {
+  width: clamp(280px, 46vw, 560px);
+  height: auto;
+}
+
+/* The bare mark's ink fills only ~62% of its 200x200 box, so it is set larger
+   than a plated form would be to carry the same optical weight. The ink also
+   sits high and right inside that box — its centre is (108.0, 92.1), not
+   (100, 100) — so the element is nudged 4% down and left to put the artwork,
+   rather than its bounding box, in the middle of the cell. */
+.brand__art--mark {
+  width: auto;
+  height: calc((var(--brand-cell-h) - var(--brand-cell-py)) * 0.82);
+  transform: translate(-4%, 4%);
+}
+
+.brand__art--word {
+  width: clamp(130px, 17vw, 200px);
+  height: auto;
+}
+
+/* ---- Scale ---- */
+
+.brand__ramp {
   display: flex;
   align-items: flex-end;
-  gap: var(--space-5);
-  padding-top: var(--space-4);
-  border-top: var(--hairline);
+  justify-content: center;
+  gap: clamp(var(--space-4), 2.5vw, var(--space-6));
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.branding-slide__tile {
+.brand__step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
+}
+
+.brand__step-size {
   font-size: var(--fs-xs);
   color: var(--text-muted);
+  line-height: 1;
 }
 
-.branding-slide__tile img {
-  display: block;
+/* The size the product actually runs. The ring picks up the mark's own corner
+   radius at 32px (48 x 32/200), so it reads as part of the artwork. */
+.brand__step--shipped .brand__step-size {
+  color: var(--accent);
 }
+
+.brand__step--shipped img {
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(227, 181, 58, 0.45);
+}
+
+/* ---- Responsive ---------------------------------------------------------- */
 
 @media (max-width: 900px) {
-  .branding-slide__grid {
+  /* Three rows now, so the divisor changes with them. The 500px floor is not
+     arbitrary: below it the small rows can no longer hold the ramp's 88px of
+     stacked content, and the ramp is the one thing here that must not scale —
+     its whole point is that those tiles are rendered at literal pixel sizes. */
+  .brand {
+    --brand-sheet-h: clamp(500px, 60vh, 560px);
+    --brand-cell-h: calc((var(--brand-sheet-h) - var(--space-4) * 2) / 3.3);
+  }
+
+  /* The ramp needs the full width once the columns halve, so it drops to its
+     own row rather than being squeezed beside the wordmark. */
+  .brand__sheet {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'hero  hero'
+      'mark  word'
+      'scale scale';
+  }
+}
+
+@media (max-width: 560px) {
+  /* One column, and the sheet gives up its fixed height — a phone scrolls, so
+     the cells set their own floor instead of dividing a fixed budget. */
+  .brand {
+    --brand-cell-h: 136px;
+  }
+
+  .brand__sheet {
     grid-template-columns: 1fr;
-    gap: var(--space-6);
+    grid-template-rows: auto;
+    grid-template-areas:
+      'hero'
+      'mark'
+      'word'
+      'scale';
+    height: auto;
+  }
+
+  .brand__cell {
+    min-height: var(--brand-cell-h);
+  }
+
+  .brand__cell--hero {
+    min-height: 180px;
+  }
+
+  /* The ramp is 88px of stacked content — the tallest thing on the sheet once
+     the cells are only one column wide. */
+  .brand__cell--scale {
+    min-height: 152px;
   }
 }
