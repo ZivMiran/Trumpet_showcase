@@ -3,14 +3,13 @@
   margin-bottom: 0;
 }
 
-/* Balanced bento — palette and type share the top row (similar heights);
-   the live component spans the full width below. */
+/* A 12-column bento. The foundations halve the top row; the live specimens
+   take the bottom one in boxes sized to what they actually hold — 4 for the
+   232px card, 6 for the button row plus its toggles, 2 for a 3×2 icon plate.
+   One wide box for all three left a third of the row empty. */
 .dsys__bento {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'palette type'
-    'component component';
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-6);
 }
@@ -19,20 +18,28 @@
   border: var(--hairline);
   border-radius: var(--radius-xl);
   background: color-mix(in srgb, var(--surface-card) 45%, transparent);
-  padding: var(--space-6);
+  /* Tighter than the shelf started out: the components card gained a second
+     specimen, and the slide is a single viewport to spend. */
+  padding: var(--space-5) var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
 }
 
 .dsys__card--palette {
-  grid-area: palette;
+  grid-column: span 6;
 }
 .dsys__card--type {
-  grid-area: type;
+  grid-column: span 6;
 }
 .dsys__card--component {
-  grid-area: component;
+  grid-column: span 4;
+}
+.dsys__card--controls {
+  grid-column: span 6;
+}
+.dsys__card--icons {
+  grid-column: span 2;
 }
 
 .dsys__card-title {
@@ -140,11 +147,31 @@
   color: var(--text-secondary);
 }
 
-/* ---- Component specimen: KPI card + explanatory note ---- */
-.dsys__specimen {
+/* ---- Live specimens: every one rebuilt from the prototype's own CSS ----
+   They fill the box under its title, centred in whatever height the row
+   settles on, so a short box never reads as an empty one. */
+.dsys__specimens {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* One control-height frame per specimen, so a 24px toggle and a 40px button
+   share a centre line and their labels land on the same baseline. */
+.dsys__spec-body {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  min-height: 40px;
+}
+
+/* Separates the buttons from the toggles inside the controls box. */
+.dsys__rule {
+  align-self: stretch;
+  width: 0;
+  margin-inline: var(--space-2);
+  border-left: var(--hairline);
 }
 
 /* The KPI card — values copied verbatim from the prototype's KpiRibbon.css so
@@ -205,23 +232,159 @@
   color: #71757d;
 }
 
-.dsys__specimen-note {
-  font-size: var(--fs-sm);
+/* Every specimen is shown, then named — no prose. The caption is the same
+   caps label the palette roles and type weights use. */
+.dsys__spec {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-3);
+}
+
+.dsys__spec figcaption {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* The buttons themselves — geometry and transitions copied from the
+   prototype's CSS (CompareReleases .compare__metric-btn / .compare__empty-cta,
+   NotificationDropdown .notif-dropdown__see-all) so the specimen behaves like
+   the real control, not a picture of one. Presentational: no <button>, so a
+   dead control never lands in the tab order. */
+.dsys-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 40px;
+  padding: 0 13px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.dsys-btn:active {
+  transform: translateY(1px);
+}
+
+.dsys-btn--primary {
+  background: var(--accent);
+  color: var(--text-on-accent);
+}
+
+.dsys-btn--primary:hover {
+  background: var(--accent-hover);
+}
+
+.dsys-btn--primary:active {
+  background: var(--accent-press);
+}
+
+.dsys-btn--secondary {
+  border-color: var(--border-strong);
+  background: var(--surface-app);
+  color: var(--text-primary);
+}
+
+.dsys-btn--secondary:hover {
+  border-color: #54585f;
+}
+
+.dsys-btn--secondary svg {
+  color: var(--text-muted);
+}
+
+.dsys-btn--ghost {
+  background: transparent;
   color: var(--text-secondary);
-  max-width: 52ch;
+}
+
+.dsys-btn--ghost:hover {
+  background: var(--surface-raised);
+  color: var(--text-primary);
+}
+
+/* ---- Toggle ---- the settings switch at the prototype's geometry
+   (Settings.css .settings-toggle): 42×24 track, 18px knob, 18px of travel. */
+.dsys-toggle {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 42px;
+  height: 24px;
+  border-radius: 14px;
+  background: var(--border-subtle);
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-out);
+}
+
+.dsys-toggle__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: var(--text-muted);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out);
+}
+
+.dsys-toggle--on {
+  background: var(--accent);
+}
+
+.dsys-toggle--on .dsys-toggle__knob {
+  transform: translateX(18px);
+  background: var(--surface-app);
+}
+
+/* ---- Icons ---- one row, one size, one weight. */
+.dsys__icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--text-muted);
+}
+
+.dsys__icon {
+  flex: none;
+}
+
+/* Between the two, the bottom row halves rather than stacking outright:
+   the card and the controls take a row each, icons ride alongside the card. */
+@media (max-width: 1200px) {
+  .dsys__card--component {
+    grid-column: span 8;
+  }
+  .dsys__card--icons {
+    grid-column: span 4;
+  }
+  /* Placed last so the card and the icon plate still share a full row. */
+  .dsys__card--controls {
+    grid-column: span 12;
+    order: 1;
+  }
 }
 
 @media (max-width: 900px) {
-  .dsys__bento {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'palette'
-      'type'
-      'component';
-  }
-
-  .dsys__specimen {
-    flex-direction: column;
-    align-items: flex-start;
+  .dsys__card--palette,
+  .dsys__card--type,
+  .dsys__card--component,
+  .dsys__card--controls,
+  .dsys__card--icons {
+    grid-column: span 12;
   }
 }
