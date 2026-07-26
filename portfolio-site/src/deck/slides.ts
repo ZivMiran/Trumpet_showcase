@@ -36,7 +36,7 @@ export const SLIDES: SlideDef[] = [
   { id: 'context', no: '02', label: 'Context', kind: 'static', Component: ContextSlide },
   { id: 'research', no: '03', label: 'The problem', kind: 'static', Component: ResearchSlide },
   { id: 'journey', no: '04', label: 'User journey', kind: 'static', Component: JourneySlide },
-  { id: 'flow', no: '05', label: 'App flow', kind: 'static', Component: FlowSlide },
+  { id: 'flow', no: '05', label: 'User flow', kind: 'static', Component: FlowSlide },
   { id: 'wireframes', no: '06', label: 'Wireframes', kind: 'static', Component: WireframesSlide },
   { id: 'branding', no: '07', label: 'Branding', kind: 'static', Component: BrandingSlide },
   { id: 'visual-language', no: '08', label: 'Visual language', kind: 'static', Component: VisualLanguageSlide },

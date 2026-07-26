@@ -3,7 +3,7 @@ import { FlowDiagram } from './FlowDiagram'
 import './FlowSlide.css'
 
 /**
- * 06 — App flow. The whole architecture on one static frame: four pages, and
+ * 05 — User flow. The whole architecture on one static frame: four pages, and
  * everything else an overlay on top of them. Pages solid, overlays dashed, and
  * the common path (Overview → Music → Track detail → Compare) in gold.
  */
@@ -13,7 +13,7 @@ export function FlowSlide() {
       <div className="container flow-slide__head">
         <ChapterHeader
           no="05"
-          title="A flat map, one level deep"
+          title="User flow"
           lede="Four pages; everything else an overlay on top. No metric is ever more than two clicks from entry — the answer to “digging through menus.”"
         />
       </div>
