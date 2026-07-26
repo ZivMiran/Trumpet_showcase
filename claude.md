@@ -1,50 +1,89 @@
-# System Prompt for Claude / AI Builder
-**Project:** Trumpet Portfolio Site (Showcase)
-**Goal:** Generate a high-end, one-page case study website.
-**Purpose:** Purely for presenting the 'Trumpet' music dashboard project to potential employers.
+# Trumpet — project instructions
 
-## Global Directives
-- **Responsive First:** All sections MUST explicitly handle mobile layouts. Stack columns vertically on screens < 768px, reduce hero fonts to 40px, and ensure comfortable touch targets (min 44x44px).
-- **Whitespace & Pacing:** Use generous padding (e.g., `py-24` on desktop, `py-16` on mobile) to let the sections breathe. Scrolling should feel like a narrative story.
-- **Accessibility:** Never use Brass Gold (`#e3b53a`) for body text on Charcoal Black (`#16171a`). Keep body text Warm Off-White (`#f0ede5`) for readability. Gold is strictly for accents, borders, and interactive elements.
-- **Narrative Focus:** Every section must be framed through the lens of a **professional case study**. Start with the human/business problem, then show the design/functional solution.
+**What this repo is:** the final presentation of the **Trumpet** music-analytics
+dashboard, made for a UX/UI design course. It is emailed to the lecturer as a
+link and read unattended — nobody presents it live. It is *not* a
+recruiter-facing portfolio site, and not a marketing page. (It began as one; if
+you find copy or a doc comment describing a five-section marketing page with a
+hero and a "Compare with Prior Track" button, that is a v1 artifact — delete it.)
+
+**Layout**
+
+- `portfolio-site/` — the presentation itself. React + Vite, deployed to GitHub
+  Pages on every push to `main` (`.github/workflows/deploy.yml`), base
+  `/Trumpet_showcase/`.
+- `Trumpet_dashboard_source/` — source of the clickable prototype the deck links
+  to. Deployed from its own repo; `node_modules/` and `dist/` are ignored here.
+- `Images/` — the high-resolution source exports (mockups, wireframes,
+  storyboards, screen recordings) the deck's shipped assets are generated from.
 
 ---
 
-## 🟩 Section 1: Hero & Brand Reveal (The Core Identity)
-**Layout:** 50/50 vertical split on desktop, stacked on mobile.
-- **Left side:** A clean typographic stack. 
-  - Headline: "Trumpet: Analytics for Creators, Not Analysts."
-  - Subtitle: "A single, noise-free home for your music data. Transforming spreadsheet fatigue into actionable artist strategy."
-- **Right side:** A beautiful, interactive preview frame displaying the music release dashboard interface. 
-  - **Interaction:** Smoothly expands on hover, casting a soft gold glow overlay (`drop-shadow-lg` with gold tint) onto the background.
+## The deck
 
-## 🟩 Section 2: The Core Chaos vs. The Solution
-**Title:** "01 / The Creator Dilemma"
-**Layout:** 2-column grid. (Mobile: stack left column first, right column second).
-- **Left Column (The Pain Points - Scattered Chaos):** - Highlight the real human research: "Artists and managers are trapped in the Memory Trap, manually aggregating data across 5+ platforms, leading to Excel fatigue and missed opportunities."
-- **Right Column (The Solution - Sleek Containers):** - Highlight the Trumpet value: "Trumpet replaces manual tracking with a unified, cross-platform aggregation engine."
+Thirteen scroll-driven slides. `portfolio-site/src/deck/slides.ts` is the single
+source of slide **order**; the chrome, snap assist, hash links and keyboard
+navigation all derive from it. Each slide passes its own `no` to `ChapterHeader`,
+so reordering means renumbering by hand — in the slide and in its doc comment.
 
-## 🟩 Section 3: Flattening the Hierarchy
-**Title:** "02 / Noise Reduction Architecture"
-**Layout:** Asymmetrical grid.
-- **Left Side:** Sticky explainer card (stays pinned while right side scrolls). 
-  - Title: 'Stop Digging Through Menus'.
-  - Text: 'Analytical tools often hide critical metrics. Trumpet surface-levels release strategy indicators, allowing users to build muscle memory.'
-- **Right Side:** A wireframe grid map of the interface. 
-  - Style: Minimal gold outlines on charcoal, showing the flat navigation structure.
+01 title · 02 context · 03 research · 04 journey · 05 user flow ·
+06 wireframes · 07 branding · 08 design system · 09 screens · 10 solution ·
+11 compare · 12 edge cases · 13 close
 
-## 🟩 Section 4: The Live Interactive Showcase (The Overlay Tool)
-**Title:** "03 / Shifting from Guesswork to Visual Clarity"
-**Layout:** Text left, Interactive widget right.
-- **Context:** 'Showcase the Release Comparison Engine. Artists can overlay previous release benchmarks onto current trendlines to measure performance velocity.'
-- **Widget:** Functional interactive chart. Include a toggle button labeled `[ Compare with Prior Track ]`.
+A slide is `static` (one viewport) or `runway` (taller, scrubbed by scroll).
+Slides 09, 10 and 12 are runways.
 
-## 🟩 Section 5: The Design System Shelf
-**Title:** "04 / The Trumpet Spec Shelf"
-**Layout:** Wrapping horizontal grid row.
-- **Purpose:** Demonstrate visual craft and professional standard compliance.
-- **Elements:**
-  - Color Palette: Circles showing `#16171a`, `#e3b53a`, `#f0ede5`.
-  - Type Stack: Showcase 'Space Grotesk' usage.
-  - UI Component: A sample button and layout widget. Include a label: 'Snappy feedback, high-contrast, studio-optimized.'
+## Voice — the part that is easy to get wrong
+
+Two rounds of feedback shaped it: **emphasize value and challenges solved**, and
+a v2 that was rejected as *"slop, very junior."* Copy that *claims* qualities
+("System Craft", proof cards) or reaches for template patterns reads junior.
+Senior work shows the decision in place and lets the reader conclude.
+
+- Never: icon-card grids, self-praise headlines, particle heroes, fake browser
+  chrome, hover-lift tiles, decorative animation.
+- Always: chapters, annotated figures with a one-line decision note, editorial
+  pull-quotes. One tight line per point.
+- Every claim is backed by something visible on the same slide. The research
+  spine (five numbered pains) is cross-referenced by the journey, the solution
+  and the compare chapters — keep those tags in sync.
+- US spelling throughout ("color", "catalog", "gray").
+
+## Non-negotiables
+
+**Accessibility.** Brass gold `#e3b53a` is for annotation, active states, links
+and one hairline per chapter — **never body text**. Body copy is warm off-white
+`#f0ede5` on charcoal `#16171a`. Touch targets ≥ 44×44px.
+
+**Spacing.** Tokens own slide rhythm, in `src/styles/tokens.css`:
+`--slide-pad-top/bottom` (on `.slide`, both kinds), `--chapter-gap-below` and
+its wider sibling `--chapter-gap-exhibit` (header → content; the exhibit slides
+10–12 use the wider one), and `--runway-beat-gap`. Never hand-pick another value
+or stack one on top of the header's own margin.
+
+**Motion.** Scroll scrub is a plain scroll listener + `getBoundingClientRect` +
+CSS custom properties (`src/lib/ramp.ts`). Framer's `useScroll` is banned for
+scrub — it caches bounds at mount and goes stale. **GSAP is removed; do not
+reintroduce it**, least of all as a rAF ticker. Reduced motion and screens
+≤767px collapse every runway to a static stack.
+
+**Assets.** Design-tool exports are 3456×1944 — far more pixels than any layout
+asks for, and enough decode work to stall a good connection for minutes.
+Everything ships as WebP at display size via `npm run optimize:images`. Screen
+geometry comes from `src/lib/screens.ts` (its constants carry the *ratio*, not
+the file size), and every URL goes through `asset()`. Filenames stay lowercase
+kebab-case: GitHub Pages is case-sensitive, Windows dev is not, and that has
+bitten this project before.
+
+**Responsive.** Columns stack below 768px, hero type drops to 40px, generous
+vertical padding. Slide 04 is the one accepted exception to one-slide-one-screen.
+
+## Working here
+
+- Work on `main`; do not branch. "Commit" means local, "push" means deploy.
+- `npm run build` runs `tsc -b` — it must pass, and `npm run lint` (oxlint) must
+  be clean before pushing, because a push deploys.
+- The browser preview pane runs hidden, so `requestAnimationFrame` never fires
+  there: Lenis, the snap assist, the constellation and in-view video autoplay
+  **cannot** be verified from it. Layout measurement works fine. Verify motion in
+  a real browser.
