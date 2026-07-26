@@ -69,7 +69,7 @@ export function StatesSlide() {
       <div className="container">
         <ChapterHeader
           no="12"
-          title="The states nobody screenshots"
+          title="Edge cases"
           lede="A design proves itself off the happy path — surfaces open, nothing to show, something failed. Three states, two exhibits each."
         />
       </div>
