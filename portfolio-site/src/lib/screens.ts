@@ -1,9 +1,11 @@
 import { asset } from './asset'
 
 /**
- * The final dashboard mockups are all exported at one 16:9 size (3456×1944).
- * Every consumer (sequence frames, decision crops, compare poster) derives its
- * geometry from these constants — never hardcode the dimensions or ratio again.
+ * The final dashboard mockups are all one 16:9 shape. These constants carry
+ * that RATIO, not the file size: the design-tool exports are 3456×1944 and the
+ * shipped WebP is 2048×1152 (see scripts/optimize-images.mjs), but every
+ * consumer — sequence frames, decision crops, the compare poster — only ever
+ * needs the proportion. Never hardcode a dimension or a ratio again.
  */
 export const SCREEN_W = 1920
 export const SCREEN_H = 1080
@@ -16,11 +18,11 @@ export const SCREEN_RATIO = SCREEN_W / SCREEN_H // 1.7778 (16:9)
  * at its real size rather than as a detail lost in a whole page.
  */
 export const SCREENS = {
-  overview: asset('/screens/overview.png'),
-  music: asset('/screens/music.png'),
-  trackDrawer: asset('/screens/track-drawer.png'),
-  audience: asset('/screens/audience.png'),
-  compareEmpty: asset('/screens/compare-empty.png'),
+  overview: asset('/screens/overview.webp'),
+  music: asset('/screens/music.webp'),
+  trackDrawer: asset('/screens/track-drawer.webp'),
+  audience: asset('/screens/audience.webp'),
+  compareEmpty: asset('/screens/compare-empty.webp'),
 } as const
 
 /**
@@ -29,10 +31,10 @@ export const SCREENS = {
  * dims to the crop math instead of the global SCREEN_* constants.
  */
 export const DETAILS = {
-  insightBanner: { src: asset('/screens/detail-insight-banner.png'), w: 2346, h: 266 },
-  artistSwitch: { src: asset('/screens/detail-artist-switch.png'), w: 632, h: 772 },
-  notificationFlyout: { src: asset('/screens/detail-notification-flyout.png'), w: 824, h: 1418 },
-  searchEmpty: { src: asset('/screens/detail-search-empty.png'), w: 506, h: 126 },
+  insightBanner: { src: asset('/screens/detail-insight-banner.webp'), w: 2346, h: 266 },
+  artistSwitch: { src: asset('/screens/detail-artist-switch.webp'), w: 632, h: 772 },
+  notificationFlyout: { src: asset('/screens/detail-notification-flyout.webp'), w: 824, h: 1418 },
+  searchEmpty: { src: asset('/screens/detail-search-empty.webp'), w: 506, h: 126 },
 } as const
 
 /** The Compare empty-state export is 2042×1282 (≈1.59:1), not the 16:9 ratio. */
@@ -40,8 +42,8 @@ export const COMPARE_EMPTY_W = 2042
 export const COMPARE_EMPTY_H = 1282
 
 export const PROCESS = {
-  overviewWireframe: asset('/process/overview-wireframe.png'),
-  musicWireframe: asset('/process/music-wireframe.png'),
-  trackDrawerWireframe: asset('/process/track-drawer-wireframe.png'),
-  audienceWireframe: asset('/process/audience-wireframe.png'),
+  overviewWireframe: asset('/process/overview-wireframe.webp'),
+  musicWireframe: asset('/process/music-wireframe.webp'),
+  trackDrawerWireframe: asset('/process/track-drawer-wireframe.webp'),
+  audienceWireframe: asset('/process/audience-wireframe.webp'),
 } as const

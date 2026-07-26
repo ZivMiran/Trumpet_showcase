@@ -189,7 +189,12 @@ export function SlideSequence({
                 alt={i === active ? f.alt : ''}
                 width={f.width}
                 height={f.height}
-                loading="eager"
+                /* Every layer stacks in the same box, so `lazy` defers them all
+                   to when the runway nears the viewport, then loads them
+                   together — instead of spending the reader's first seconds on
+                   slide 01 fetching screens they reach four slides later. The
+                   first layer stays eager: it is what the runway opens on. */
+                loading={i === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 fetchPriority={i === 0 ? 'high' : 'auto'}
               />

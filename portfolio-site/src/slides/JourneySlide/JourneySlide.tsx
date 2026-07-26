@@ -11,8 +11,10 @@ import './JourneySlide.css'
  * artist's own illustrations; the last two frames of each arc are where
  * Trumpet enters (marked in gold).
  */
-const STORY_W = 1200
-const STORY_H = 896
+/** The shipped frame size (see scripts/optimize-images.mjs); the ratio is what
+ *  the layout actually uses — .journey-slide__img sets the same one in CSS. */
+const STORY_W = 1000
+const STORY_H = 746
 
 type Frame = { src: string; text: string; alt: string; trumpet?: boolean }
 type Story = {
@@ -30,23 +32,23 @@ const STORIES: Story[] = [
     pain: '03',
     frames: [
       {
-        src: '/story/story-1-1.jpg',
+        src: '/story/story-1-1.webp',
         text: 'Maya hops between five apps just to see how her music is doing.',
         alt: 'Maya looks overwhelmed at a screen crowded with separate Spotify, YouTube and search windows, cursors darting between them.',
       },
       {
-        src: '/story/story-1-2.jpg',
+        src: '/story/story-1-2.webp',
         text: 'Hours vanish gathering and cross-checking the numbers by hand.',
         alt: 'Maya buried in manual data-gathering, copying figures between windows and a spreadsheet.',
       },
       {
-        src: '/story/story-1-3.jpg',
+        src: '/story/story-1-3.webp',
         text: 'With Trumpet, every channel lands in one real-time view.',
         alt: 'Maya smiling at a single unified dashboard showing one upward trend chart.',
         trumpet: true,
       },
       {
-        src: '/story/story-1-4.jpg',
+        src: '/story/story-1-4.webp',
         text: 'An instant, clear picture — time and headspace back for the music.',
         alt: 'Maya relaxed and confident, free to focus on creating and promoting her music.',
         trumpet: true,
@@ -59,23 +61,23 @@ const STORIES: Story[] = [
     pain: '05',
     frames: [
       {
-        src: '/story/story-2-1.jpg',
+        src: '/story/story-2-1.webp',
         text: 'Ori wants to know how his new release stacks up against the last.',
         alt: 'Ori at his studio desk wondering how his new release compares with his previous one.',
       },
       {
-        src: '/story/story-2-2.jpg',
+        src: '/story/story-2-2.webp',
         text: 'He compares by hand, from memory — the patterns stay hidden.',
         alt: 'Ori comparing track numbers manually, relying on memory, unsure of the trend.',
       },
       {
-        src: '/story/story-2-3.jpg',
+        src: '/story/story-2-3.webp',
         text: 'With Trumpet, he stacks releases side by side for a direct read.',
         alt: 'Ori pleased, viewing a Trumpet dashboard comparing “Last Single” at 300 streams and “New Song” at 7,500 streams side by side.',
         trumpet: true,
       },
       {
-        src: '/story/story-2-4.jpg',
+        src: '/story/story-2-4.webp',
         text: 'Clear insight over guesswork — tangible proof of what worked.',
         alt: 'Ori confident, reading a clear side-by-side comparison of his releases.',
         trumpet: true,

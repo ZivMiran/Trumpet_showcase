@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "encode:video": "node scripts/encode-video.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@types/three": "^0.185.0",

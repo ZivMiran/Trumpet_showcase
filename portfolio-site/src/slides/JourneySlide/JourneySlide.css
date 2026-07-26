@@ -73,7 +73,7 @@
 
 .journey-slide__img {
   position: relative;
-  aspect-ratio: 1200 / 896;
+  aspect-ratio: 1000 / 746;
   border: var(--hairline);
   border-radius: var(--radius-lg);
   overflow: hidden;
