@@ -5,7 +5,7 @@ import './FlowDiagram.css'
  * (Trumpet_dashboard_source/src): a persistent sidebar + header, four pages,
  * and the overlay layer of drawers/modals/popovers. Inline SVG so every
  * color is a design token. Visual grammar: solid = page, dashed = overlay,
- * gold = the primary path Overview → Music → Track detail → Compare.
+ * gold = the common path Overview → Music → Track detail → Compare.
  *
  * The overlay layer's opacity is driven by the slide's scroll progress via
  * --flow-overlays (set on a parent by FlowSlide).
@@ -96,7 +96,7 @@ export function FlowDiagram() {
       <Edge d="M 240,345 C 290,350 300,404 335,408" />
       <Edge d="M 240,362 C 300,372 300,530 335,538" />
 
-      {/* Primary path spine (gold): Overview → Music */}
+      {/* Common path spine (gold): Overview → Music */}
       <Edge d="M 415,176 V 245" gold />
 
       {/* ---- Overlay layer (revealed on scroll) ---- */}

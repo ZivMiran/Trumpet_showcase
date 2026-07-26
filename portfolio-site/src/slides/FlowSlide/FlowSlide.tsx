@@ -5,7 +5,7 @@ import './FlowSlide.css'
 /**
  * 06 — App flow. The whole architecture on one static frame: four pages, and
  * everything else an overlay on top of them. Pages solid, overlays dashed, and
- * the primary path (Overview → Music → Track detail → Compare) in gold.
+ * the common path (Overview → Music → Track detail → Compare) in gold.
  */
 export function FlowSlide() {
   return (
@@ -23,7 +23,7 @@ export function FlowSlide() {
         <p className="flow-slide__legend">
           <span className="flow-slide__key flow-slide__key--page">Page</span>
           <span className="flow-slide__key flow-slide__key--overlay">Overlay</span>
-          <span className="flow-slide__key flow-slide__key--gold">The compare path</span>
+          <span className="flow-slide__key flow-slide__key--gold">The common path</span>
         </p>
       </div>
     </div>

@@ -57,12 +57,14 @@
   opacity: 0.6;
 }
 
-/* The gold path reads as a single bright thread, with a soft glow. */
+/* The common path reads as a single bright thread — weight and full opacity
+   carry it against the quiet grey edges. No glow: the page layer's only
+   effects are the shadow tokens, and a coloured drop-shadow is neither one of
+   them nor something the product UI does. */
 .flowd__edge--gold {
   stroke: var(--accent);
   stroke-width: 3;
   opacity: 1;
-  filter: drop-shadow(0 0 4px rgba(227, 181, 58, 0.45));
 }
 
 .flowd__arrowhead {
