@@ -49,7 +49,7 @@ type Decision = {
 const DECISIONS: Decision[] = [
   {
     id: 'decision-sentence',
-    pain: { no: '01', name: 'Overwhelm over simplicity' },
+    pain: { no: '01', name: 'Cognitive overload' },
     headline: 'Open with a sentence, not a chart',
     line: 'Dense tables ask the artist to find the story. The insight banner states it in one line of plain language, and the chart underneath turns into the proof rather than the puzzle.',
     src: DETAILS.insightBanner.src,
@@ -77,7 +77,7 @@ const DECISIONS: Decision[] = [
     id: 'decision-metrics',
     pain: { no: '03', name: 'App-hopping' },
     headline: 'Switch the question, not the app',
-    line: 'Streams, listeners, saves, followers; a day out to a lifetime. Every combination redraws in place on the same axis — no second tab, no export, nothing left to stitch together afterwards.',
+    line: 'Five dashboards, five logins, one spreadsheet to reconcile them. Here every platform already lands in one chart, and every question — streams or saves, a day or a lifetime — redraws it in place, with nothing left to export and stitch together.',
     src: asset('/video/solution-metrics-poster.jpg'),
     video: asset('/video/solution-metrics.mp4'),
     srcW: 3456,

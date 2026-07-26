@@ -5,8 +5,9 @@ import './JourneySlide.css'
 
 /**
  * 04 — User journey. Two storyboards from the field study, each a four-frame
- * arc from frustration to resolution: Maya (the app-hopper) and Ori (comparing
- * from memory) — the two pains the app most directly answers. Frames are the
+ * arc from frustration to resolution: Maya (pain 03, app-hopping) and Ori
+ * (pain 05, comparing from memory) — the two pains the app most directly
+ * answers, tagged so the spine from slide 03 stays visible. Frames are the
  * artist's own illustrations; the last two frames of each arc are where
  * Trumpet enters (marked in gold).
  */
@@ -14,12 +15,19 @@ const STORY_W = 1200
 const STORY_H = 896
 
 type Frame = { src: string; text: string; alt: string; trumpet?: boolean }
-type Story = { who: string; friction: string; frames: Frame[] }
+type Story = {
+  who: string
+  friction: string
+  /** The research pain (slide 03) this arc dramatises — same tag as slides 10 and 11. */
+  pain: string
+  frames: Frame[]
+}
 
 const STORIES: Story[] = [
   {
     who: 'Maya',
     friction: 'Five apps, no overview',
+    pain: '03',
     frames: [
       {
         src: '/story/story-1-1.jpg',
@@ -48,6 +56,7 @@ const STORIES: Story[] = [
   {
     who: 'Ori',
     friction: 'Comparing from memory',
+    pain: '05',
     frames: [
       {
         src: '/story/story-2-1.jpg',
@@ -91,6 +100,7 @@ export function JourneySlide() {
           <div className="journey-slide__story-head">
             <h3 className="journey-slide__who">{story.who}</h3>
             <span className="journey-slide__friction">{story.friction}</span>
+            <span className="journey-slide__pain tnum">Pain {story.pain}</span>
           </div>
 
           <RevealGroup className="journey-slide__frames" stagger={0.06} amount={0.2}>
@@ -111,7 +121,9 @@ export function JourneySlide() {
                   />
                 </div>
                 <figcaption className="journey-slide__cap">
-                  <span className="journey-slide__cap-no tnum">{i + 1}</span>
+                  <span className="journey-slide__cap-no tnum">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                   {f.text}
                 </figcaption>
               </Reveal>

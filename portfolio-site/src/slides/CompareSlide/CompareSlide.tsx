@@ -30,10 +30,10 @@ const VIDEO_RATIO = '1440 / 810'
  */
 const BEATS = [
   'Compare opens on the track itself — nothing to assemble first.',
-  'One field adds the benchmark: any release in the catalogue.',
+  'One field adds the benchmark: any release in the catalog.',
   'Both curves restart at their own day one.',
-  'Four verdicts stack beside them: first week, peak, average, lifetime.',
-  'Metric and range still switch underneath; every number recomputes.',
+  'Four verdicts: first week, peak, average, lifetime.',
+  'Metric and range still switch; every number recomputes.',
 ]
 
 export function CompareSlide() {

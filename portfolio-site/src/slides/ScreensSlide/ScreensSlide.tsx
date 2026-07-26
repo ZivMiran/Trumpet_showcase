@@ -3,7 +3,7 @@ import { SlideSequence, type SeqFrame } from '../shared/SlideSequence'
 import { SCREENS, SCREEN_W, SCREEN_H } from '../../lib/screens'
 
 /**
- * 13 — The screens. The polished happy path, ordered as a use story: the
+ * 09 — The screens. The polished happy path, ordered as a use story: the
  * daily check-in, the catalog, one track opened, the audience behind it.
  * Scroll dissolves one screen into the next through a single frame.
  */

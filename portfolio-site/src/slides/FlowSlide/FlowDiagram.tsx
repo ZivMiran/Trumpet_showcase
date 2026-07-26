@@ -7,8 +7,9 @@ import './FlowDiagram.css'
  * color is a design token. Visual grammar: solid = page, dashed = overlay,
  * gold = the common path Overview → Music → Track detail → Compare.
  *
- * The overlay layer's opacity is driven by the slide's scroll progress via
- * --flow-overlays (set on a parent by FlowSlide).
+ * Static: the whole architecture is shown at once, overlays included. (It was
+ * once a scroll reveal — hence the layer grouping, which now just carries the
+ * dashed treatment.)
  */
 
 const NODE_W = 150

@@ -3,7 +3,7 @@ import { PROCESS, SCREEN_W, SCREEN_H } from '../../lib/screens'
 import './WireframesSlide.css'
 
 /**
- * 07 — Wireframes. The lo-fi passes, shown as a slow auto-scrolling carousel
+ * 06 — Wireframes. The lo-fi passes, shown as a slow auto-scrolling carousel
  * that drifts the pages across the screen (no scroll hijack — the deck scrolls
  * normally past it). Each page is shown whole — full screenshot, sidebar and
  * all. The drift is slow and continuous so captions stay readable as they
@@ -57,7 +57,7 @@ export function WireframesSlide() {
         <ChapterHeader
           no="06"
           title="Structure, before style"
-          lede="Every layout decision was settled in grey boxes first — and most of them survived to the build."
+          lede="Every layout decision was settled in gray boxes first — and most of them survived to the build."
         />
       </div>
 

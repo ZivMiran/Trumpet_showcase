@@ -11,7 +11,7 @@ import './ResearchSlide.css'
  */
 const PAINS = [
   {
-    name: 'Overwhelm over simplicity',
+    name: 'Cognitive overload',
     line: 'Dense text and dry tables intimidate more than they inform.',
   },
   {

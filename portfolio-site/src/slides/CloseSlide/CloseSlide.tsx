@@ -4,7 +4,7 @@ import './CloseSlide.css'
 const DASHBOARD_URL = 'https://zivmiran.github.io/Trumpet_dashboard_prototype/'
 
 /**
- * 17 — Close. The quiet ending, with the payoff up front: everything shown
+ * 13 — Close. The quiet ending, with the payoff up front: everything shown
  * here runs — the live prototype link is the dominant element.
  */
 export function CloseSlide() {

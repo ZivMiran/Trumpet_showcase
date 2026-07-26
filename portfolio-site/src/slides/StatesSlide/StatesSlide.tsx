@@ -32,7 +32,11 @@ const CheckIcon = () => (
   </svg>
 )
 
-/** A transient toast, built from the app's tokens. Presentational only. */
+/**
+ * A transient toast, built from the app's tokens. Presentational only — this is
+ * an exhibit of a toast, not a live one, so it carries no alert/status role: a
+ * screen reader would otherwise announce both specimens as they scrolled past.
+ */
 function Toast({
   tone,
   icon,
@@ -47,7 +51,7 @@ function Toast({
   action: string
 }) {
   return (
-    <div className={`toast toast--${tone}`} role={tone === 'error' ? 'alert' : 'status'}>
+    <div className={`toast toast--${tone}`}>
       <span className="toast__icon" aria-hidden="true">
         {icon}
       </span>
@@ -135,7 +139,7 @@ export function StatesSlide() {
           <figure className="states-slide__empty states-slide__empty--strip">
             <img
               src={DETAILS.searchEmpty.src}
-              alt="The catalogue search field with “paranoid android” typed, and one line below it: no matches for “paranoid android”"
+              alt="The catalog search field with “paranoid android” typed, and one line below it: no matches for “paranoid android”"
               width={DETAILS.searchEmpty.w}
               height={DETAILS.searchEmpty.h}
               loading="lazy"
@@ -153,7 +157,7 @@ export function StatesSlide() {
           <h3 className="states-slide__headline">Failure and success, one anatomy</h3>
           <p className="states-slide__line">
             A status icon, a plain-language line, a single action, a dismiss
-            timer. Only the colour and the verb change, so the pattern is
+            timer. Only the color and the verb change, so the pattern is
             learned once.
           </p>
         </Reveal>

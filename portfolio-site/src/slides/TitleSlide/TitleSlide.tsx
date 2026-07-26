@@ -75,7 +75,7 @@ export function TitleSlide() {
             </div>
             <div>
               <dt>Scope</dt>
-              <dd>4 screens, one design system</dd>
+              <dd>4 pages, 8 overlays, one design system</dd>
             </div>
             <div>
               <dt>Deliverable</dt>

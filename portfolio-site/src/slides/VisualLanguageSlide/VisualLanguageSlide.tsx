@@ -3,12 +3,13 @@ import { ChapterHeader } from '../../components/shared/ChapterHeader'
 import './dsys.css'
 
 /**
- * 09 — Visual language. The whole design system as a 2×2 bento: palette and
- * type on top, then the two things every screen is assembled from — the
- * Overview KPI card and the button family. Both specimens are rebuilt from the
- * prototype's own CSS (Trumpet_dashboard_source: KpiRibbon, CompareReleases,
- * NotificationDropdown), not captured, so they are live and exact. Values
- * otherwise mirror src/styles/tokens.css.
+ * 08 — Design system. The whole system as a bento: the foundations across the
+ * top (palette, type), then what every screen is assembled from along the
+ * bottom (the Overview KPI card, the control family, the icon set). Every
+ * specimen is rebuilt from the prototype's own CSS (Trumpet_dashboard_source:
+ * KpiRibbon, CompareReleases, NotificationDropdown, Settings, components/icons)
+ * rather than captured, so it is live and exact. Values otherwise mirror
+ * src/styles/tokens.css.
  */
 const COLORS = [
   {
@@ -142,7 +143,7 @@ export function VisualLanguageSlide() {
       <ChapterHeader
         no="08"
         title="Design system"
-        lede="One typeface, three colors, one component logic — the same tokens across the dashboard, the prototype, and this deck."
+        lede="One typeface, three colors, one component logic — shared by the prototype and this presentation."
       />
 
       <Reveal standalone className="dsys__bento" amount={0.25}>

@@ -14,14 +14,17 @@ import { StatesSlide } from '../slides/StatesSlide/StatesSlide'
 import { CloseSlide } from '../slides/CloseSlide/CloseSlide'
 
 /**
- * The deck registry — single source of truth for slide order. The chrome
+ * The deck registry — single source of truth for slide ORDER. The chrome
  * (counter, progress, index overlay), snap stops, hash deep-links and keyboard
- * navigation all derive from this list; slide components never know their own
- * position.
+ * navigation all derive from this list.
+ *
+ * The one thing it does not own is the numeral printed on the slide: each slide
+ * passes its own `no` to ChapterHeader. Reorder anything here and those have to
+ * be renumbered by hand, in the slide and in its doc comment.
  *
  * `kind` decides the shell: a `static` slide is one full viewport; a `runway`
  * slide is taller than the viewport and scrubs its beats with scroll (the
- * ScreenSequence/CompareStudy pattern — scrolling back replays in reverse).
+ * SlideSequence pattern — scrolling back replays in reverse).
  */
 export type SlideDef = {
   id: string
@@ -39,7 +42,7 @@ export const SLIDES: SlideDef[] = [
   { id: 'flow', no: '05', label: 'User flow', kind: 'static', Component: FlowSlide },
   { id: 'wireframes', no: '06', label: 'Wireframes', kind: 'static', Component: WireframesSlide },
   { id: 'branding', no: '07', label: 'Branding', kind: 'static', Component: BrandingSlide },
-  { id: 'visual-language', no: '08', label: 'Visual language', kind: 'static', Component: VisualLanguageSlide },
+  { id: 'visual-language', no: '08', label: 'Design system', kind: 'static', Component: VisualLanguageSlide },
   { id: 'screens', no: '09', label: 'The screens', kind: 'runway', Component: ScreensSlide },
   { id: 'decisions', no: '10', label: 'The solution', kind: 'runway', Component: DecisionsSlide },
   { id: 'compare', no: '11', label: 'Compare', kind: 'static', Component: CompareSlide },
