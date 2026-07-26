@@ -25,16 +25,64 @@
   order: 1;
 }
 
+/* Evidence too wide for a column (the ~9:1 insight banner) takes the full
+   width with the text stacked above it. The text then splits left/right so it
+   spans the same measure as the figure instead of stranding one narrow column
+   under it. */
+.decisions__item--wide .decisions__grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+.decisions__item--wide .decisions__text {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-areas:
+    'pain line'
+    'headline line';
+  column-gap: var(--space-8);
+  row-gap: var(--space-3);
+  align-items: end;
+}
+
+.decisions__item--wide .decisions__pain {
+  grid-area: pain;
+  align-self: start;
+}
+
+.decisions__item--wide .decisions__headline {
+  grid-area: headline;
+}
+
+.decisions__item--wide .decisions__line {
+  grid-area: line;
+  max-width: 52ch;
+}
+
 .decisions__text {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
-.decisions__no {
+/* The pain this decision closes, leading the block — the slide's argument. */
+.decisions__pain {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+}
+
+.decisions__pain-no {
   color: var(--text-muted);
+}
+
+.decisions__pain-name {
+  color: var(--accent);
 }
 
 .decisions__headline {
@@ -52,48 +100,6 @@
   max-width: var(--measure-caption);
 }
 
-/* Ties the decision to the research pain it closes. */
-.decisions__answers {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  margin-top: var(--space-1);
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
-}
-
-.decisions__answers-label {
-  text-transform: uppercase;
-  letter-spacing: var(--ls-caps);
-  color: var(--text-muted);
-}
-
-.decisions__answers-pain {
-  color: var(--accent);
-}
-
-/* The full screen, present but not the point. */
-.decisions__context {
-  margin: var(--space-3) 0 0;
-  max-width: 280px;
-}
-
-.decisions__context img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: var(--hairline);
-  border-radius: var(--radius-sm);
-  opacity: 0.55;
-}
-
-.decisions__context figcaption {
-  margin-top: var(--space-2);
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
-  color: var(--text-muted);
-}
-
 @media (max-width: 1023px) {
   .decisions__grid,
   .decisions__item--flip .decisions__grid {
@@ -109,9 +115,8 @@
     order: 2;
   }
 
-  /* On one column the crop is the star; the context thumb sits after the text
-     but stays small. */
-  .decisions__context {
-    max-width: 220px;
+  /* One column: the wide beat reads as a plain stack like the rest. */
+  .decisions__item--wide .decisions__text {
+    display: flex;
   }
 }
