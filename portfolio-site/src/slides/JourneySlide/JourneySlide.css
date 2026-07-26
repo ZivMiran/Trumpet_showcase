@@ -104,11 +104,6 @@
   object-fit: cover;
 }
 
-/* The resolution frames carry a quiet gold top edge — where Trumpet enters. */
-.journey-slide__frame--trumpet .journey-slide__img {
-  border-top: 2px solid var(--accent);
-}
-
 .journey-slide__cap {
   display: flex;
   gap: var(--space-3);
@@ -123,10 +118,6 @@
   letter-spacing: var(--ls-wide);
   color: var(--text-muted);
   padding-top: 0.15em;
-}
-
-.journey-slide__frame--trumpet .journey-slide__cap-no {
-  color: var(--accent);
 }
 
 @media (max-width: 900px) {

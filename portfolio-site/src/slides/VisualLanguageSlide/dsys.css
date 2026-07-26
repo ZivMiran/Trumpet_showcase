@@ -152,6 +152,14 @@
   gap: var(--space-4);
 }
 
+/* The KPI card is a fixed 232px — the product's own width, not something to
+   stretch — so in a box wider than that it centres rather than sitting left
+   with the remainder as a void. The control and icon boxes hold rows of
+   several specimens, which read better packed from the left. */
+.dsys__card--component .dsys__specimens {
+  justify-content: center;
+}
+
 /* One control-height frame per specimen, so a 24px toggle and a 40px button
    share a centre line and their labels land on the same baseline. */
 .dsys__spec-body {

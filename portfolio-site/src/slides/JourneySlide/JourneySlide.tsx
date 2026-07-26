@@ -8,15 +8,15 @@ import './JourneySlide.css'
  * arc from frustration to resolution: Maya (pain 03, app-hopping) and Ori
  * (pain 05, comparing from memory) — the two pains the app most directly
  * answers, tagged so the spine from slide 03 stays visible. Frames are the
- * artist's own illustrations; the last two frames of each arc are where
- * Trumpet enters (marked in gold).
+ * artist's own illustrations, and each arc turns at frame 03, where Trumpet
+ * enters — the captions carry that, so the frames need no marking.
  */
 /** The shipped frame size (see scripts/optimize-images.mjs); the ratio is what
  *  the layout actually uses — .journey-slide__img sets the same one in CSS. */
 const STORY_W = 1000
 const STORY_H = 746
 
-type Frame = { src: string; text: string; alt: string; trumpet?: boolean }
+type Frame = { src: string; text: string; alt: string }
 type Story = {
   who: string
   /** One line of context — the deck's two audiences, one arc each. */
@@ -48,13 +48,11 @@ const STORIES: Story[] = [
         src: '/story/story-1-3.webp',
         text: 'With Trumpet, every channel lands in one real-time view.',
         alt: 'Maya smiling at a single unified dashboard showing one upward trend chart.',
-        trumpet: true,
       },
       {
         src: '/story/story-1-4.webp',
         text: 'An instant, clear picture — time and headspace back for her roster.',
         alt: 'Maya relaxed and confident, free to focus on creating and promoting her music.',
-        trumpet: true,
       },
     ],
   },
@@ -78,13 +76,11 @@ const STORIES: Story[] = [
         src: '/story/story-2-3.webp',
         text: 'With Trumpet, he stacks releases side by side for a direct read.',
         alt: 'Ori pleased, viewing a Trumpet dashboard comparing “Last Single” at 300 streams and “New Song” at 7,500 streams side by side.',
-        trumpet: true,
       },
       {
         src: '/story/story-2-4.webp',
         text: 'Clear insight over guesswork — tangible proof of what worked.',
         alt: 'Ori confident, reading a clear side-by-side comparison of his releases.',
-        trumpet: true,
       },
     ],
   },
@@ -114,11 +110,7 @@ export function JourneySlide() {
 
           <RevealGroup className="journey-slide__frames" stagger={0.06} amount={0.2}>
             {story.frames.map((f, i) => (
-              <Reveal
-                as="figure"
-                className={`journey-slide__frame${f.trumpet ? ' journey-slide__frame--trumpet' : ''}`}
-                key={f.src}
-              >
+              <Reveal as="figure" className="journey-slide__frame" key={f.src}>
                 <div className="journey-slide__img">
                   <img
                     src={asset(f.src)}
