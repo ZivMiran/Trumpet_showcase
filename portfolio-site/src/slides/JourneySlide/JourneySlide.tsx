@@ -19,6 +19,8 @@ const STORY_H = 746
 type Frame = { src: string; text: string; alt: string; trumpet?: boolean }
 type Story = {
   who: string
+  /** One line of context — the deck's two audiences, one arc each. */
+  persona: string
   friction: string
   /** The research pain (slide 03) this arc dramatises — same tag as slides 10 and 11. */
   pain: string
@@ -28,12 +30,13 @@ type Story = {
 const STORIES: Story[] = [
   {
     who: 'Maya',
+    persona: 'Manager, five-artist roster — she reads all five every week.',
     friction: 'Five apps, no overview',
     pain: '03',
     frames: [
       {
         src: '/story/story-1-1.webp',
-        text: 'Maya hops between five apps just to see how her music is doing.',
+        text: 'Maya hops between five apps to see how her artists are doing.',
         alt: 'Maya looks overwhelmed at a screen crowded with separate Spotify, YouTube and search windows, cursors darting between them.',
       },
       {
@@ -49,7 +52,7 @@ const STORIES: Story[] = [
       },
       {
         src: '/story/story-1-4.webp',
-        text: 'An instant, clear picture — time and headspace back for the music.',
+        text: 'An instant, clear picture — time and headspace back for her roster.',
         alt: 'Maya relaxed and confident, free to focus on creating and promoting her music.',
         trumpet: true,
       },
@@ -57,6 +60,7 @@ const STORIES: Story[] = [
   },
   {
     who: 'Ori',
+    persona: 'Independent artist — no label behind him, and no analyst.',
     friction: 'Comparing from memory',
     pain: '05',
     frames: [
@@ -100,9 +104,12 @@ export function JourneySlide() {
       {STORIES.map((story) => (
         <section className="journey-slide__story" key={story.who}>
           <div className="journey-slide__story-head">
-            <h3 className="journey-slide__who">{story.who}</h3>
-            <span className="journey-slide__friction">{story.friction}</span>
-            <span className="journey-slide__pain tnum">Pain {story.pain}</span>
+            <div className="journey-slide__story-id">
+              <h3 className="journey-slide__who">{story.who}</h3>
+              <span className="journey-slide__friction">{story.friction}</span>
+              <span className="journey-slide__pain tnum">Pain {story.pain}</span>
+            </div>
+            <p className="journey-slide__persona">{story.persona}</p>
           </div>
 
           <RevealGroup className="journey-slide__frames" stagger={0.06} amount={0.2}>

@@ -22,15 +22,33 @@
   gap: var(--space-4);
 }
 
+/* The head is two lines sharing one hairline: the identity row, then the line
+   of persona context under it. Keeping the sentence inside the block rather
+   than floating it above the frames costs the slide one line instead of a line
+   plus a gap — this is the one slide with no height to spare. */
+.journey-slide__story-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--hairline);
+}
+
 /* Name, friction, pain tag — one row wherever there's room for three, wrapping
    rather than crushing the friction phrase on a narrow phone. */
-.journey-slide__story-head {
+.journey-slide__story-id {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--space-2) var(--space-4);
-  padding-bottom: var(--space-3);
-  border-bottom: var(--hairline);
+}
+
+/* Who they are, in one sentence — the only prose on the slide that isn't a
+   frame caption, so it sits a register below the name and level with them. */
+.journey-slide__persona {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
 }
 
 .journey-slide__who {
