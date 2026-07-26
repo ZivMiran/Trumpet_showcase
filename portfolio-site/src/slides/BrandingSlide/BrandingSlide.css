@@ -35,7 +35,12 @@
     'hero hero  hero  hero  values'
     'mark word  scale scale values';
   gap: var(--space-4);
-  height: var(--brand-sheet-h);
+  /* min-, never a hard height. The artwork cells can absorb a short sheet, but
+     the values column is text: on a narrow-ish laptop the last line wraps and
+     a fixed height pushed it out through the bottom of its card. The token is
+     the composition's intended height, so it still gets it whenever the words
+     fit — it just stops being a lid. */
+  min-height: var(--brand-sheet-h);
   margin-top: var(--chapter-gap-below);
 }
 

@@ -36,7 +36,13 @@
 .title-slide__title {
   font-size: var(--fs-display-xl);
   font-weight: var(--fw-medium);
-  line-height: 1.02; /* slight breathing room so the mask never clips glyphs */
+  /* The mask clips to this line box, so the box has to contain the ink, not
+     just the em — and at the 1.02 this used to be, the p in "Trumpet", the
+     first word of the deck, lost the bottom 4px of its tail at every size.
+     Space Grotesk's metrics put the floor at ascent − descent + 2 × ink
+     descent = 0.980 − 0.289 + 2 × 0.206 = 1.104em, so 1.12 with a margin for
+     rounding. Font-relative, so it holds from the 40px phone hero up. */
+  line-height: 1.12;
   letter-spacing: var(--ls-tight);
   display: flex;
   flex-direction: column;
