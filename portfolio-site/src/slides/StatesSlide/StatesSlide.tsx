@@ -11,10 +11,11 @@ import {
 import './StatesSlide.css'
 
 /**
- * 12 — Edge cases & interactive states. Three beats: the open overlays a
- * session lives in, the empty state that proposes instead of apologizing,
- * and the feedback toasts (error / success) — built from the app's own
- * tokens (--error / --success, the overlay shadow) so they read as real.
+ * 12 — Edge cases & interactive states. Three beats, two exhibits each, so the
+ * pairing is the point: the overlays a session lives in, the two screens with
+ * nothing to show, and the two ends of a feedback toast. The toasts are built
+ * from the app's own tokens (--error / --success, the overlay shadow) rather
+ * than captured, so they read as real UI.
  */
 const AlertIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinecap="round" strokeLinejoin="round">
@@ -69,19 +70,19 @@ export function StatesSlide() {
         <ChapterHeader
           no="12"
           title="The states nobody screenshots"
-          lede="A design proves itself off the happy path — menus open, data missing, things failing. Three exhibits."
+          lede="A design proves itself off the happy path — surfaces open, nothing to show, something failed. Three states, two exhibits each."
         />
       </div>
 
       {/* ---- Beat 1: open menus ---- */}
-      <div className="container states-slide__beat">
+      <div className="container container--wide states-slide__beat">
         <Reveal standalone className="states-slide__beat-text" amount={0.4}>
           <span className="states-slide__no tnum">01</span>
           <h3 className="states-slide__headline">Menus, open</h3>
           <p className="states-slide__line">
-            The two overlays a session actually lives in — the artist switcher
-            and the notifications feed — designed as first-class surfaces, not
-            afterthoughts.
+            The two overlays a session actually lives in. Each is a designed
+            surface — grouped, scannable, one way out — not a list bolted onto
+            the header.
           </p>
         </Reveal>
         <Reveal standalone className="states-slide__menus" amount={0.3}>
@@ -108,37 +109,52 @@ export function StatesSlide() {
         </Reveal>
       </div>
 
-      {/* ---- Beat 2: empty state ---- */}
-      <div className="container states-slide__beat">
+      {/* ---- Beat 2: nothing to show ---- */}
+      <div className="container container--wide states-slide__beat">
         <Reveal standalone className="states-slide__beat-text" amount={0.4}>
           <span className="states-slide__no tnum">02</span>
-          <h3 className="states-slide__headline">The empty state proposes</h3>
+          <h3 className="states-slide__headline">Empty, but not blank</h3>
           <p className="states-slide__line">
-            Compare, before a baseline is chosen. Instead of a blank stage, it
-            suggests one — the empty state is the feature&rsquo;s first
-            teacher.
+            Neither screen strands the artist. Compare has no baseline yet, so
+            it proposes one. Search has no match, so it repeats exactly what it
+            looked for.
           </p>
         </Reveal>
-        <Reveal standalone className="states-slide__empty" amount={0.3}>
-          <img
-            src={SCREENS.compareEmpty}
-            alt="Trumpet Compare in its empty state — one release charted, with a prompt suggesting a baseline release to compare against"
-            width={COMPARE_EMPTY_W}
-            height={COMPARE_EMPTY_H}
-            loading="lazy"
-            decoding="async"
-          />
+        <Reveal standalone className="states-slide__empties" amount={0.3}>
+          <figure className="states-slide__empty">
+            <img
+              src={SCREENS.compareEmpty}
+              alt="Trumpet Compare in its empty state — one release charted, with a prompt suggesting a baseline release to compare against"
+              width={COMPARE_EMPTY_W}
+              height={COMPARE_EMPTY_H}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Compare — no baseline</figcaption>
+          </figure>
+          <figure className="states-slide__empty states-slide__empty--strip">
+            <img
+              src={DETAILS.searchEmpty.src}
+              alt="The catalogue search field with “paranoid android” typed, and one line below it: no matches for “paranoid android”"
+              width={DETAILS.searchEmpty.w}
+              height={DETAILS.searchEmpty.h}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>Search — no match</figcaption>
+          </figure>
         </Reveal>
       </div>
 
       {/* ---- Beat 3: feedback toasts ---- */}
-      <div className="container states-slide__beat">
+      <div className="container container--wide states-slide__beat">
         <Reveal standalone className="states-slide__beat-text" amount={0.4}>
           <span className="states-slide__no tnum">03</span>
-          <h3 className="states-slide__headline">Feedback, both directions</h3>
+          <h3 className="states-slide__headline">Failure and success, one anatomy</h3>
           <p className="states-slide__line">
-            Two toasts, one anatomy — a status icon, a plain-language line, a
-            single action. Only the color and the verb change.
+            A status icon, a plain-language line, a single action, a dismiss
+            timer. Only the colour and the verb change, so the pattern is
+            learned once.
           </p>
         </Reveal>
         <Reveal standalone className="states-slide__feedback" amount={0.3}>
@@ -150,7 +166,7 @@ export function StatesSlide() {
               msg="Showing your last synced data."
               action="Retry"
             />
-            <figcaption>Error toast</figcaption>
+            <figcaption>Toast — failure</figcaption>
           </figure>
           <figure className="states-slide__toast">
             <Toast
@@ -160,7 +176,7 @@ export function StatesSlide() {
               msg="After Dark just crossed 1M streams."
               action="View"
             />
-            <figcaption>Success toast</figcaption>
+            <figcaption>Toast — success</figcaption>
           </figure>
         </Reveal>
       </div>

@@ -30,6 +30,7 @@ export const DETAILS = {
   insightBanner: { src: asset('/screens/detail-insight-banner.png'), w: 2346, h: 266 },
   artistSwitch: { src: asset('/screens/detail-artist-switch.png'), w: 632, h: 772 },
   notificationFlyout: { src: asset('/screens/detail-notification-flyout.png'), w: 824, h: 1418 },
+  searchEmpty: { src: asset('/screens/detail-search-empty.png'), w: 506, h: 126 },
 } as const
 
 /** The Compare empty-state export is 2042×1282 (≈1.59:1), not the 16:9 ratio. */

@@ -1,9 +1,20 @@
+/* Each beat is sized by its exhibits, not by a reserved slice of the viewport:
+   a fixed 82svh per beat left three large voids under content that never
+   filled it. The separation is the gap between beats instead — the same
+   rhythm the decisions run on. */
 .states-slide__beat {
   display: grid;
-  grid-template-columns: minmax(260px, 5fr) minmax(0, 7fr);
+  grid-template-columns: minmax(260px, 4.4fr) minmax(0, 7.6fr);
   gap: var(--space-8);
   align-items: center;
-  min-height: 82svh;
+}
+
+.states-slide__beat + .states-slide__beat {
+  margin-top: clamp(96px, 14vh, 160px);
+}
+
+.states-slide__beat:first-of-type {
+  margin-top: var(--space-8);
 }
 
 .states-slide__beat-text {
@@ -31,24 +42,50 @@
   max-width: var(--measure-caption);
 }
 
+/* The two overlays are different shapes (a squarish popover, a tall flyout),
+   so they are matched on height and left to take whatever width their ratio
+   asks for — a shared baseline reads as composed where a shared column width
+   read as ragged. */
 .states-slide__menus {
-  display: grid;
-  grid-template-columns: 5fr 4fr;
-  gap: var(--space-5);
-  align-items: start;
+  display: flex;
+  gap: var(--space-6);
+  align-items: end;
 }
 
 .states-slide__menu {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
-.states-slide__menu figcaption {
+.states-slide__menu .dfig {
+  height: clamp(280px, 46vh, 460px);
+  width: auto;
+}
+
+.states-slide__figcaption,
+.states-slide__menu figcaption,
+.states-slide__empty figcaption,
+.states-slide__toast figcaption {
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-wide);
   color: var(--text-muted);
+}
+
+/* Two empty states of very different scale: the Compare stage, then the search
+   strip at its natural width so its type never has to be upscaled. */
+.states-slide__empties {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.states-slide__empty {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .states-slide__empty img {
@@ -58,23 +95,24 @@
   border-radius: var(--radius-lg);
 }
 
+.states-slide__empty--strip img {
+  max-width: 506px;
+}
+
+/* Side by side, because the claim is that both are the same object: put them
+   on one row at one width and the only differences left are colour and verb. */
 .states-slide__feedback {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-5);
+  align-items: start;
 }
 
 .states-slide__toast {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-}
-
-.states-slide__toast figcaption {
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-wide);
-  color: var(--text-muted);
+  gap: var(--space-3);
 }
 
 /* ---- The toast, built from the app's own tokens ---- */
@@ -84,7 +122,6 @@
   align-items: center;
   gap: var(--space-3);
   width: 100%;
-  max-width: 400px;
   padding: var(--space-4);
   background: var(--surface-raised);
   border: var(--hairline);
@@ -185,11 +222,28 @@
   .states-slide__beat {
     grid-template-columns: 1fr;
     gap: var(--space-5);
-    min-height: 0;
-    padding-block: var(--space-7);
   }
 
+  .states-slide__beat + .states-slide__beat {
+    margin-top: var(--space-8);
+  }
+
+  /* Stacked, each overlay is free to use the column width again. */
   .states-slide__menus {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .states-slide__menu .dfig {
+    height: auto;
+    width: min(100%, 420px);
+  }
+
+  .states-slide__feedback {
     grid-template-columns: 1fr;
+  }
+
+  .toast {
+    max-width: 400px;
   }
 }
