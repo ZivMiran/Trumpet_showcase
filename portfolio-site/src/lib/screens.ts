@@ -9,15 +9,17 @@ export const SCREEN_W = 1920
 export const SCREEN_H = 1080
 export const SCREEN_RATIO = SCREEN_W / SCREEN_H // 1.7778 (16:9)
 
+/**
+ * The screens the deck actually shows. Full-screen captures of the overlay
+ * states (artist switcher, notifications flyout) are deliberately absent: the
+ * edge-cases slide shows the pre-cropped DETAILS instead, so the overlay reads
+ * at its real size rather than as a detail lost in a whole page.
+ */
 export const SCREENS = {
   overview: asset('/screens/overview.png'),
-  overviewArtistSwitcher: asset('/screens/overview-artist-switcher.png'),
-  overviewNotificationsFlyout: asset('/screens/overview-notifications-flyout.png'),
-  notificationsOverlay: asset('/screens/notifications-overlay.png'),
   music: asset('/screens/music.png'),
   trackDrawer: asset('/screens/track-drawer.png'),
   audience: asset('/screens/audience.png'),
-  compare: asset('/screens/compare.png'),
   compareEmpty: asset('/screens/compare-empty.png'),
 } as const
 

@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 import { registerLenis } from './lenisRegistry'
 
-gsap.registerPlugin(ScrollTrigger)
-
 /**
- * Site-wide smooth ("eased") scroll, wired so Lenis and GSAP ScrollTrigger
- * cooperate instead of fighting:
- *   - Lenis's rAF is driven from GSAP's own ticker (one loop, not two).
- *   - gsap.ticker.lagSmoothing(0) stops GSAP from compensating for frame drops
- *     in a way that desyncs Lenis.
- *   - lenis.on('scroll', ScrollTrigger.update) keeps pin math frame-accurate.
+ * Site-wide smooth ("eased") scroll: one Lenis instance on one rAF loop.
+ *
+ * Lenis is left in its default mode, where it moves the real window scroll
+ * position rather than transforming a wrapper — so every scrub on the page can
+ * keep listening to plain `scroll` events and reading getBoundingClientRect.
+ *
+ * (This used to run Lenis off GSAP's ticker with ScrollTrigger.update wired to
+ * it. Nothing on the deck uses ScrollTrigger any more — the runways scrub from
+ * their own scroll listeners — so GSAP was ~28kB gzipped spent on a
+ * requestAnimationFrame call. Do not bring it back for a ticker.)
  *
  * Under prefers-reduced-motion we deliberately DO NOT instantiate Lenis — the
  * page falls back to native scroll. Forced scroll inertia is a documented
@@ -50,7 +50,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       wheelMultiplier: 1,
     })
 
-    lenis.on('scroll', ScrollTrigger.update)
     registerLenis(lenis)
 
     // Dev-only: expose the instance so preview/E2E can drive real scrolling
@@ -59,18 +58,15 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       ;(window as unknown as { __lenis?: Lenis }).__lenis = lenis
     }
 
-    const tick = (time: number) => {
-      // GSAP ticker time is in seconds; Lenis expects milliseconds.
-      lenis.raf(time * 1000)
-    }
-    gsap.ticker.add(tick)
-    gsap.ticker.lagSmoothing(0)
-
-    // Sections mount their own ScrollTriggers; refresh once wired up.
-    ScrollTrigger.refresh()
+    // One loop, owned here. rAF hands us a DOMHighResTimeStamp in ms, which is
+    // exactly what lenis.raf expects.
+    let frame = requestAnimationFrame(function tick(time: number) {
+      lenis.raf(time)
+      frame = requestAnimationFrame(tick)
+    })
 
     return () => {
-      gsap.ticker.remove(tick)
+      cancelAnimationFrame(frame)
       registerLenis(null)
       lenis.destroy()
     }
