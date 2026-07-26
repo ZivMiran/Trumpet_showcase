@@ -17,6 +17,8 @@ export function DeckChrome({ activeId }: { activeId: string }) {
   const [indexOpen, setIndexOpen] = useState(false)
   const reduced = usePrefersReducedMotion()
   const progressRef = useRef<HTMLSpanElement>(null)
+  const indexRef = useRef<HTMLElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
 
   const activeIdx = Math.max(0, SLIDES.findIndex((s) => s.id === activeId))
   const activeIdxRef = useRef(activeIdx)
@@ -54,6 +56,51 @@ export function DeckChrome({ activeId }: { activeId: string }) {
     if (lenis) lenis.scrollTo(el, immediate ? { duration: 0.9 } : {})
     else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' })
   }
+
+  /**
+   * The index is a modal in everything but name, so it behaves like one: focus
+   * moves to the active slide's entry when it opens, Tab cycles inside it
+   * instead of wandering the page behind, and closing hands focus back to the
+   * button that opened it. Without this a keyboard reader tabs straight out of
+   * an overlay they can still see.
+   */
+  useEffect(() => {
+    if (!indexOpen) return
+    const root = indexRef.current
+    if (!root) return
+    // Captured now: the cleanup runs after the overlay has gone, and the ref
+    // is what returns focus to where the reader left it.
+    const toggle = toggleRef.current
+
+    const items = () =>
+      Array.from(root.querySelectorAll<HTMLButtonElement>('button:not([disabled])'))
+
+    const entries = items()
+    const current = entries.find((b) => b.getAttribute('aria-current') === 'true')
+    ;(current ?? entries[0])?.focus()
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return
+      const list = items()
+      if (!list.length) return
+      const first = list[0]
+      const last = list[list.length - 1]
+      const active = document.activeElement
+      if (e.shiftKey && (active === first || !root.contains(active))) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault()
+        first.focus()
+      }
+    }
+
+    root.addEventListener('keydown', onKey)
+    return () => {
+      root.removeEventListener('keydown', onKey)
+      toggle?.focus()
+    }
+  }, [indexOpen])
 
   // Keyboard shortcuts. Arrow up/down and space stay native so runway beats
   // remain finely scrubbable; left/right jump whole slides.
@@ -101,6 +148,7 @@ export function DeckChrome({ activeId }: { activeId: string }) {
             </span>
             <button
               type="button"
+              ref={toggleRef}
               className="deck-chrome__index-btn touch-target"
               aria-expanded={indexOpen}
               aria-controls="deck-index"
@@ -117,7 +165,10 @@ export function DeckChrome({ activeId }: { activeId: string }) {
         {indexOpen && (
           <motion.nav
             id="deck-index"
+            ref={indexRef}
             className="deck-index"
+            role="dialog"
+            aria-modal="true"
             aria-label="Slide index"
             initial={reduced ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
