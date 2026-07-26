@@ -25,13 +25,15 @@
   --brand-cell-py: 48px;
 }
 
+/* The values run down a full-height column on the right rather than a band
+   underneath, so they cost the slide no extra height at all. */
 .brand__sheet {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(190px, 1.3fr);
   grid-template-rows: minmax(0, 1.35fr) minmax(0, 1fr);
   grid-template-areas:
-    'hero hero  hero  hero'
-    'mark word  scale scale';
+    'hero hero  hero  hero  values'
+    'mark word  scale scale values';
   gap: var(--space-4);
   height: var(--brand-sheet-h);
   margin-top: clamp(var(--space-5), 4vh, var(--space-7));
@@ -51,25 +53,12 @@
   background: color-mix(in srgb, var(--surface-card) 40%, transparent);
 }
 
+/* The band drops to the darkest surface on the page — deeper than the small
+   cells beside it, which is what makes the lockup sit forward. No wash behind
+   it: the deck separates surfaces by colour value, never by glow. */
 .brand__cell--hero {
   grid-area: hero;
   background: var(--surface-inset);
-}
-
-/* The one atmospheric move on the slide: a barely-there brass wash behind the
-   lockup, the same trick the page canvas already plays. Kept under 8% so it
-   reads as depth rather than as a glow effect. */
-.brand__cell--hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(
-    closest-side at 50% 50%,
-    rgba(227, 181, 58, 0.07),
-    transparent 100%
-  );
 }
 
 .brand__cell--mark {
@@ -80,6 +69,66 @@
 }
 .brand__cell--scale {
   grid-area: scale;
+}
+
+/* The one cell whose content is type, so it opts out of the centring the
+   artwork cells rely on. */
+/* align-items has to be reset, not just the display: the shared cell sets
+   place-items:center for the artwork, which in a column flexbox shrink-wraps
+   the list horizontally and leaves the type floating off the left edge. */
+.brand__cell--values {
+  grid-area: values;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Extra clearance: the first value's gold rule would otherwise land on the
+     same line as the cell label. */
+  padding-top: var(--space-7);
+}
+
+/* The list takes the whole column and spreads the three across it, so the
+   rhythm comes from the cell's height instead of leaving a block of type
+   floating in the middle of it. */
+.brand__values {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Each value is led by a short gold rule — the chapter marker's gesture,
+   reused so the column reads as part of the page's own chrome. */
+.brand__value {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.brand__value::before {
+  content: '';
+  display: block;
+  width: 20px;
+  margin-bottom: var(--space-3);
+  border-top: var(--hairline-gold);
+}
+
+.brand__value-name {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-tight);
+  color: var(--text-primary);
+}
+
+.brand__value-line {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-snug);
+  color: var(--text-muted);
+  text-wrap: balance;
 }
 
 .brand__label {
@@ -99,7 +148,6 @@
    tablet width before this. The caps below are chosen so the tallest artwork
    still clears the shortest cell the grid ever produces. */
 .brand__art {
-  position: relative; /* above the hero wash */
   max-width: 100%;
   max-height: 100%;
 }
@@ -163,48 +211,67 @@
 
 /* ---- Responsive ---------------------------------------------------------- */
 
+/* Below the desktop breakpoint the sheet gives up its fixed height. A tablet
+   or phone scrolls, so the cells set their own floor rather than dividing a
+   fixed budget — which also keeps the track maths out of the media queries. */
 @media (max-width: 900px) {
-  /* Three rows now, so the divisor changes with them. The 500px floor is not
-     arbitrary: below it the small rows can no longer hold the ramp's 88px of
-     stacked content, and the ramp is the one thing here that must not scale —
-     its whole point is that those tiles are rendered at literal pixel sizes. */
   .brand {
-    --brand-sheet-h: clamp(500px, 60vh, 560px);
-    --brand-cell-h: calc((var(--brand-sheet-h) - var(--space-4) * 2) / 3.3);
+    --brand-cell-h: 150px;
   }
 
   /* The ramp needs the full width once the columns halve, so it drops to its
      own row rather than being squeezed beside the wordmark. */
   .brand__sheet {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto;
     grid-template-areas:
-      'hero  hero'
-      'mark  word'
-      'scale scale';
+      'hero   hero'
+      'mark   word'
+      'scale  scale'
+      'values values';
+    height: auto;
+  }
+
+  .brand__cell {
+    min-height: var(--brand-cell-h);
+  }
+
+  .brand__cell--hero {
+    min-height: 208px;
+  }
+
+  /* Sideways, evenly spread, once the column becomes a band. The list stops
+     filling the cell and is centred in it instead — stretched, the four
+     values would top-align against a block of dead space beneath them. */
+  .brand__cell--values {
+    justify-content: center;
+  }
+
+  .brand__values {
+    flex: 0 1 auto;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .brand__value {
+    flex: 1 1 0;
   }
 }
 
 @media (max-width: 560px) {
-  /* One column, and the sheet gives up its fixed height — a phone scrolls, so
-     the cells set their own floor instead of dividing a fixed budget. */
   .brand {
     --brand-cell-h: 136px;
   }
 
   .brand__sheet {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
     grid-template-areas:
       'hero'
       'mark'
       'word'
-      'scale';
-    height: auto;
-  }
-
-  .brand__cell {
-    min-height: var(--brand-cell-h);
+      'scale'
+      'values';
   }
 
   .brand__cell--hero {
@@ -215,5 +282,10 @@
      the cells are only one column wide. */
   .brand__cell--scale {
     min-height: 152px;
+  }
+
+  .brand__values {
+    flex-direction: column;
+    gap: var(--space-5);
   }
 }
