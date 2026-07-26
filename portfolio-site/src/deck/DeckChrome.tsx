@@ -170,6 +170,15 @@ export function DeckChrome({ activeId }: { activeId: string }) {
             role="dialog"
             aria-modal="true"
             aria-label="Slide index"
+            /* Anywhere that isn't a slide entry dismisses it — the overlay is
+               mostly empty space, and reaching back up to the Index button to
+               close something you opened by mistake is a poor exit. Escape and
+               the button still work. */
+            onClick={(e) => {
+              if (!(e.target as HTMLElement).closest('.deck-index__item')) {
+                setIndexOpen(false)
+              }
+            }}
             initial={reduced ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={reduced ? { opacity: 0 } : { opacity: 0 }}
